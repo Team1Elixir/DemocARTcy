@@ -1,3 +1,3 @@
 # DemocARTcy
 
-Room of the Artist, bythe Artist, for the Artist
+Room of the Artist, by the Artist, for the Artist
