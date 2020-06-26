@@ -1,11 +1,14 @@
+/* Let CRA handle linting for sample app */
 import React from 'react';
 
 const LiveSketch = () => {
-  return (
+
+  return(
     <div>
       
     </div>
-  );
+  )
+
 }
 
-export default LiveSketch;
+export default LiveSketch

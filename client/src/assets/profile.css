@@ -1,0 +1,36 @@
+.profileContent{
+  margin-top: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profileCard{
+  margin-top: 20px;
+  width: 600px;
+  display: flex;
+  background: #AED6F0;
+  padding: 10px;
+}
+
+.rating{
+  margin-top: -25px;
+  text-align: center;
+  color: black;
+}
+.profileBio{
+  margin-left: 20px;
+}
+
+.biodata{
+  display: flex;
+}
+
+.profilePicture{
+  height: 200px;
+  width: 170px;
+}
+
+.note{
+  width: 120px;
+}

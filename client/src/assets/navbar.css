@@ -1,0 +1,38 @@
+.navbrand{
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.navbar-brand:hover{
+  transform: scale(1.1);
+}
+
+.nav-link{
+    color: rgb(255, 255, 255);
+}
+
+.menu-drop{
+  width: 150px;
+  height: fit-content;
+  text-align: center;
+}
+
+.link-drop{
+  display: flex;
+  justify-content: center;
+  width: inherit;
+  margin: 3px;
+  text-decoration: none;
+}
+
+.drop-link{
+  color: black;
+  text-decoration: none;
+}
+
+.drop-link:hover{
+  color: darkcyan;
+  text-decoration: none;
+}
