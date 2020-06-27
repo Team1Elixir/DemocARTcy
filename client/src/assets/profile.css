@@ -5,9 +5,14 @@
   width: 100%;
 }
 
+.error-msg{
+  margin-top: 100px;
+}
+
 .profile-cover{
   width: 1200px;
   height: 450px;
+  background: lightblue;
 }
 
 .cover-img{
@@ -18,7 +23,7 @@
 .profile-data{
   width: 1200px;
   height: 350px;
-  background: teal;
+  /* background: teal; */
   display: flex;
 }
 
@@ -34,6 +39,14 @@
   border-radius: 50%;
   height: 250px;
   width: 250px;
+  background: grey;
+}
+
+.editprofile{
+  position: absolute;
+  margin-top: -40px;
+  margin-left: 120px;
+  border-radius: 20px;
 }
 
 .profile-biodata{
