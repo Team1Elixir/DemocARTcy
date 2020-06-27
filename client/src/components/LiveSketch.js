@@ -32,13 +32,12 @@ function LiveSketch() {
   const [caller, setCaller] = useState("");
   const [callerSignal, setCallerSignal] = useState();
   const [callAccepted, setCallAccepted] = useState(false);
-  const [canvas, setCanvas] = useState();
   const userVideo = useRef();
   const partnerVideo = useRef();
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io.connect("http://localhost:8000/");
+    socket.current = io.connect("http://localhost:3000/");
     console.log("VideoCall/Skect Awal Awal run");
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
