@@ -19,24 +19,7 @@ const Home = () => {
   
   return(
     <div>
-      <Carousel>
-        { slide.map(el => {
-          return(
-            <Carousel.Item key={el.id}>
-              <img
-                className="d-block w-100"
-                src={el.src}
-                alt={el.alt}
-              />
-              <Carousel.Caption>
-                <h3>{el.alt}</h3>
-                <p>{el.text}</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            )
-          })
-        }
-      </Carousel>
+      
     </div>
   )
 }
