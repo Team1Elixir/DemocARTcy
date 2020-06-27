@@ -1,9 +1,11 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
-import Login from './components/LoginForm'
-import Register from './components/RegisterForm'
+import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
 
 import './App.css';
+import AddWork from './components/AddWork';
+import AddCommission from './components/AddCommission';
 
 
 function App() {
@@ -14,6 +16,8 @@ function App() {
   <form class="form-inline">
     <button class="btn btn-sm btn-outline-secondary" type="button"><Link to='/'>Login</Link></button>
     <button class="btn btn-sm btn-outline-secondary" type="button"><Link to='/register'>Register</Link></button>
+    <button class="btn btn-sm btn-outline-secondary" type="button"><Link to='/addwork'>New Work</Link></button>
+    <button class="btn btn-sm btn-outline-secondary" type="button"><Link to='/addcommission'>New Commission</Link></button>
   </form>
 </nav>
           
@@ -24,12 +28,18 @@ function App() {
         <Route 
           exact
           path='/'
-          component={Login}
+          component={LoginForm}
         />
         <Route
           path="/register"
-          component={Register}
+          component={RegisterForm}
           />
+          <Route
+          path='/addwork'
+          component={AddWork}/>
+          <Route
+          path='/addcommission'
+          component={AddCommission}/>
       </Switch>
     </Router>
   );
