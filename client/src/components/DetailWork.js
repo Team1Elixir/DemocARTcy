@@ -17,7 +17,7 @@ const DetailWork = () => {
           <p className="work-creator mb-5">Creator: <span>Hueyguey</span></p>
           <p className="work-title mb-5">Doodle Art</p>
           <p className="work-story mb-5">A random doodle art i create on my spare time <span role="img" aria-label="heart">💗</span> </p>
-          <h4 className="work-category text-left">Category: <span class="badge badge-info p-2 work-category">2D Art</span></h4>
+          <h4 className="work-category text-left">Category :<span class="badge badge-info p-2 work-category">2D Art</span></h4>
         </div>
       </div>
     </div>

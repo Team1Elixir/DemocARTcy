@@ -1,0 +1,50 @@
+.com-detail {
+    background-color: #f1eeef;
+}
+
+.com-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #73CDD5;
+}
+
+.com-price {
+    font-size: 25px;
+    font-weight: 700;
+    color: #E71375;
+    border: 2px solid #E71375;
+    border-radius: 8px;
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.com-category {
+    font-weight: 500;
+    font-family: 'Fredoka One', cursive;    
+}
+
+.com-desc {
+    border: 3px solid #F1EEEF;
+    border-radius: 10px;
+}
+
+.com-desc-text {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.apply-button {
+    font-size: 20px;
+    font-weight: 700;
+    color: #73CDD5;
+    border: 3px solid #73CDD5;
+    padding: 8px;
+    border-radius: 10px
+}
+
+.apply-button:hover {
+    cursor: pointer;
+    background-color: #73CDD5;
+    color: whitesmoke;
+}
