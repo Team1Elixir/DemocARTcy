@@ -5,7 +5,12 @@ const LiveSketch = () => {
 
   return(
     <div>
-      
+      <div className='chatbox'>
+        <div className='messagelist'>
+        </div>
+        <div className='inputmessage'>
+        </div>
+      </div>
     </div>
   )
 

@@ -1,35 +1,67 @@
 .navbrand{
   color: rgb(255, 255, 255);
-  text-decoration: none;
   font-weight: 700;
   font-size: 20px;
 }
 
-.navbar-brand:hover{
-  transform: scale(1.1);
+.navbrand:hover{
+  color: teal;
+  text-decoration: none;
 }
 
 .nav-link{
-    color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-weight: 700;
 }
 
-.menu-drop{
+.nav-link:hover{
+  transform: scale(1.1);
+  color: teal;
+}
+
+.dropdown-button{
+  background: none;
+  border: none;
   width: 150px;
-  height: fit-content;
-  text-align: center;
+}
+.menu-drop{
+  width: 300px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dropdown-userimg{
+  margin-top: 20px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.link-user{
+  margin-top: 10px;
+  color: grey;
+}
+
+.link-username{
+  font-size: 10px;
+  color: grey;
+}
+
+.dropdown-border{
+  margin-top: 20px;
 }
 
 .link-drop{
-  display: flex;
-  justify-content: center;
-  width: inherit;
+  width: 220px;
   margin: 3px;
   text-decoration: none;
-}
-
-.drop-link{
+  background: #73ccd17a;
+  padding: 5px;
   color: black;
-  text-decoration: none;
+  border-radius: 20px;
+  text-align: center;
 }
 
 .drop-link:hover{
