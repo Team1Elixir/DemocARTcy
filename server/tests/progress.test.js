@@ -58,7 +58,7 @@ describe('Progress Router', () => {
             })
     })
 
-    describe('Get All Projects', () => {
+    describe('Get All Projects by Client', () => {
         describe('Success', () => {
             test('should return status code 200 along with json containing all project data own by logged in user', done => {
                 let user = users[0];
@@ -67,7 +67,7 @@ describe('Progress Router', () => {
                     username: user.username
                 })
                 request(app)
-                    .get('/progresses')
+                    .get('/progresses/client')
                     .set('Accept', 'application/json')
                     .set('token', token)
                     .expect('Content-Type', /json/)
@@ -96,7 +96,7 @@ describe('Progress Router', () => {
                     username: user.username
                 })
                 request(app)
-                    .get('/progresses')
+                    .get('/progresses/client')
                     .set('Accept', 'application/json')
                     .set('token', token)
                     .expect('Content-Type', /json/)
@@ -118,7 +118,83 @@ describe('Progress Router', () => {
                     username: user.username
                 })
                 request(app)
-                    .get('/progresses')
+                    .get('/progresses/client')
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(401)
+                    .expect(res => {
+                        let commission = res.body;
+                        expect(commission.error).toContain('please login first');
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    }) 
+            })
+        });
+    });
+
+    describe('Get All Projects by Artist', () => {
+        describe('Success', () => {
+            test('should return status code 200 along with json containing all project data own by logged in user', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .get('/progresses/artist')
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .expect(res => {
+                        const { projects } = res.body;
+                        expect(projects[0]).toHaveProperty('id', 1);
+                        expect(projects[0]).toHaveProperty('title', 'Doodle Art');
+                        expect(projects[0]).toHaveProperty('price', 110000);
+                        expect(projects[0]).toHaveProperty('status', 'onRequest');
+                        expect(projects[0]).toHaveProperty('ClientId', 2);
+                        expect(projects[0]).toHaveProperty('ArtistId', 1);
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    })
+            });
+        });
+
+        describe('Fail', () => {
+            test('should return status 401 because user doesnt have permission to do the action', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: 5,
+                    username: user.username
+                })
+                request(app)
+                    .get('/progresses/artist')
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(401)
+                    .expect(res => {
+                        let commission = res.body;
+                        expect(commission.error).toContain('authentication data invalid, please login again');
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    }) 
+            })
+
+            test('should return status 401 because user is not logged in', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .get('/progresses/artist')
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(401)

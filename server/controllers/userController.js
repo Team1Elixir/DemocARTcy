@@ -11,6 +11,7 @@ class UserController {
         .then(data => {
           if (data) {
             res.status(200).json({
+              id: data.id,
               name: data.name,
               username: data.username,
               email: data.email,
@@ -34,7 +35,7 @@ class UserController {
     //LOGIN USER ACCOUNT
     static login (req,res,next){
         User
-          .findOne({where: {username: req.body.username}})
+          .findOne({where: {username: req.body.username}, attributes: { include: ['password']}})
           .then(data => {
             if(data) {
               if(compare(req.body.password, data.password)){
@@ -99,7 +100,7 @@ class UserController {
       const { id } = req.params;
 
       User
-        .update({ email, cover_url, profile_url, bio, website, password }, {where: {id}, returning: true})
+        .update({ email, cover_url, profile_url, bio, website, password }, {where: {id}, returning: true, attributes: { include: ['password']}})
         .then(data => {
           const user = {}
           Object.keys(data[1][0].dataValues).map(key => {

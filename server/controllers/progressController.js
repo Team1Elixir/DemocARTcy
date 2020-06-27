@@ -28,12 +28,41 @@ class ProgressController {
 
         Progress
             .findAll({
-                include: {
+                include: [{
                     model: User,
                     as: 'client'
-                },
+                }, {
+                    model: User,
+                    as: 'artist'
+                }],
                 where: {
                     ClientId
+                }
+            })
+            .then(projects => {
+                res.status(200).json({
+                    projects
+                })
+            })
+            .catch(err =>{
+                next(err);
+            })
+    }
+
+    static showAllActiveProjects (req, res, next){
+        const ArtistId = req.LoginId;
+
+        Progress
+            .findAll({
+                include: [{
+                    model: User,
+                    as: 'artist'
+                }, {
+                    model: User,
+                    as: 'client'
+                }],
+                where: {
+                    ArtistId
                 }
             })
             .then(projects => {
