@@ -1,25 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
+import Login from './components/LoginForm'
+import Register from './components/RegisterForm'
+
 import './App.css';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <Router>
+      <header>
+        <nav class="navbar navbar-light bg-light">
+  <form class="form-inline">
+    <button class="btn btn-sm btn-outline-secondary" type="button"><Link to='/'>Login</Link></button>
+    <button class="btn btn-sm btn-outline-secondary" type="button"><Link to='/register'>Register</Link></button>
+  </form>
+</nav>
+          
+          
       </header>
-    </div>
+
+      <Switch>
+        <Route 
+          exact
+          path='/'
+          component={Login}
+        />
+        <Route
+          path="/register"
+          component={Register}
+          />
+      </Switch>
+    </Router>
   );
 }
 
