@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import DetailCommission from './components/DetailCommission';
+import Progress from './components/Progress';
 
 function App() {
   return (
     <div className="App">
-      <DetailCommission />
+      <Progress />
     </div>
   );
 }
