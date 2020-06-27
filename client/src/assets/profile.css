@@ -1,36 +1,46 @@
 .profileContent{
-  margin-top: 75px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
-.profileCard{
-  margin-top: 20px;
-  width: 600px;
-  display: flex;
-  background: #AED6F0;
-  padding: 10px;
+.profile-cover{
+  width: 1200px;
+  height: 450px;
 }
 
-.rating{
-  margin-top: -25px;
-  text-align: center;
-  color: black;
-}
-.profileBio{
-  margin-left: 20px;
+.cover-img{
+  width: inherit;
+  height: inherit;
 }
 
-.biodata{
+.profile-data{
+  width: 1200px;
+  height: 350px;
+  background: teal;
   display: flex;
 }
 
-.profilePicture{
-  height: 200px;
-  width: 170px;
+.profile-img{
+  position: relative;
+  margin-top: -100px;
+  width: 250px;
+  z-index: 2;
+  height: inherit;
 }
 
-.note{
-  width: 120px;
+.user-img{
+  border-radius: 50%;
+  height: 250px;
+  width: 250px;
+}
+
+.profile-biodata{
+  margin-left: 10px;
+}
+
+.username{
+  font-weight: 600;
+  margin-top: -5px;
 }
