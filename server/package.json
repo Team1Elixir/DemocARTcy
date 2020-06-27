@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "SET NODE_ENV=test && jest --detectOpenHandles --runInBand --verbose --coverage",
+    "dev": "SET NODE_ENV=development && nodemon ./bin/server.js",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "ArtWorld",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "google-auth-library": "^6.0.1",
+    "jest": "^26.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.2.1",
+    "postgres": "^1.0.2",
+    "sequelize": "^5.21.12",
+    "supertest": "^4.0.2"
+  }
+}

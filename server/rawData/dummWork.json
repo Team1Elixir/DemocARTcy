@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "title": "Doodle Art",
+        "image_url": "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+        "story": "A random doodle art",
+        "category": "2D Art",
+        "UserId": 1
+    },
+    {
+        "id": 2,
+        "title": "Animal drawing",
+        "image_url": "https://i.pinimg.com/originals/9f/56/bb/9f56bb4c8aae4a5863fdfada33a5f6bf.jpg",
+        "story": "Cute cat hand drawing",
+        "category": "2D Art",
+        "UserId": 2
+    }
+]
