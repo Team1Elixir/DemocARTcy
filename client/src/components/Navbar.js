@@ -23,12 +23,12 @@ const Navbar = () => {
     if(localStorage.username){
       dispatch(getUserData(username))
     }
-    if(location.pathname === '/profile/'+{username}) {
-      setColor('#73CDD1')
+    if(location.pathname === '/works' || location.pathname === '/commissions') {
+      setColor('darkslategrey')
     } else if(location.pathname === '/'){
       setColor('')
     } else {
-      setColor('darkslategrey')
+      setColor('#73CDD1')
     }
   },[location.pathname])
 
