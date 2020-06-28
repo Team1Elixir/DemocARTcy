@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useHistory, Link } from 'react-router-dom'
 
@@ -25,6 +25,10 @@ export default function RegisterForm() {
       })
       .catch(console.log);
   }
+
+  useEffect(() => {
+    if(localStorage.token) history.push('/')
+  }, [])
 
   return (
     <div className='loginpage'>

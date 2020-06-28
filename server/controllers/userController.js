@@ -7,10 +7,11 @@ class UserController {
     //SELECT USER
     static select (req,res,next){
       User
-        .findOne({where: {name: req.params.username}})
+        .findOne({where: {username: req.params.username}})
         .then(data => {
           if (data) {
             res.status(200).json({
+              id: data.id,
               name: data.name,
               username: data.username,
               email: data.email,
@@ -75,9 +76,16 @@ class UserController {
     static register (req,res,next){
         let {username,email,password} = req.body
         let name = username
-
+        let payload = {
+          name, 
+          username, 
+          email, 
+          password, 
+          ban: false
+        }
+        console.log(payload)
         User
-            .create({name,username,email,password,ban: false})
+            .create(payload)
             .then(data => {
                 res.status(201).json({
                     id: data.id,
@@ -88,28 +96,28 @@ class UserController {
                 })
             })
             .catch(err => {
+              console.log(err)
                 next(err);
             })
     }
 
     //EDIT USER ACCOUNT
     static edit (req,res,next) {
-
-      let{ email, cover_url, profile_url, bio, website, password } = req.body
-      const { id } = req.params;
-
+      console.log('edit through here')
+      let{ email, cover_url, profile_url, bio, website, name } = req.body
+      const id  = +req.params.id;
+      console.log(id, email, cover_url, profile_url, bio, website, name)
+      const payload = { email, cover_url,profile_url, bio, website, name }
       User
-        .update({ email, cover_url, profile_url, bio, website, password }, {where: {id}, returning: true})
+        .update(payload, {where: { id }})
         .then(data => {
-          const user = {}
-          Object.keys(data[1][0].dataValues).map(key => {
-            if (key !== 'password') user[key] = data[1][0][key]
-          })
+          console.log('keedit')
           res.status(200).json({
-            user
+            data
           })
         })
         .catch(err => {
+          console.log(err)
           next(err)
         })
     }

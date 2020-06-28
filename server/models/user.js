@@ -50,9 +50,12 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
     hooks: {
-      afterValidate:(user) => {
-          let newPassword = encrypt(user.password)
-          user.password = newPassword
+      beforeCreate: (user,option) => {
+        user.password = encrypt(user.password)
+        user.bio = '-'
+        user.profile_url = '-'
+        user.cover_url = '-'
+        user.website = '-'
       }
      
     }

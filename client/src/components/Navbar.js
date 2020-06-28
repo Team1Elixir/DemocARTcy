@@ -65,7 +65,7 @@ const Navbar = () => {
   else return(
     <div style={{background: color}} className='navbar navbar-light d-flex justify-content-between fixed-top'>
       <div>
-        <Link className='navbrand' to='/' >DEMOCARTCY</Link>
+        <Link className='navbrand' to='/'>DEMOCARTCY</Link>
       </div>
       <div className='nav-item d-flex justify-content-center'>
         <Link className='nav-link' to='/'>HOME</Link>

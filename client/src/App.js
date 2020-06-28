@@ -6,7 +6,7 @@ import Profile from './components/Profile'
 import Login from './components/LoginForm'
 import Register from './components/RegisterForm'
 import Progress from './components/Progress'
-
+import EditForm from './components/EditForm'
 function App() {
   return (
     <Router>
@@ -15,6 +15,9 @@ function App() {
       </div>
       <div className="content">
         <Switch>
+          <Route path="/profile/edit/:username">
+            <EditForm />
+          </Route>
           <Route path="/profile/:username">
             <Profile />
           </Route>
