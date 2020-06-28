@@ -77,7 +77,7 @@ describe('Progress Router', () => {
                         expect(projects[0]).toHaveProperty('id', 2);
                         expect(projects[0]).toHaveProperty('title', '2D Animal Drawing');
                         expect(projects[0]).toHaveProperty('price', 80000);
-                        expect(projects[0]).toHaveProperty('status', 'onRequest');
+                        expect(projects[0]).toHaveProperty('status', 'onProgress');
                         expect(projects[0]).toHaveProperty('ClientId', 1);
                         expect(projects[0]).toHaveProperty('ArtistId', 2);
                     })
@@ -153,7 +153,7 @@ describe('Progress Router', () => {
                         expect(projects[0]).toHaveProperty('id', 1);
                         expect(projects[0]).toHaveProperty('title', 'Doodle Art');
                         expect(projects[0]).toHaveProperty('price', 110000);
-                        expect(projects[0]).toHaveProperty('status', 'onRequest');
+                        expect(projects[0]).toHaveProperty('status', 'onProgress');
                         expect(projects[0]).toHaveProperty('ClientId', 2);
                         expect(projects[0]).toHaveProperty('ArtistId', 1);
                     })
@@ -232,7 +232,7 @@ describe('Progress Router', () => {
                         const { progress } = res.body;
                         expect(progress).toHaveProperty('title', '3D Design using Blender');
                         expect(progress).toHaveProperty('price', 300000);
-                        expect(progress).toHaveProperty('status', 'onRequest');
+                        expect(progress).toHaveProperty('status', 'onProgress');
                         expect(progress).toHaveProperty('ClientId', 1);
                         expect(progress).toHaveProperty('ArtistId', 2);
                         

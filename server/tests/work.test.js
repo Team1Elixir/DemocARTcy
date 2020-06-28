@@ -65,7 +65,7 @@ describe('Work Router', () => {
                                     id: 1,
                                     title: "Doodle Art",
                                     image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
-                                    story: "A random doodle art",
+                                    description: "A random doodle art",
                                     category: "2D Art",
                                     UserId: 1
                                 })
@@ -127,7 +127,7 @@ describe('Work Router', () => {
     
     describe('Add New Portofolio', () => {
         describe('Success', () => {
-            test('should return status code 201 along with json with key (id, title, story, image_url, category', done => {
+            test('should return status code 201 along with json with key (id, title, description, image_url, category', done => {
                 let user = users[0];
                 let token = generateToken({
                     id: user.id,
@@ -135,7 +135,7 @@ describe('Work Router', () => {
                 })
                 const newWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: "2D Art"
                 }
@@ -149,7 +149,7 @@ describe('Work Router', () => {
                     .expect(res => {
                         let{ work } = res.body;
                         expect(work).toHaveProperty('title', 'Face Sketch');
-                        expect(work).toHaveProperty('story', 'A simple face sketch using only pencil');
+                        expect(work).toHaveProperty('description', 'A simple face sketch using only pencil');
                         expect(work).toHaveProperty('image_url', 'https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg');
                         expect(work).toHaveProperty('category', '2D Art');
                     })
@@ -169,7 +169,7 @@ describe('Work Router', () => {
                 })
                 const newWork = {
                     title: "",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: "2D Art"
                 }
@@ -190,7 +190,7 @@ describe('Work Router', () => {
                     }) 
             })
 
-            test('should return status 400 because story is empty', done => {
+            test('should return status 400 because description is empty', done => {
                 let user = users[0];
                 let token = generateToken({
                     id: user.id,
@@ -198,7 +198,7 @@ describe('Work Router', () => {
                 })
                 const newWork = {
                     title: "Face Sketch",
-                    story: "",
+                    description: "",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: "2D Art"
                 }
@@ -211,7 +211,7 @@ describe('Work Router', () => {
                     .expect(400)
                     .expect(res => {
                         let work = res.body;
-                        expect(work.error).toContain('Story is required');
+                        expect(work.error).toContain('Description is required');
                     })
                     .end(err => {
                         if(err) done(err);
@@ -227,7 +227,7 @@ describe('Work Router', () => {
                 })
                 const newWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: ""
                 }
@@ -256,7 +256,7 @@ describe('Work Router', () => {
                 })
                 const newWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "",
                     category: "2D Art"
                 }
@@ -285,7 +285,7 @@ describe('Work Router', () => {
                 })
                 const newWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "cat picture",
                     category: "2D Art"
                 }
@@ -314,7 +314,7 @@ describe('Work Router', () => {
                 })
                 const newWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: "2D Art"
                 }
@@ -343,7 +343,7 @@ describe('Work Router', () => {
                 })
                 const newWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: "2D Art"
                 }
@@ -383,7 +383,7 @@ describe('Work Router', () => {
                         let { work } = res.body;
                         expect(work).toHaveProperty('id', 1);
                         expect(work).toHaveProperty('title', 'Doodle Art');
-                        expect(work).toHaveProperty('story', 'A random doodle art');
+                        expect(work).toHaveProperty('description', 'A random doodle art');
                         expect(work).toHaveProperty('image_url', 'https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg');
                         expect(work).toHaveProperty('category', '2D Art');
                         
@@ -430,7 +430,7 @@ describe('Work Router', () => {
                 })
                 const updatedWork = {
                     title: "Face Sketch BW",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: "2D Art"
                 }
@@ -444,7 +444,7 @@ describe('Work Router', () => {
                     .expect(res => {
                         let{ work } = res.body;
                         expect(work).toHaveProperty('title', 'Face Sketch BW');
-                        expect(work).toHaveProperty('story', 'A simple face sketch using only pencil');
+                        expect(work).toHaveProperty('description', 'A simple face sketch using only pencil');
                         expect(work).toHaveProperty('image_url', 'https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg');
                         expect(work).toHaveProperty('category', '2D Art');
                     })
@@ -464,7 +464,7 @@ describe('Work Router', () => {
                 })
                 const updatedWork = {
                     title: "",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: "2D Art"
                 }
@@ -485,7 +485,7 @@ describe('Work Router', () => {
                     }) 
             })
 
-            test('should return status 400 because story is empty', done => {
+            test('should return status 400 because description is empty', done => {
                 let user = users[0];
                 let token = generateToken({
                     id: user.id,
@@ -493,7 +493,7 @@ describe('Work Router', () => {
                 })
                 const updatedWork = {
                     title: "Face Sketch",
-                    story: "",
+                    description: "",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: "2D Art"
                 }
@@ -506,7 +506,7 @@ describe('Work Router', () => {
                     .expect(400)
                     .expect(res => {
                         let work = res.body;
-                        expect(work.error).toContain('Story is required');
+                        expect(work.error).toContain('Description is required');
                     })
                     .end(err => {
                         if(err) done(err);
@@ -522,7 +522,7 @@ describe('Work Router', () => {
                 })
                 const updatedWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: ""
                 }
@@ -551,7 +551,7 @@ describe('Work Router', () => {
                 })
                 const updatedWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "",
                     category: "2D Art"
                 }
@@ -580,7 +580,7 @@ describe('Work Router', () => {
                 })
                 const updatedWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "cat picture",
                     category: "2D Art"
                 }
@@ -609,7 +609,7 @@ describe('Work Router', () => {
                 })
                 const updatedWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "cat picture",
                     category: "2D Art"
                 }
@@ -638,7 +638,7 @@ describe('Work Router', () => {
                 })
                 const updatedWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "cat picture",
                     category: "2D Art"
                 }
@@ -667,7 +667,7 @@ describe('Work Router', () => {
                 })
                 const updatedWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: "2D Art"
                 }
@@ -696,7 +696,7 @@ describe('Work Router', () => {
                 })
                 const updatedWork = {
                     title: "Face Sketch",
-                    story: "A simple face sketch using only pencil",
+                    description: "A simple face sketch using only pencil",
                     image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                     category: "2D Art"
                 }

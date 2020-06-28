@@ -14,7 +14,7 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
-      story: {
+      description: {
         type: Sequelize.STRING
       },
       category: {
