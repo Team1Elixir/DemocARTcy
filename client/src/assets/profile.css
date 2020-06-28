@@ -95,3 +95,25 @@
   height: inherit;
   width: inherit;
 }
+
+.title-work{
+  width: fit-content;
+  position: absolute;
+  z-index: 2;
+  padding: 10px;
+  border-bottom-right-radius: 20px;
+  background: rgba(212, 247, 184, 0.7);
+}
+
+.buttonpanel{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-new{
+  margin-left: 10px;
+  border-radius: 50px;
+}

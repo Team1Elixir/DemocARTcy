@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getWorksData } from '../store/actions'
 import { Link } from 'react-router-dom'
-
+import WorkCard from './WorkCard'
 const UserWork = () => {
   const worksdata = useSelector((state) => state.worksdata)
   const dispatch = useDispatch()
@@ -11,20 +11,11 @@ const UserWork = () => {
   },[])
   return (
       <div style={{ marginTop: 100 }}>
-      <h2>My Works</h2>
-      <div className='add-button'>
-        <Link to ='/works/add'>Add Work</Link>
-      </div>
-      <div className='work-profile-cards'>
-          { worksdata.map((card,i) => {
-              return (
-              <div className='cards'>
-                <img className='img-card' alt={i} src={card.image_url} />
-              </div>
-              )
-            })
-          }
+        <div className='buttonpanel'>
+          <h2 style={{ textAlign: 'center' }}>My Works</h2>
+            <Link className='btn btn-primary add-new' to ='/works/add'>+</Link>
         </div>
+        <WorkCard worksdata={worksdata} />
     </div>
   );
 }

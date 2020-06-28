@@ -3,13 +3,10 @@ import '../assets/profile.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProfileData, getWorksData } from '../store/actions'
 import { useParams, Link } from 'react-router-dom'
+import WorkCard from './WorkCard'
 
 const Profile = () => {
 
-  const dummycards = [
-    { img: 'https://pm1.narvii.com/6505/21c144ad58b67039ab42ffed896c7c21f75c888c_hq.jpg' },
-    { img: 'https://img.wethrift.com/yuumei-art.jpg'},
-    { img: 'https://4.bp.blogspot.com/-Srvde-da9sc/UJiDbgmPLeI/AAAAAAAAANM/9CZGLWIwBMA/s1600/guilty-by-yuumei.jpg'}]
   const worksdata = useSelector((state) => state.worksdata)
   const user = useSelector((state) => state.profiledata)
   const error = useSelector((state) => state.error)
@@ -71,14 +68,7 @@ const Profile = () => {
       <div className='work-data'>
         <h5>Works</h5><br />
         <div className='work-profile-cards'>
-          { worksdata.map((card,i) => {
-              return (
-              <div className='cards'>
-                <img className='img-card' alt={i} src={card.image_url} />
-              </div>
-              )
-            })
-          }
+          <WorkCard worksdata={worksdata} />
         </div>
       </div>
       <div style={{ height: 75}}></div>
@@ -88,7 +78,7 @@ const Profile = () => {
   else if(error) return(
     <div className='profileContent'>
       <div className='error-msg'>
-        <h6>{error.message + ' : Not Found'}</h6>
+        {/* <h6>{error.message + ' : Not Found'}</h6> */}
       </div>
     </div>
   )
