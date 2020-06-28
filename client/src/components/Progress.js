@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProgressCard from './/ProgressCard';
 import './Progress.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProgressClient } from '../store/actions';
 
 const Progress = () => {
   const dummyProgress = [
@@ -42,15 +44,22 @@ const Progress = () => {
         profile_url: 'https://avatarfiles.alphacoders.com/875/thumb-87589.png'
       }
     }
-
   ]
+
+  const dispatch = useDispatch();
+  const projects = useSelector(state => state.progressClient)
+
+  useEffect(() => {
+    dispatch(getProgressClient());
+  }, [dispatch])
+
   return (
-    <div className="container d-flex flex-column align-items-center mb-3" style={{ marginTop: 50 }}>
-      <h1>Progress Bar</h1>
+    <div className="container d-flex flex-column align-items-center mb-3" style={{ marginTop: 75 }}>
+      <h1 className="progress-main-title">Progress Bar</h1>
       {
-        dummyProgress.map(project => {
+        projects.map(project => {
           return (
-            <ProgressCard data={project} role="client" />
+            <ProgressCard data={project} role="client" key={project.id}/>
           )
         })
       }

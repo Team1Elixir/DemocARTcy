@@ -12,6 +12,7 @@ import EditForm from './components/EditForm'
 import MainWork from './components/MainWork'
 import UserWork from './components/UserWork'
 import AddWork from './components/AddWork'
+import AddCommission from './components/AddCommission'
 import './App.css'
 
 function App() {
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route path="/works/add">
             <AddWork />
+          </Route>
+          <Route path="/commissions/add">
+            <AddCommission />
           </Route>
           <Route path="/works">
             <MainWork />

@@ -15,10 +15,9 @@ const DetailCommission = () => {
   }, [dispatch, id])
 
   const createProject = () => {
-    const { title, price } = commission;
-    console.log(title, price);
+    const { title, price, UserId } = commission;
     dispatch(newProject({
-      id,
+      id: UserId,
       title,
       price
     }))

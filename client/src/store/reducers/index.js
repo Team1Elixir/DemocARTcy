@@ -5,7 +5,8 @@ import {
   LOADING, ERROR, 
   FETCH_WORKS, 
   FETCH_WORKDETAIL,
-  FETCH_COMMISSIONDETAIL
+  FETCH_COMMISSIONDETAIL,
+  FETCH_PROGRESSCLIENT
 } from '../actions'
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   allcoms: [],
   workdetail: {},
   comdetail: {},
+  progressClient: [],
   loading: false,
   error: []
 
@@ -32,9 +34,10 @@ const reducers = (state = initialState, action) => {
     case FETCH_WORKS : return { ...state, allworks: payload }
     case FETCH_WORKDETAIL : return { ...state, workdetail: payload }
     case FETCH_PROFILEDATA : return { ...state, profiledata: payload }
-    case FETCH_COMMISSIONDETAIL : return { ...state, comdetail: payload}
-    case LOADING : return { ...state, loading: payload  }
-    case ERROR : return { ...state, error: payload  }
+    case FETCH_COMMISSIONDETAIL : return { ...state, comdetail: payload }
+    case FETCH_PROGRESSCLIENT : return { ...state, progressClient: payload }
+    case LOADING : return { ...state, loading: payload }
+    case ERROR : return { ...state, error: payload }
     default : {
       console.log(state)
       return state

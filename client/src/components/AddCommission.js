@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
+import { storage } from '../firebase';
 
 export default function AddCommission() {
   const [title, setTitle] = useState("");
@@ -24,13 +25,14 @@ export default function AddCommission() {
   function addNew() {
     const data = {
       title,
-      sample_img: image_url,
+      image_url,
       price,
       category,
+      description
     };
     console.log(data);
 
-    Axios.post("http://localhost:3000/commissions/add", data, {
+    Axios.post("http://localhost:4000/commissions/add", data, {
       headers: {
         token: localStorage.token
       },
@@ -44,13 +46,23 @@ export default function AddCommission() {
       });
   }
 
+  const setUploadedImage = (event) => {
+    const image = event.target.files[0];
+    const storageRef = storage.ref(`${image.name}`).put(image)
+      storageRef.on('state_changed', () => {
+        storageRef.snapshot.ref.getDownloadURL().then((url) => {
+          setImage_url(url)
+        })
+      })
+  }
+
   return (
     <div class="container ">
       <div class="row justify-content-md-center">
         <div class="col col-lg-3"></div>
         <div class="col-6 ">
           <h1 class="text-center">Add Commission</h1>
-          <img src={image_url} style={center}/>
+          <img src={image_url} style={center} alt="uploaded_image" width="100%"/>
           <div class="input-group-prepend">
             {" "}
             <span class="input-group-text">Title</span>
@@ -68,11 +80,11 @@ export default function AddCommission() {
             <span class="input-group-text">Image Url</span>
           </div>
           <input
-            type="text"
+            type="file"
             className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
-            onChange={(event) => setImage_url(event.target.value)}
+            onChange={setUploadedImage}
           />
 
           <div class="input-group-prepend">

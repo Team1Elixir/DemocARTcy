@@ -8,6 +8,7 @@ export const FETCH_COMMISSIONS = 'FETCH_COMMISSIONS'
 export const FETCH_WORKDETAIL = 'FETCH_WORKDETAIL'
 export const FETCH_COMMISSIONDETAIL = 'FETCH_COMMISSIONDETAIL'
 export const FETCH_PROFILEDATA = 'FETCH_PROFILEDATA'
+export const FETCH_PROGRESSCLIENT = 'FETCH_PROGRESSCLIENT'
 export const LOADING = 'LOADING'
 export const ERROR = 'ERROR'
 
@@ -21,6 +22,13 @@ export const fetchWorkDetail = (data) => {
 export const fetchCommissionDetail = (data) => {
   return {
     type: FETCH_COMMISSIONDETAIL,
+    payload: data
+  }
+}
+
+export const fetchProgressClient = (data) => {
+  return {
+    type: FETCH_PROGRESSCLIENT,
     payload: data
   }
 }
@@ -120,6 +128,7 @@ export const getAllWorks = () => {
     dispatch(loading(true))
     server.get('/works/all')
     .then(({data}) => {
+      // const { works } = data;
       dispatch(fetchWorks(data))
     })
     .catch(err => {
@@ -136,6 +145,7 @@ export const getAllCommissions = () => {
     dispatch(loading(true))
     server.get('/commissions/all')
     .then(({data}) => {
+      // const { commissions } = data;
       dispatch(fetchCommissions(data))
     })   
   }
@@ -146,6 +156,7 @@ export const getWorkDetail = (id) => {
     server.get('/works/'+id)
     .then(({data}) => {
       console.log(data)
+      // const { work } = data;
       dispatch(fetchWorkDetail(data))
     })
     .catch(err => {
@@ -161,7 +172,8 @@ export const getCommissionDetail = (id) => {
   return (dispatch) => {
     server.get('/commissions/'+id)
     .then(({ data }) => {
-      const { commission } = data;
+      console.log(data)
+      // const { commission } = data;
       dispatch(fetchCommissionDetail(data))
     })
     .catch(err => {
@@ -202,14 +214,38 @@ export const newProject = (payload) => {
       }
     })
       .then(({ data }) => {
-        console.log(data)
+        console.log(data);
       })
       .catch(err => {
         console.log(err.response)
-        dispatch(error(err))
+        dispatch(error(err));
       })
       .finally(() => {
-        dispatch(loading(false))
+        dispatch(loading(false));
       })
+  }
+}
+
+export const getProgressClient = () => {
+  const { token } = localStorage;
+  return (dispatch) => {
+    dispatch(loading(true))
+    server.get('/progresses/client', {
+      headers: {
+        token
+      }
+    })
+    .then(({ data }) => {
+      const { projects } = data;
+      dispatch(fetchProgressClient(projects))
+      console.log(projects);
+    })
+    .catch(err => {
+      console.log(err.response)
+      dispatch(error(err));
+    })
+    .finally(() => {
+      dispatch(loading(false));
+    })
   }
 }

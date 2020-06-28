@@ -25,7 +25,7 @@ const ProgressCard = ({ data }) => {
       <div className="row w-100 progress-container d-flex align-items-center">
         <div className="col-3 d-flex flex-column align-items-center">
           <img
-            src={artist.profile_url}
+            src='https://avatarfiles.alphacoders.com/875/thumb-87589.png'
             alt="avatar"
             className="artist-ava"
             width="120"
