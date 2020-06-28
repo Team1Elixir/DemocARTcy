@@ -1,13 +1,25 @@
-import { FETCH_USERDATA, FETCH_PROFILEDATA, FETCH_WORKSDATA, LOADING, ERROR, FETCH_WORKS, FETCH_WORKDETAIL } from '../actions'
+import { 
+  FETCH_USERDATA, 
+  FETCH_PROFILEDATA, 
+  FETCH_WORKSDATA, 
+  LOADING, ERROR, 
+  FETCH_WORKS, 
+  FETCH_WORKDETAIL 
+} from '../actions'
 
 const initialState = {
+
   user: {},
   profiledata:{},
   worksdata: [],
+  comsdata: [],
   allworks: [],
+  allcoms: [],
   workdetail: {},
+  comdetail: {},
   loading: false,
   error: []
+
 }
 
 const reducers = (state = initialState, action) => {

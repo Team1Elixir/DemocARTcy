@@ -6,7 +6,6 @@ import WorkCard from './WorkCard'
 import server from '../api';
 
 const UserWork = () => {
-  const user = useSelector((state) => state.user)
   const worksdata = useSelector((state) => state.worksdata)
   const loading = useSelector((state) => state.loading)
   const dispatch = useDispatch()

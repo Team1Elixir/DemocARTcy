@@ -1,10 +1,12 @@
 .navbrand{
+  border-radius: 20px;
+  border: outset white;
+  padding: 10px;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 12px;
 }
 
 .navbrand:hover{
-  color: teal;
   text-decoration: none;
 }
 
@@ -18,9 +20,9 @@
 }
 
 .dropdown-button{
-  background: none;
   border: none;
   width: 150px;
+  font-weight: 700;
 }
 
 .menu-drop{

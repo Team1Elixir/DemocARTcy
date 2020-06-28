@@ -7,9 +7,7 @@ class CommissionController{
         Commission
             .findAll({where:{UserId: req.LoginId}, include: [User]})
             .then(data => {
-                res.status(200).json({
-                    commissions: data
-                })
+                res.status(200).json(data)
             })
             .catch(err => {
                 next(err);
@@ -23,9 +21,16 @@ class CommissionController{
             include: [User]
             })
             .then(data => {
-            res.status(200).json({
-                commissions: data
-            })
+                res.status(200).json({
+                    id: data.id,
+                    title: data.title,
+                    price: data.price,
+                    image_url: data.image_url,
+                    category: data.category,
+                    description: data.description,
+                    username: data.User.username,
+                    UserId: data.UserId
+                })
             })
             .catch(err => {
               next(err);
@@ -41,9 +46,7 @@ class CommissionController{
         Commission
             .create({ title, price, image_url, category, description, UserId: req.LoginId })
             .then(data => {
-                res.status(201).json({
-                    commission: data
-                })
+                res.status(201).json(data)
             })
             .catch(err => {
                 console.log(err.message)
@@ -59,7 +62,14 @@ class CommissionController{
             .then(data => {
                 if(data) {
                     res.status(200).json({
-                        commission: data
+                    id: data.id,
+                    title: data.title,
+                    price: data.price,
+                    image_url: data.image_url,
+                    category: data.category,
+                    description: data.description,
+                    username: data.User.username,
+                    UserId: data.UserId
                     })
                 } else {
                     throw {
@@ -81,9 +91,9 @@ class CommissionController{
         Commission
             .update({ title, price, image_url, category, description}, {where: { id: req.params.id }, returning: true})
             .then(data => {
-                res.status(200).json({
-                    commission: data[1][0]
-                })
+                res.status(200).json(
+                    data[1][0]
+                )
             })
             .catch(err => {
                 next(err);

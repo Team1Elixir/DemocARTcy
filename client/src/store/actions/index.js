@@ -3,8 +3,11 @@ import Axios from 'axios';
 
 export const FETCH_USERDATA = 'FETCH_USERDATA'
 export const FETCH_WORKSDATA = 'FETCH_WORKSDATA'
+export const FETCH_COMISSIONSDATA = 'FETCH_COMMISSIONSDATA'
 export const FETCH_WORKS = 'FETCH_WORKS'
+export const FETCH_COMMISSIONS = 'FETCH_COMMISSIONS'
 export const FETCH_WORKDETAIL = 'FETCH_WORKDETAIL'
+export const FETCH_COMMISSIONDETAIL = 'FETCH_COMMISSIONDETAIL'
 export const FETCH_PROFILEDATA = 'FETCH_PROFILEDATA'
 export const LOADING = 'LOADING'
 export const ERROR = 'ERROR'
@@ -12,6 +15,13 @@ export const ERROR = 'ERROR'
 export const fetchWorkDetail = (data) => {
   return {
     type: FETCH_WORKDETAIL,
+    payload: data
+  }
+}
+
+export const fetchCommissionDetail = (data) => {
+  return {
+    type: FETCH_COMMISSIONDETAIL,
     payload: data
   }
 }
@@ -30,9 +40,23 @@ export const fetchWorksData = (data) => {
   }
 }
 
+export const fetchCommissionsData = (data) => {
+  return {
+    type: FETCH_COMISSIONSDATA,
+    payload: data
+  }
+}
+
 export const fetchWorks = (data) => {
   return {
     type: FETCH_WORKS,
+    payload: data
+  }
+}
+
+export const fetchCommissions = (data) => {
+  return {
+    type: FETCH_COMMISSIONS,
     payload: data
   }
 }
@@ -105,6 +129,16 @@ export const getAllWorks = () => {
     .finally(() => {
       dispatch(loading(false))
     })
+  }
+}
+
+export const getAllCommissions = () => {
+  return (dispatch) => {
+    dispatch(loading(true))
+    server.get('/commissions/all')
+    .then(({data}) => {
+      dispatch(fetchCommissions(data))
+    })   
   }
 }
 
