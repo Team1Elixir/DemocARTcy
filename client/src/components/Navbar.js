@@ -45,7 +45,7 @@ const Navbar = () => {
       <Dropdown>
         <Dropdown.Toggle className='dropdown-button'>My Account</Dropdown.Toggle>
           <Dropdown.Menu className='menu-drop d-flex flex-column'>
-              <img className='dropdown-userimg' src='https://fc02.deviantart.net/fs71/f/2013/068/9/0/connection_by_yuumei-d5xh09x.jpg' alt='user pic'/>
+              <img className='dropdown-userimg' src={user.profile_url} alt='user pic'/>
               <Link className='link-user' to={'/profile/'+username}><h6>{user.name}</h6></Link>
               <Link className='link-username' to={'/profile/'+username}>@{user.username}</Link>
               <Dropdown.Header className='dropdown-border'>Account</Dropdown.Header>

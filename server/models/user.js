@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
       beforeCreate: (user,option) => {
         user.password = encrypt(user.password)
         user.bio = '-'
-        user.profile_url = '-'
+        user.profile_url = 'https://img.pngio.com/user-logo-png-user-computer-icons-clipart-download-800-800-user-logo-png-900_800.png'
         user.cover_url = '-'
         user.website = '-'
       }

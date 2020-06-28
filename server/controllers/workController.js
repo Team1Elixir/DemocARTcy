@@ -30,9 +30,9 @@ class WorkController {
 
   //ADD WORK
   static add(req, res, next) {
-    let { image_url, title, description, category } = req.body;
+    let { image_url, title, story, category } = req.body;
 
-    Work.create({ image_url, title, description, category, UserId: req.LoginId })
+    Work.create({ image_url, title, story, category, UserId: req.LoginId })
       .then(data => {
         res.status(201).json({
           work: data,
@@ -75,10 +75,10 @@ class WorkController {
 
   //EDIT WORK
   static edit(req, res, next) {
-    let { image_url, title, description, category } = req.body;
+    let { image_url, title, story, category } = req.body;
 
     Work.update(
-      { image_url, title, description, category },
+      { image_url, title, story, category },
       { where: { id: req.params.id }, returning: true }
     )
       .then(data => {
