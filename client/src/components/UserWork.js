@@ -1,15 +1,21 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getWorksData } from '../store/actions'
+import { getWorksData, getUserData } from '../store/actions'
 import { Link } from 'react-router-dom'
 import WorkCard from './WorkCard'
+import server from '../api';
 
 const UserWork = () => {
+  const user = useSelector((state) => state.user)
   const worksdata = useSelector((state) => state.worksdata)
   const loading = useSelector((state) => state.loading)
   const dispatch = useDispatch()
   useEffect(()=>{
-    dispatch(getWorksData())
+    dispatch(getUserData(localStorage.username))
+    server.get('/users/'+localStorage.username)
+    .then(({data}) => {
+      dispatch(getWorksData(data.id))
+    })
   },[])
 
   if(loading) return (
@@ -19,7 +25,7 @@ const UserWork = () => {
       </div>
     </div>
   )
-  
+
   return (
       <div style={{ marginTop: 100 }}>
         <div className='buttonpanel'>
