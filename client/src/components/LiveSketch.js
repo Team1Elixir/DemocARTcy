@@ -233,4 +233,4 @@ function LiveSketch() {
   );
 }
 
-export default LiveSketch;
+export default LiveSketch
