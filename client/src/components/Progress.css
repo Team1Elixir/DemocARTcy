@@ -1,15 +1,17 @@
 .progress-container {
     padding: 12px;
-    background-color: #f1eeef;
-    border-radius: 12px;
+    background-color: #fbfdff;
+    border: solid 3px #73CDD1;
+    border-radius: 18px;
+    box-shadow:0 0 8px #90e1e6;
 }
 
 .progress-main-title {
     color: #73CDD1;
 }
 
-.text-pinky{
-    color: #E71375;
+.text-bluish{
+    color: #73CDD1;
 }
 
 .progress-button {
@@ -17,14 +19,14 @@
     font-weight: 700;
     padding: 5px;
     border-radius: 10px;
-    color: #E71375;
-    border: 2px solid #E71375;
+    color: #73CDD1;
+    border: 2px solid #73CDD1;
 }
 
 .progress-button:hover {
     cursor: pointer;
     color: white;
-    background-color: #E71375;
+    background-color: #73CDD1;
 }
 
 .artist-ava {
@@ -33,7 +35,8 @@
 
 .artist-name {
     font-size: 20px;
-    font-weight: 700
+    font-weight: 700;
+    text-transform: capitalize;
 }
 
 .job-title {
@@ -47,5 +50,5 @@
 }
 
 .badge {
-    background-color: #E71375;
+    background-color: #73CDD1;
 }
