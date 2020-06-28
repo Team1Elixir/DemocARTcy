@@ -5,6 +5,7 @@ import Home from './components/Home'
 import Profile from './components/Profile'
 import Login from './components/LoginForm'
 import Register from './components/RegisterForm'
+import Progress from './components/Progress'
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/progress-client">
+            <Progress />
           </Route>
           <Route path="/">
             <Home />

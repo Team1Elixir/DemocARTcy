@@ -1,7 +1,7 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 
-const Payment = ({ price, resetPrice }) => {
+const Payment = ({ price, email }) => {
   const priceForStripe = price * 100;
   const publishableKey = 'pk_test_51GyVFyGEIdbxEPg1XCHjDEPCLg5oKfT4c0zsVoOURN8iD585heXkYh3TcBxQ78uUGXKlxdmuSGEvr8q6Vej6VpXJ0089jTRXX5';
  
@@ -22,7 +22,7 @@ const Payment = ({ price, resetPrice }) => {
       token={onToken}
       stripeKey={publishableKey}
       allowRememberMe={false}
-      email="akbarrmdhn94@gmail.com"
+      email={email}
       />
     </div>
   );
