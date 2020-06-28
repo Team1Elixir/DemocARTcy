@@ -28,10 +28,13 @@ const Video = styled.video`
 function LiveSketch() {
   const location = useLocation();
   const [yourID, setYourID] = useState("");
-  const [users, setUsers] = useState({});
+  const [room, setUserRoom] = useState(location.state.progressId);
+  const [name, setUserName] = useState(localStorage.getItem("username"));
+  const [users, setUsers] = useState([]);
   const [stream, setStream] = useState();
   const [receivingCall, setReceivingCall] = useState(false);
   const [caller, setCaller] = useState("");
+  const [callerName, setCallerName] = useState("");
   const [callerSignal, setCallerSignal] = useState();
   const [callAccepted, setCallAccepted] = useState(false);
   const userVideo = useRef();
@@ -40,9 +43,18 @@ function LiveSketch() {
 
   useEffect(() => {
     console.log("<><>", location.state);
-
+    setUserName();
+    // setUserRoom();
     // socket.current = io("http://localhost:3000/");
-    socket.current.emit("room", location.state.progressId); //INITIAL ROOM
+    // socket.current.emit("join"); //INITIAL ROOM
+    console.log("name and room", name, room);
+
+    socket.current.emit("join", { name, room }, (error) => {
+      if (error) {
+        alert(error);
+      }
+    });
+
     console.log("VideoCall/Skect Awal Awal run");
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
@@ -53,21 +65,25 @@ function LiveSketch() {
         }
       });
 
-    console.log("Socket Current", socket.current.on);
-
     socket.current.on("yourID", (id) => {
+      console.log("IDDDDD", id);
+
       setYourID(id);
     });
 
-    console.log("MY ID", yourID);
+    socket.current.on("roomData", ({ users }) => {
+      console.log("Data all user di room", users);
 
-    socket.current.on("allUsers", (users) => {
       setUsers(users);
     });
+    // socket.on("roomData", ({ users }) => {
+    //   setUsers(users);
+    // });
 
     socket.current.on("hey", (data) => {
       setReceivingCall(true);
       setCaller(data.from);
+      setCallerName(data.fromName);
       setCallerSignal(data.signal);
     });
   }, []);
@@ -88,6 +104,7 @@ function LiveSketch() {
         userToCall: id,
         signalData: data,
         from: yourID,
+        fromName: localStorage.getItem("username"),
       });
     });
 
@@ -135,7 +152,7 @@ function LiveSketch() {
   if (receivingCall) {
     incomingCall = (
       <div>
-        <h1>{caller} is calling you</h1>
+        <h1>{callerName} is calling you</h1>
         <button onClick={acceptCall}>Accept</button>
       </div>
     );
@@ -171,6 +188,7 @@ function LiveSketch() {
 
   const setup = (p5, canvasParentRef) => {
     socket.current = io("http://localhost:3000/");
+    socket.current.emit("room", location.state.progressId);
     p5.createCanvas(500, 500).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
     p5.background(233, 233, 233);
 
@@ -179,7 +197,6 @@ function LiveSketch() {
     p5.removeBtn.mousePressed(saveToFile);
     p5.button = p5.createButton("Clear Canvas");
     p5.button.mousePressed(clearCanvas);
-    console.log("socket curen on", socket.current.on);
 
     socket.current.on("clear", () => {
       p5.clear();
@@ -211,14 +228,16 @@ function LiveSketch() {
             {PartnerVideo}
           </Row>
           <Row>
-            {Object.keys(users).map((key) => {
-              if (key === yourID) {
+            {users.map((key) => {
+              if (key.id === yourID) {
                 return null;
               }
               return (
-                <button onClick={() => callPeer(key)} key={key}>
-                  Call {key}
-                </button>
+                <>
+                  <button onClick={() => callPeer(key.id)} key={key.id}>
+                    Call {key.name}
+                  </button>
+                </>
               );
             })}
           </Row>
