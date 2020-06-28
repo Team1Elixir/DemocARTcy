@@ -1,16 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-const WorkCard = (props) => {
-  const  { worksdata } = props
+const CommissionCard = (props) => {
+  const  { commissionsdata } = props
   return(
     <div className='work-profile-cards'>
-          { worksdata.map((card,i) => {
+          { commissionsdata.map((card,i) => {
               return (
-              <Link to={'/works/detail/'+card.id} className='cards' key={i}>
+              <Link to={'/commissions/detail/'+card.id} className='cards' key={i}>
                 <div className='title-work'>
                   <h6 style={{ textAlign: 'center'}}>{card.title}</h6>
                 </div>
-                <img className='img-card' alt={i} src={card.image_url} />
+                <img className='img-card' alt={i} src={card.sample_img} />
               </Link>
               )
             })
@@ -19,4 +19,4 @@ const WorkCard = (props) => {
   )
 }
 
-export default WorkCard
+export default CommissionCard

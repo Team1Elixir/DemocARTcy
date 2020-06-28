@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 export default function AddCommission() {
   const [title, setTitle] = useState("");
-  const [image_url, setImage_url] = useState("");
+  const [sample_img, setsample_img] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] =useState('')
   const [category, setCategory] = useState("");
@@ -24,13 +24,14 @@ export default function AddCommission() {
   function addNew() {
     const data = {
       title,
-      sample_img: image_url,
+      sample_img,
       price,
       category,
+      description
     };
     console.log(data);
 
-    Axios.post("http://localhost:3000/commissions/add", data, {
+    Axios.post("http://localhost:3000/commissions/", data, {
       headers: {
         token: localStorage.token
       },
@@ -50,7 +51,7 @@ export default function AddCommission() {
         <div class="col col-lg-3"></div>
         <div class="col-6 ">
           <h1 class="text-center">Add Commission</h1>
-          <img src={image_url} style={center}/>
+          <img src={sample_img} style={center}/>
           <div class="input-group-prepend">
             {" "}
             <span class="input-group-text">Title</span>
@@ -72,7 +73,7 @@ export default function AddCommission() {
             className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
-            onChange={(event) => setImage_url(event.target.value)}
+            onChange={(event) => setsample_img(event.target.value)}
           />
 
           <div class="input-group-prepend">

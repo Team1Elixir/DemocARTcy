@@ -5,7 +5,7 @@ class CommissionController{
     //LIST OWN COMMISSION
     static mylist (req,res,next){
         Commission
-            .findAll({where:{UserId: req.LoginId}, include: [User]})
+            .findAll({where:{UserId: req.params.id}, include: [User]})
             .then(data => {
                 res.status(200).json(data)
             })
@@ -16,23 +16,16 @@ class CommissionController{
 
     //GET ALL COMMISSIONS
     static getAllCommissions(req, res, next) {
+        console.log('sampe di get all coms')
         Commission
-            .findAll({
-            include: [User]
-            })
+            .findAll()
             .then(data => {
-                res.status(200).json({
-                    id: data.id,
-                    title: data.title,
-                    price: data.price,
-                    image_url: data.image_url,
-                    category: data.category,
-                    description: data.description,
-                    username: data.User.username,
-                    UserId: data.UserId
-                })
+                console.log('dapet data')
+                console.log(data)
+                return res.status(200).json(data)
             })
             .catch(err => {
+                console.log(err)
               next(err);
             })
       }
@@ -41,10 +34,10 @@ class CommissionController{
     //ADD COMMISSION
     static add (req,res,next){
 
-        let { title, price, image_url, category, description } = req.body
+        let { title, price, sample_img, category, description } = req.body
 
         Commission
-            .create({ title, price, image_url, category, description, UserId: req.LoginId })
+            .create({ title, price, sample_img: sample_img, category, description, UserId: req.LoginId })
             .then(data => {
                 res.status(201).json(data)
             })
@@ -61,11 +54,12 @@ class CommissionController{
             .findOne({where: {id: req.params.id}, include: [User]})
             .then(data => {
                 if(data) {
+                    console.log(data)
                     res.status(200).json({
                     id: data.id,
                     title: data.title,
                     price: data.price,
-                    image_url: data.image_url,
+                    sample_img: data.sample_img,
                     category: data.category,
                     description: data.description,
                     username: data.User.username,
@@ -86,10 +80,10 @@ class CommissionController{
 
     //EDIT COMMISSION
     static edit (req,res,next){
-        let { title, price, image_url, category, description } = req.body
+        let { title, price, sample_img, category, description } = req.body
 
         Commission
-            .update({ title, price, image_url, category, description}, {where: { id: req.params.id }, returning: true})
+            .update({ title, price, sample_img, category, description}, {where: { id: req.params.id }, returning: true})
             .then(data => {
                 res.status(200).json(
                     data[1][0]

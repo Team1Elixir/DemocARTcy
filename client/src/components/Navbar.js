@@ -61,7 +61,7 @@ const Navbar = () => {
               <Link className='link-drop' to={'/profile/'+username}>Ballance</Link>
               <Dropdown.Header>Commission</Dropdown.Header>
               <Link className='link-drop' to={'/works/user/'+username}>My Works</Link>
-              <Link className='link-drop' to='/'>Commissions</Link>
+              <Link className='link-drop' to={'/commissions/user/'+username}>Commissions</Link>
               <Dropdown.Header>About Democartcy</Dropdown.Header>
               <Link className='link-drop' to='/'>About Us</Link>
               <button className='btn btn-danger link-drop' onClick={event => logoutEvent(event)}>Logout</button>

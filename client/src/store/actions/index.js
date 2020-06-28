@@ -135,10 +135,16 @@ export const getAllWorks = () => {
 export const getAllCommissions = () => {
   return (dispatch) => {
     dispatch(loading(true))
+    console.log('mampir di get all com')
     server.get('/commissions/all')
     .then(({data}) => {
+      console.log('dapet')
       dispatch(fetchCommissions(data))
-    })   
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      dispatch(loading(false))
+    })
   }
 }
 
@@ -158,6 +164,22 @@ export const getWorkDetail = (id) => {
   }
 }
 
+export const getCommissionDetail = (id) => {
+  return (dispatch) => {
+    server.get('/commissions/'+id)
+    .then(({data}) => {
+      console.log(data)
+      dispatch(fetchCommissionDetail(data))
+    })
+    .catch(err => {
+      dispatch(error(err))
+    })
+    .finally(() => {
+      dispatch(loading(false))
+    })
+  }
+}
+
 export const getWorksData = (id) => {
   return (dispatch) => {
     console.log('getting works data')
@@ -166,6 +188,24 @@ export const getWorksData = (id) => {
     .then(({data}) => {
       console.log('works data:' , data)
       dispatch(fetchWorksData(data))
+    })
+    .catch(err => {
+      dispatch(error(err))
+    })
+    .finally(() => {
+      dispatch(loading(false))
+    })
+  }
+}
+
+export const getCommissionsData = (id) => {
+  return (dispatch) => {
+    console.log('getting commissions data')
+    dispatch(loading(true))
+    server.get('/commissions/user/'+id)
+    .then(({data}) => {
+      console.log('works data:' , data)
+      dispatch(fetchCommissionsData(data))
     })
     .catch(err => {
       dispatch(error(err))

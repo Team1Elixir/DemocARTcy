@@ -10,7 +10,11 @@ import EditForm from './components/EditForm'
 import MainWork from './components/MainWork'
 import UserWork from './components/UserWork'
 import AddWork from './components/AddWork'
+import AddCommission from './components/AddCommission'
 import DetailWork from './components/DetailWork'
+import DetailCommission from './components/DetailCommission'
+import MainCommission from './components/MainCommission'
+import UserCommission from './components/UserCommission'
 import './App.css'
 
 function App() {
@@ -31,14 +35,26 @@ function App() {
           <Route path="/works/user/:username">
             <UserWork />
           </Route>
+          <Route path="/commissions/user/:username">
+            <UserCommission />
+          </Route>
           <Route path="/works/detail/:id">
             <DetailWork />
+          </Route>
+          <Route path="/commissions/detail/:id">
+            <DetailCommission />
           </Route>
           <Route path="/works/add">
             <AddWork />
           </Route>
+          <Route path="/commissions/add">
+            <AddCommission />
+          </Route>
           <Route path="/works">
             <MainWork />
+          </Route>
+          <Route path="/commissions">
+            <MainCommission />
           </Route>
           <Route path="/login">
             <Login />

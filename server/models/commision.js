@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
           isInt: { args: true, msg: 'Price must be a number'},
         },
       },
-      image_url: {
+      sample_img: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
