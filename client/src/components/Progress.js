@@ -45,7 +45,7 @@ const Progress = () => {
 
   ]
   return (
-    <div className="container d-flex flex-column align-items-center mb-3">
+    <div className="container d-flex flex-column align-items-center mb-3" style={{ marginTop: 50 }}>
       <h1>Progress Bar</h1>
       {
         dummyProgress.map(project => {

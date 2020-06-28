@@ -6,6 +6,8 @@ import Profile from './components/Profile'
 import Login from './components/LoginForm'
 import Register from './components/RegisterForm'
 import Progress from './components/Progress'
+import DetailCommission from './components/DetailCommission'
+import DetailWork from './components/DetailWork'
 
 function App() {
   return (
@@ -26,6 +28,12 @@ function App() {
           </Route>
           <Route path="/progress-client">
             <Progress />
+          </Route>
+          <Route path="/work/:id">
+            <DetailWork />
+          </Route>
+          <Route path="/commission/:id">
+            <DetailCommission />
           </Route>
           <Route path="/">
             <Home />

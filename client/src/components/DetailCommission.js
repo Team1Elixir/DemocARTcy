@@ -3,7 +3,7 @@ import './DetailCommission.css';
 
 const DetailCommission = () => {
   return (
-    <div className="container-fluid d-flex flex-column align-items-center pr-3 pl-3">
+    <div className="container-fluid d-flex flex-column align-items-center pr-3 pl-3" style={{ marginTop: 50 }}>
       <div className="w-100 d-flex justify-content-center row">
         <div className="col-6">
           <img
