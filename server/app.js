@@ -19,10 +19,15 @@ app.use(errHandler);
 const users = {};
 
 io.on("connection", (socket) => {
+  socket.on("room", (room) => {
+    socket.join(room);
+  });
+
   if (!users[socket.id]) {
     users[socket.id] = socket.id;
     console.log("Client connected: " + socket.id);
   }
+
   socket.emit("yourID", socket.id);
 
   io.sockets.emit("allUsers", users);
@@ -43,11 +48,11 @@ io.on("connection", (socket) => {
 
   //Drawing Canvas socket
   socket.on("mouse", (data) => {
-    socket.broadcast.emit("mouse", data);
+    socket.broadcast.to(data.room).emit("mouse", data);
   });
 
-  socket.on("clear", () => {
-    socket.broadcast.emit("clear");
+  socket.on("clear", (data) => {
+    socket.broadcast.to(data.room).emit("clear");
   });
 
   socket.on("disconnect", () => console.log("Client Canvass has disconnected"));

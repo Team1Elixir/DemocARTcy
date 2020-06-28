@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -11,6 +11,10 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const history = useHistory()
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if(localStorage.token) history.push('/')
+  }, [])
 
   function login(event) {
     event.preventDefault()
@@ -33,7 +37,7 @@ export default function LoginForm() {
   return (
     <div className='loginpage'>
         <div className='form-div'>
-          <div className='header'>
+          <div className='log-header'>
             <h2>Login Page</h2>
           </div>
           <div className='text-input'>

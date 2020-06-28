@@ -1,18 +1,31 @@
-const { Work } = require("../models");
+const { Work, User } = require("../models");
 
 class WorkController {
 
   //LIST WORKS
+
   static mylist(req, res, next) {
-    Work.findAll({ where: { UserId: req.LoginId } })
+    Work.findAll({ where: { UserId: +req.params.id }})
       .then(data => {
-        res.status(200).json({
-          works: data
-        });
+        res.status(200).json(
+          data
+        );
       })
       .catch(err => {
+        console.log(err)
         next(err);
       });
+  }
+
+  //GET ALL WORKS
+  static getAllWorks(req, res, next) {
+    Work.findAll()
+    .then(data => {
+      res.status(200).json(data)
+    })
+    .catch(err => {
+      next(err);
+    })
   }
 
   //ADD WORK
@@ -26,17 +39,26 @@ class WorkController {
         });
       })
       .catch(err => {
+        console.log(err.message)
         next(err);
       });
   }
 
   //SELECT WORK
   static select(req, res, next) {
-    Work.findByPk(req.params.id)
+    Work.findByPk(req.params.id, {include: [User]})
       .then(data => {
         if(data) {
+          console.log(data)
+          
           res.status(200).json({
-              work: data
+            id: data.id,
+            image_url: data.image_url,
+            category: data.category,
+            UserId: data.UserId,
+            username: data.User.username,
+            story: data.story,
+            title: data.title  
           })
         } else {
             throw {
@@ -46,6 +68,7 @@ class WorkController {
         } 
       })
       .catch(err => {
+        console.log(err)
         next(err);
       });
   }

@@ -50,11 +50,17 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
     hooks: {
-      afterValidate:(user) => {
-          let newPassword = encrypt(user.password)
-          user.password = newPassword
+      beforeCreate: (user,option) => {
+        user.password = encrypt(user.password)
+        user.bio = '-'
+        user.profile_url = 'https://img.pngio.com/user-logo-png-user-computer-icons-clipart-download-800-800-user-logo-png-900_800.png'
+        user.cover_url = '-'
+        user.website = '-'
       }
      
+    },
+    defaultScope: {
+      attributes: { exclude: ['password'] }
     }
   });
   User.associate = function(models) {

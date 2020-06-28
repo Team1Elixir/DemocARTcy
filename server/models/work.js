@@ -42,11 +42,11 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: {
           args: true,
-          msg: 'Story is required'
+          msg: 'Description is required'
         },
         notEmpty: {
           args: true,
-          msg: 'Story is required'
+          msg: 'Description is required'
         }
       }
     },

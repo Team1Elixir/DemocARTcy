@@ -80,7 +80,6 @@ function progressAuthorization(req, res, next) {
         .findByPk(req.params.id)
         .then(project => {
             if(project) {
-                console.log(req.LoginId)
                 if (project.ClientId === req.LoginId) {
                     next();
                 } else {

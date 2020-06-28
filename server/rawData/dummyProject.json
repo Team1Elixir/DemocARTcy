@@ -3,7 +3,7 @@
         "id": 1,
         "title": "Doodle Art",
         "price": 110000,
-        "status": "onRequest",
+        "status": "onProgress",
         "ArtistId": 1,
         "ClientId": 2
     },
@@ -11,7 +11,7 @@
         "id": 2,
         "title": "2D Animal Drawing",
         "price": 80000,
-        "status": "onRequest",
+        "status": "onProgress",
         "ArtistId": 2,
         "ClientId": 1
     }

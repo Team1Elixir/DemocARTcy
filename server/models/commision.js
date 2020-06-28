@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
           isInt: { args: true, msg: 'Price must be a number'},
         },
       },
-      sample_img: {
+      image_url: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -36,6 +36,14 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: { args: true, msg: "Category is required" },
           notEmpty: { args: true, msg: "Category is required" },
+        },
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { args: true, msg: "Description is required" },
+          notEmpty: { args: true, msg: "Description is required" },
         },
       },
       UserId: DataTypes.INTEGER,
