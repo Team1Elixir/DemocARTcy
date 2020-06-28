@@ -55,6 +55,9 @@ module.exports = (sequelize, DataTypes) => {
           user.password = newPassword
       }
      
+    },
+    defaultScope: {
+      attributes: { exclude: ['password'] }
     }
   });
   User.associate = function(models) {

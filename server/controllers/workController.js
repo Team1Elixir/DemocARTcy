@@ -1,10 +1,10 @@
-const { Work } = require("../models");
+const { Work, User } = require("../models");
 
 class WorkController {
 
   //LIST WORKS
   static mylist(req, res, next) {
-    Work.findAll({ where: { UserId: req.LoginId } })
+    Work.findAll({ where: { UserId: req.LoginId }, include: [User] })
       .then(data => {
         res.status(200).json({
           works: data
@@ -32,7 +32,7 @@ class WorkController {
 
   //SELECT WORK
   static select(req, res, next) {
-    Work.findByPk(req.params.id)
+    Work.findByPk(req.params.id, {include: [User]})
       .then(data => {
         if(data) {
           res.status(200).json({
