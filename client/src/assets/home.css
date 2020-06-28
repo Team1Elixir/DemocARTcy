@@ -1,0 +1,10 @@
+.home{
+  background: url('https://pbs.twimg.com/media/EUp4NHrUcAAgwi_.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.home{
+  width: 100%;
+  min-height: 700px;
+  height: 100%;
+}

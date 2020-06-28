@@ -11,14 +11,16 @@ import MainWork from './components/MainWork'
 import UserWork from './components/UserWork'
 import AddWork from './components/AddWork'
 import DetailWork from './components/DetailWork'
+import './App.css'
 
 function App() {
   return (
     <Router>
+    <div className='App'>
       <div className="header">
         <Navbar />
       </div>
-      <div className="content">
+      {/* <div className="content"> */}
         <Switch>
           <Route path="/profile/edit/:username">
             <EditForm />
@@ -52,6 +54,7 @@ function App() {
           </Route>
         </Switch>
       </div>
+    {/* </div> */}
     </Router>
   );
 }

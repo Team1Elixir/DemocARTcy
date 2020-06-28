@@ -7,6 +7,7 @@ import { getUserData } from '../store/actions'
 
 const Navbar = () => {
   const [color, setColor] = useState('');
+  const [fontcolor, setFontcolor] = useState('black')
   const location = useLocation()
   const history = useHistory()
   const user = useSelector((state) => state.user)
@@ -25,8 +26,10 @@ const Navbar = () => {
     }
     if(location.pathname === '/works' || location.pathname === '/commissions') {
       setColor('darkslategrey')
+      setFontcolor('white')
     } else if(location.pathname === '/'){
       setColor('')
+      setFontcolor('blanchedalmond')
     } else {
       setColor('#73CDD1')
     }
@@ -35,15 +38,15 @@ const Navbar = () => {
   if(localStorage.token && user)return (
     <div style={{background: color}} className='navbar navbar-light d-flex justify-content-between fixed-top'>
       <div>
-        <Link className='navbrand' to='/' >DEMOCARTCY</Link>
+        <Link style={{ color: fontcolor }} className='navbrand' to='/' >DEMOCARTCY</Link>
       </div>
       <div className='nav-item d-flex justify-content-center'>
-        <Link className='nav-link' to='/'>HOME</Link>
-        <Link className='nav-link' to='/works'>WORKS</Link>
-        <Link className='nav-link' to='/commissions'>COMMISSIONS</Link>
+        <Link style={{ color: fontcolor }} className='nav-link' to='/'>HOME</Link>
+        <Link style={{ color: fontcolor }} className='nav-link' to='/works'>WORKS</Link>
+        <Link style={{ color: fontcolor }} className='nav-link' to='/commissions'>COMMISSIONS</Link>
       </div>
       <Dropdown>
-        <Dropdown.Toggle className='dropdown-button'>My Account</Dropdown.Toggle>
+        <Dropdown.Toggle style={{ color: fontcolor }} className='dropdown-button'>My Account</Dropdown.Toggle>
           <Dropdown.Menu className='menu-drop d-flex flex-column'>
               <img className='dropdown-userimg' src={user.profile_url} alt='user pic'/>
               <Link className='link-user' to={'/profile/'+username}><h6>{user.name}</h6></Link>

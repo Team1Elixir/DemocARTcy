@@ -6,10 +6,20 @@ import WorkCard from './WorkCard'
 
 const UserWork = () => {
   const worksdata = useSelector((state) => state.worksdata)
+  const loading = useSelector((state) => state.loading)
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(getWorksData())
   },[])
+
+  if(loading) return (
+    <div className='profileContent'>
+      <div className='error-msg'>
+        <h6>loading..</h6>
+      </div>
+    </div>
+  )
+  
   return (
       <div style={{ marginTop: 100 }}>
         <div className='buttonpanel'>
