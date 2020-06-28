@@ -1,11 +1,12 @@
-import React from 'react';
-import { Switch, BrowserRouter as Router, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Home from './components/Home'
-import Profile from './components/Profile'
-import Login from './components/LoginForm'
-import Register from './components/RegisterForm'
+import React from "react";
+import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import Login from "./components/LoginForm";
+import Register from "./components/RegisterForm";
 import LiveSketch from "./components/LiveSketch.js";
+import Progress from "./components/Progress";
 
 function App() {
   return (
@@ -19,13 +20,16 @@ function App() {
             <Profile />
           </Route>
           <Route path="/liveSketch">
-            <LiveSketch/>
+            <LiveSketch />
           </Route>
           <Route path="/login">
             <Login />
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/progress-client">
+            <Progress />
           </Route>
           <Route path="/">
             <Home />

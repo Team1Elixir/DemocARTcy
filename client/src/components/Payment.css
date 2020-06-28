@@ -1,0 +1,16 @@
+.paid-button {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 5px;
+    padding-right: 42px;
+    padding-left: 42px;
+    border-radius: 10px;
+    color: #E71375;
+    border: 2px solid #E71375;
+}
+
+.paid-button:hover {
+    cursor: pointer;
+    color: white;
+    background-color: #E71375;
+}

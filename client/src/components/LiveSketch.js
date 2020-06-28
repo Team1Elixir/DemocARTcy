@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import Sketch from "react-p5";
@@ -25,6 +26,7 @@ const Video = styled.video`
 `;
 
 function LiveSketch() {
+  const location = useLocation();
   const [yourID, setYourID] = useState("");
   const [users, setUsers] = useState({});
   const [stream, setStream] = useState();
@@ -37,7 +39,10 @@ function LiveSketch() {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io.connect("http://localhost:3000/");
+    console.log("<><>", location.state);
+
+    // socket.current = io("http://localhost:3000/");
+    socket.current.emit("room", location.state.progressId); //INITIAL ROOM
     console.log("VideoCall/Skect Awal Awal run");
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
@@ -48,9 +53,14 @@ function LiveSketch() {
         }
       });
 
+    console.log("Socket Current", socket.current.on);
+
     socket.current.on("yourID", (id) => {
       setYourID(id);
     });
+
+    console.log("MY ID", yourID);
+
     socket.current.on("allUsers", (users) => {
       setUsers(users);
     });
@@ -64,85 +74,12 @@ function LiveSketch() {
 
   //SKETCH LIVE
 
-  function mouseDragged(P5) {
-    // Draw
-    P5.stroke("black");
-    // P5.strokeWeight(strokeWidth);
-    if (P5.mouseIsPressed) {
-      P5.line(P5.mouseX, P5.mouseY, P5.pmouseX, P5.pmouseY);
-      sendmouse(P5.mouseX, P5.mouseY, P5.pmouseX, P5.pmouseY);
-    }
-
-    // Send the mouse coordinates
-  }
-
-  // Sending data to the socket.current
-  function sendmouse(x, y, pX, pY) {
-    const data = {
-      x: x,
-      y: y,
-      px: pX,
-      py: pY,
-      // color: color,
-      // strokeWidth: strokeWidth,
-    };
-    console.log("SEND CORDINATOR", data);
-
-    socket.current.emit("mouse", data);
-  }
-
-  const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
-    p5.background(233, 233, 233);
-
-    p5.removeBtn = p5.createButton("Save Canvas");
-    // p5.removeBtn.position(30, 200);
-    p5.removeBtn.mousePressed(saveToFile);
-    // p5.removeBtn.mousePressed(clearCanvas);
-    p5.button = p5.createButton("Clear Canvas");
-    p5.button.mousePressed(clearCanvas);
-    socket.current.on("mouse", (data) => {
-      p5.line(data.x, data.y, data.px, data.py);
-    });
-    socket.current.on("clear", () => {
-      p5.clear();
-      p5.background(233, 233, 233);
-    });
-    function clearCanvas() {
-      p5.clear();
-      p5.background(233, 233, 233);
-      socket.current.emit("clear");
-    }
-
-    function saveToFile() {
-      // Save the current canvas to file as png
-      p5.saveCanvas("mycanvas", "png");
-    }
-  };
-
-  // function savecanvas() {
-  //   saveCanvas(canvas, "sketch", "jpg");
-  // }
   //VIDEO LIVE
 
   function callPeer(id) {
     const peer = new Peer({
       initiator: true,
       trickle: false,
-      config: {
-        iceServers: [
-          {
-            urls: "stun:numb.viagenie.ca",
-            username: "sultan1640@gmail.com",
-            credential: "98376683",
-          },
-          {
-            urls: "turn:numb.viagenie.ca",
-            username: "sultan1640@gmail.com",
-            credential: "98376683",
-          },
-        ],
-      },
       stream: stream,
     });
 
@@ -203,12 +140,71 @@ function LiveSketch() {
       </div>
     );
   }
+
+  function mouseDragged(P5) {
+    // Draw
+    P5.stroke("black");
+    // P5.strokeWeight(strokeWidth);
+    if (P5.mouseIsPressed) {
+      P5.line(P5.mouseX, P5.mouseY, P5.pmouseX, P5.pmouseY);
+      sendmouse(P5.mouseX, P5.mouseY, P5.pmouseX, P5.pmouseY);
+    }
+
+    // Send the mouse coordinates
+  }
+
+  // Sending data to the socket.current
+  function sendmouse(x, y, pX, pY) {
+    const data = {
+      x: x,
+      y: y,
+      px: pX,
+      py: pY,
+      room: location.state.progressId, //RUBAH JIKA SUDAH ADA STATE ID PROGRESS
+      // color: color,
+      // strokeWidth: strokeWidth,
+    };
+    console.log("SEND CORDINATOR", data);
+
+    socket.current.emit("mouse", data);
+  }
+
+  const setup = (p5, canvasParentRef) => {
+    socket.current = io("http://localhost:3000/");
+    p5.createCanvas(500, 500).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
+    p5.background(233, 233, 233);
+
+    p5.removeBtn = p5.createButton("Save Canvas");
+    // p5.removeBtn.position(30, 200);
+    p5.removeBtn.mousePressed(saveToFile);
+    p5.button = p5.createButton("Clear Canvas");
+    p5.button.mousePressed(clearCanvas);
+    console.log("socket curen on", socket.current.on);
+
+    socket.current.on("clear", () => {
+      p5.clear();
+      p5.background(233, 233, 233);
+    });
+
+    socket.current.on("mouse", (data) => {
+      p5.line(data.x, data.y, data.px, data.py);
+    });
+
+    function clearCanvas() {
+      p5.clear();
+      p5.background(233, 233, 233);
+      socket.current.emit("clear", { room: location.state.progressId }); //RUBAH JIKA SUDAH ADA STATE ID PROGRESS
+    }
+
+    function saveToFile() {
+      // Save the current canvas to file as png
+      p5.saveCanvas("mycanvas", "png");
+    }
+  };
+
   return (
     <>
       <div className="allcontainer">
-        <div>
-          <Sketch setup={setup} draw={mouseDragged} />
-        </div>
         <Container>
           <Row>
             {UserVideo}
@@ -227,10 +223,13 @@ function LiveSketch() {
             })}
           </Row>
           <Row>{incomingCall}</Row>
+          <div>
+            <Sketch setup={setup} draw={mouseDragged} />
+          </div>
         </Container>
       </div>
     </>
   );
 }
 
-export default LiveSketch
+export default LiveSketch;
