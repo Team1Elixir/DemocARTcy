@@ -93,7 +93,7 @@ export default function AddCommission() {
           />
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text">Min Price</span>
+              <span class="input-group-text">Price</span>
               <span class="input-group-text">Rp.</span>
             </div>
             <input

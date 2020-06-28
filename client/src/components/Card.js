@@ -9,7 +9,7 @@ export default function Card (props){
     const [description] = useState(cardData.description)
 
     if (cardData.price){
-        pricetag =  <p>Min Price: {price}</p>
+        pricetag =  <p>Price: {price}</p>
     }
 
     let history = useHistory()
