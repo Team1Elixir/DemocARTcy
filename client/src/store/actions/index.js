@@ -1,6 +1,8 @@
 import server from '../../api';
+import Axios from 'axios';
 
 export const FETCH_USERDATA = 'FETCH_USERDATA'
+export const FETCH_WORKSDATA = 'FETCH_WORKSDATA'
 export const FETCH_PROFILEDATA = 'FETCH_PROFILEDATA'
 export const LOADING = 'LOADING'
 export const ERROR = 'ERROR'
@@ -8,6 +10,13 @@ export const ERROR = 'ERROR'
 export const fetchUserData = (data) => {
   return {
     type: FETCH_USERDATA,
+    payload: data
+  }
+}
+
+export const fetchWorksData = (data) => {
+  return {
+    type: FETCH_WORKSDATA,
     payload: data
   }
 }
@@ -57,6 +66,24 @@ export const getProfileData = (username) => {
     server.get('/users/'+username)
     .then(({data}) => {
       dispatch(fetchProfileData(data))
+    })
+    .catch(err => {
+      dispatch(error(err))
+    })
+    .finally(() => {
+      dispatch(loading(false))
+    })
+  }
+}
+
+export const getWorksData = () => {
+  return (dispatch) => {
+    console.log('getting works data')
+    dispatch(loading(true))
+    Axios({method: 'GET', url: 'http://localhost:3000/works', headers: {token: localStorage.token}})
+    .then(({data}) => {
+      console.log('works data:' , data)
+      dispatch(fetchWorksData(data))
     })
     .catch(err => {
       dispatch(error(err))

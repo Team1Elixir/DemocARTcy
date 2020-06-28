@@ -52,7 +52,7 @@ const Navbar = () => {
               <Link className='link-drop' to={'/profile/'+username}>Profile</Link>
               <Link className='link-drop' to={'/profile/'+username}>Ballance</Link>
               <Dropdown.Header>Commission</Dropdown.Header>
-              <Link className='link-drop' to='/'>My Works</Link>
+              <Link className='link-drop' to={'/works/user/'+username}>My Works</Link>
               <Link className='link-drop' to='/'>Commissions</Link>
               <Dropdown.Header>About Democartcy</Dropdown.Header>
               <Link className='link-drop' to='/'>About Us</Link>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '../assets/profile.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProfileData } from '../store/actions'
+import { getProfileData, getWorksData } from '../store/actions'
 import { useParams, Link } from 'react-router-dom'
 
 const Profile = () => {
@@ -10,14 +10,16 @@ const Profile = () => {
     { img: 'https://pm1.narvii.com/6505/21c144ad58b67039ab42ffed896c7c21f75c888c_hq.jpg' },
     { img: 'https://img.wethrift.com/yuumei-art.jpg'},
     { img: 'https://4.bp.blogspot.com/-Srvde-da9sc/UJiDbgmPLeI/AAAAAAAAANM/9CZGLWIwBMA/s1600/guilty-by-yuumei.jpg'}]
+  const worksdata = useSelector((state) => state.worksdata)
   const user = useSelector((state) => state.profiledata)
   const error = useSelector((state) => state.error)
   const loading = useSelector((state) => state.loading)
-  console.log(user)
+  console.log(worksdata)
   const dispatch = useDispatch()
   const {username} = useParams()
 
   useEffect(() => {
+    dispatch(getWorksData())
     dispatch(getProfileData(username))
   }, [])
   
@@ -69,10 +71,10 @@ const Profile = () => {
       <div className='work-data'>
         <h5>Works</h5><br />
         <div className='work-profile-cards'>
-          { dummycards.map((card,i) => {
+          { worksdata.map((card,i) => {
               return (
               <div className='cards'>
-                <img className='img-card' alt={i} src={card.img} />
+                <img className='img-card' alt={i} src={card.image_url} />
               </div>
               )
             })

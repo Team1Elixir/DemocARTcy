@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import Axios from 'axios'
 
 export default function AddWork (){
-
+  const history = useHistory()
   const [title,setTitle] = useState('')
   const [image_url,setImage_url] = useState('')
   const [story,setStory] = useState('')
@@ -27,13 +28,14 @@ export default function AddWork (){
     }
     console.log(data)
 
-    Axios.post('http://localhost:3000/works/add',data,{
+    Axios.post('http://localhost:3000/works/',data,{
       headers: {
-        token: localStorage.getItem('token')
+        token: localStorage.token
       }
     })
       .then(({data}) => {
         console.log('add work completed')
+        history.push('/works/user/'+localStorage.username)
       })
       .catch(console.log)
   }

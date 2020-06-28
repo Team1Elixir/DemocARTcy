@@ -7,6 +7,9 @@ import Login from './components/LoginForm'
 import Register from './components/RegisterForm'
 import Progress from './components/Progress'
 import EditForm from './components/EditForm'
+import MainWork from './components/MainWork'
+import UserWork from './components/UserWork'
+import AddWork from './components/AddWork'
 function App() {
   return (
     <Router>
@@ -15,11 +18,20 @@ function App() {
       </div>
       <div className="content">
         <Switch>
+          <Route path="/works/user/:username">
+            <UserWork />
+          </Route>
           <Route path="/profile/edit/:username">
             <EditForm />
           </Route>
           <Route path="/profile/:username">
             <Profile />
+          </Route>
+          <Route path="/works/add">
+            <AddWork />
+          </Route>
+          <Route path="/works">
+            <MainWork />
           </Route>
           <Route path="/login">
             <Login />
