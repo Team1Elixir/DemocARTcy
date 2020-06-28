@@ -24,7 +24,7 @@ const MainCommission = () => {
   }, [])
   
   return (
-    <div>
+    <div class="d-flex flex-wrap">
       {
           // JSON.stringify(data)
         data.map((card) => {

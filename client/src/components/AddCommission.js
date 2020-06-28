@@ -13,13 +13,15 @@ export default function AddCommission() {
 
   const center= {
     display: 'block',
+    marginTop: 50,
     marginleft: 'auto',
     marginright: 'auto',
     width: '100%',
     height: '100%',
     maxWidth: 550,
-    maxHeight: 150
+    maxHeight: 900
   }
+
 
   function addNew() {
     const data = {
@@ -48,10 +50,12 @@ export default function AddCommission() {
   return (
     <div class="container ">
       <div class="row justify-content-md-center">
-        <div class="col col-lg-3"></div>
+        <div class="col col-lg-3">
+        <img src={image_url} style={center} class="d-none d-lg-block"/>
+        </div>
         <div class="col-6 ">
-          <h1 class="text-center">Add Commission</h1>
-          <img src={image_url} style={center}/>
+          <h1 class="text-center"  style={{marginTop: 50}}>Add Commission</h1>
+          
           <div class="input-group-prepend">
             {" "}
             <span class="input-group-text">Title</span>

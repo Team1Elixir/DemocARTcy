@@ -19,7 +19,7 @@ export default function Card (props){
     }
 
     return (
-        <div class="card" style={{width: '18rem',marginTop: 20}}>
+        <div class="card" style={{width: '18rem',margin: 50}}>
         <img src={cardData.image_url} class="card-img-top" alt="loading...." onClick={detail}  style={{width:285, height: 400}}/>
         <div class="card-body">
             <h1 class="card-text">{title}</h1>
