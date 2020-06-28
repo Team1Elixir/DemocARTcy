@@ -1,5 +1,13 @@
 .com-detail {
-    background-color: #f1eeef;
+    background-color: #fdfafb;
+    border-radius: 18px;
+    border: solid 3px #73CDD5;
+    box-shadow:0 0 8px #90e1e6;
+}
+
+.com-image {
+    border-radius: 15px;
+    box-shadow:0 0 8px rgb(53, 53, 53);
 }
 
 .com-title {
@@ -11,8 +19,8 @@
 .com-price {
     font-size: 25px;
     font-weight: 700;
-    color: #E71375;
-    border: 2px solid #E71375;
+    color: #73CDD5;
+    border: 2px solid #73CDD5;
     border-radius: 8px;
     padding: 5px;
     padding-left: 30px;
@@ -25,13 +33,16 @@
 }
 
 .com-desc {
-    border: 3px solid #F1EEEF;
     border-radius: 10px;
+    width: 100%;
+    border: solid 3px #d5d8d8;
+    box-shadow:0 0 8px #aac2c5;
 }
 
 .com-desc-text {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
+    text-align: center;
 }
 
 .apply-button {
