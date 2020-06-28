@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'onRequest',
+      defaultValue: 'onProgress',
       validate: {
         notEmpty: {
           args: true,
