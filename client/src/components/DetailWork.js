@@ -5,9 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getWorkDetail } from '../store/actions'
 
 const DetailWork = () => {
-  const { id } = useParams()
-  const work = useSelector((state) => state.workdetail)
-  const dispatch = useDispatch()
+  const { id } = useParams();
+  const work = useSelector((state) => state.workdetail);
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(getWorkDetail(+id))
   }, []);
@@ -26,7 +27,7 @@ const DetailWork = () => {
         <div className="col-4 d-flex flex-column justify-content-start w-100 work-desc p-5">
           <p className="work-creator mb-5">Creator: <Link to={'/profile/'+work.username}><span>{work.username}</span></Link></p>
           <p className="work-title mb-5">{work.title}</p>
-          <p className="work-story mb-5">{work.story}</p>
+          <p className="work-story mb-5">{work.description}</p>
           <h4 className="work-category text-left">Category : <span class="badge badge-info p-2 work-category">{work.category}</span></h4>
         </div>
       </div>
