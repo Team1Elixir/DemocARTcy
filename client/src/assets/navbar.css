@@ -1,0 +1,79 @@
+.navbrand{
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.navbrand:hover{
+  color: teal;
+  text-decoration: none;
+}
+
+.nav-link{
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+}
+
+.nav-link:hover{
+  transform: scale(1.1);
+  color: teal;
+}
+
+.dropdown-button{
+  background: none;
+  border: none;
+  width: 150px;
+}
+
+.menu-drop{
+  width: 300px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-drop-nologin{
+  width: 300px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dropdown-userimg{
+  margin-top: 20px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.link-user{
+  margin-top: 10px;
+  color: grey;
+}
+
+.link-username{
+  font-size: 10px;
+  color: grey;
+}
+
+.dropdown-border{
+  margin-top: 20px;
+}
+
+.link-drop{
+  width: 220px;
+  margin: 3px;
+  text-decoration: none;
+  background: #73ccd17a;
+  padding: 5px;
+  color: black;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.drop-link:hover{
+  color: darkcyan;
+  text-decoration: none;
+}

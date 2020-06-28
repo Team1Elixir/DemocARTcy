@@ -16,6 +16,22 @@ class CommissionController{
             })
     }
 
+    //GET ALL COMMISSIONS
+    static getAllCommissions(req, res, next) {
+        Commission
+            .findAll({
+            include: [User]
+            })
+            .then(data => {
+            res.status(200).json({
+                commissions: data
+            })
+            })
+            .catch(err => {
+              next(err);
+            })
+      }
+
 
     //ADD COMMISSION
     static add (req,res,next){
@@ -88,7 +104,6 @@ class CommissionController{
             .catch(err => {
                 next(err);
             })
-
     }
 }
 
