@@ -1,4 +1,4 @@
-import axios from 'axios'
+import server from '../../api';
 
 export const FETCH_USERDATA = 'FETCH_USERDATA'
 export const FETCH_PROFILEDATA = 'FETCH_PROFILEDATA'
@@ -37,7 +37,7 @@ export const getUserData = (username) => {
   return (dispatch) => {
     console.log('getting user data...')
     dispatch(loading(true))
-    axios.get('http://localhost:3000/users/'+username)
+    server.get('/users/'+username)
     .then(({data}) => {
       dispatch(fetchUserData(data))
     })
@@ -54,7 +54,7 @@ export const getProfileData = (username) => {
   return(dispatch) => {
     console.log('getting user data...')
     dispatch(loading(true))
-    axios.get('http://localhost:3000/users/'+username)
+    server.get('/users/'+username)
     .then(({data}) => {
       dispatch(fetchProfileData(data))
     })
