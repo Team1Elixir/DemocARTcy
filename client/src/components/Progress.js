@@ -19,7 +19,8 @@ const Progress = () => {
       artist: {
         id: 1,
         username: 'hueyguey',
-        email: 'hueyguey@mail.com'
+        email: 'hueyguey@mail.com',
+        profile_url: 'https://avatarfiles.alphacoders.com/167/thumb-167148.jpg'
       }
     },
     {
@@ -37,7 +38,8 @@ const Progress = () => {
       artist: {
         id: 6,
         username: 'blackpatuy',
-        email: 'patatuy@mail.com'
+        email: 'patatuy@mail.com',
+        profile_url: 'https://avatarfiles.alphacoders.com/875/thumb-87589.png'
       }
     }
 
