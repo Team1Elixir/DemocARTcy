@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import Axios from "axios";
 
 import sample from "../samples/Raelaveire/1592696790749.jpg";
@@ -6,6 +8,8 @@ import sample from "../samples/Raelaveire/1592696790749.jpg";
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  let history = useHistory();
 
   function login() {
     const data = {
@@ -18,8 +22,11 @@ export default function LoginForm() {
         // console.log(data)
         console.log("login completed");
         localStorage.setItem("token", data.token);
+        history.push('/home')
       })
-      .catch(console.log);
+      .catch(err => {
+        console.log(err.response.data)
+      });
   }
 
   const imgstyle = {};

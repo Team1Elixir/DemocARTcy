@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import Axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 export default function AddWork (){
 
   const [title,setTitle] = useState('')
   const [image_url,setImage_url] = useState('')
-  const [story,setStory] = useState('')
+  const [description,setDescription] = useState('')
   const [category,setCategory] = useState('')
+
+  let history = useHistory()
 
   const center= {
     display: 'block',
@@ -21,21 +24,24 @@ export default function AddWork (){
   function addNew(){
     const data={
       title,
+      description,
       image_url,
-      story,
       category
     }
     console.log(data)
 
-    Axios.post('http://localhost:3000/works/add',data,{
+    Axios.post('http://localhost:3000/works/',data,{
       headers: {
         token: localStorage.getItem('token')
       }
     })
       .then(({data}) => {
         console.log('add work completed')
+        history.push('/works')
       })
-      .catch(console.log)
+      .catch(err => {
+        console.log(err.response.data)
+      })
   }
 
     return(
@@ -69,7 +75,7 @@ export default function AddWork (){
               className="form-control"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
-              onChange={(event) => setStory(event.target.value)}
+              onChange={(event) => setDescription(event.target.value)}
             />
             <div class="input-group-prepend"> <span class="input-group-text">Category</span></div>
             <select name="category" class="form-control" onChange={(event) => setCategory(event.target.value)}>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 
 import sample from "../samples/Raelaveire/1592696790749.jpg";
@@ -7,6 +8,8 @@ export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
+  let history = useHistory();
 
   function register() {
     const data = {
@@ -17,7 +20,8 @@ export default function RegisterForm() {
 
     Axios.post("http://localhost:3000/users/register", data)
       .then(({ data }) => {
-        console.log("register completed");
+        console.log("register completed")
+        history.push('/')
       })
       .catch(console.log);
   }

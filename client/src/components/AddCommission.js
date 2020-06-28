@@ -24,20 +24,21 @@ export default function AddCommission() {
   function addNew() {
     const data = {
       title,
-      sample_img: image_url,
+      image_url,
       price,
       category,
+      description
     };
     console.log(data);
 
-    Axios.post("http://localhost:3000/commissions/add", data, {
+    Axios.post("http://localhost:3000/commissions/", data, {
       headers: {
         token: localStorage.token
       },
     })
       .then(({ data }) => {
         console.log("add commission completed");
-        history.push('/login')
+        history.push('/commissions')
       })
       .catch(err => {
         console.log(err.response.data)

@@ -6,6 +6,8 @@ import RegisterForm from './components/RegisterForm'
 import './App.css';
 import AddWork from './components/AddWork';
 import AddCommission from './components/AddCommission';
+import MainCommission from './components/MainCommission';
+import MainWork from './components/MainWork';
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
     <button class="btn btn-sm btn-outline-secondary" type="button"><Link to='/register'>Register</Link></button>
     <button class="btn btn-sm btn-outline-secondary" type="button"><Link to='/addwork'>New Work</Link></button>
     <button class="btn btn-sm btn-outline-secondary" type="button"><Link to='/addcommission'>New Commission</Link></button>
+    <button class="btn btn-sm btn-outline-secondary" type="button"><Link to='/works'>Works</Link></button>
+    <button class="btn btn-sm btn-outline-secondary" type="button"><Link to='/commissions'>Commissions</Link></button>
   </form>
 </nav>
           
@@ -40,6 +44,12 @@ function App() {
           <Route
           path='/addcommission'
           component={AddCommission}/>
+          <Route
+          path='/commissions'
+          component={MainCommission}/>
+          <Route
+          path='/works'
+          component={MainWork}/>
       </Switch>
     </Router>
   );
