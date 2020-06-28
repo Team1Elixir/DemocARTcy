@@ -18,7 +18,7 @@ export default function RegisterForm() {
       password,
     };
 
-    Axios.post("http://localhost:3000/users/register", data)
+    Axios.post("http://localhost:4000/users/register", data)
       .then(({ data }) => {
         console.log("register completed");
         history.push('/login')

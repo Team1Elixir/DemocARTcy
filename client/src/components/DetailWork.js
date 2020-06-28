@@ -11,7 +11,7 @@ const DetailWork = () => {
   
   useEffect(() => {
     dispatch(getWorkDetail(+id))
-  }, []);
+  }, [dispatch, id]);
 
   return (
     <div className="container-fluid d-flex justify-content-center align-items-center" style={{ marginTop: 75 }}>

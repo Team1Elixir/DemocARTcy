@@ -4,7 +4,8 @@ import {
   FETCH_WORKSDATA, 
   LOADING, ERROR, 
   FETCH_WORKS, 
-  FETCH_WORKDETAIL 
+  FETCH_WORKDETAIL,
+  FETCH_COMMISSIONDETAIL
 } from '../actions'
 
 const initialState = {
@@ -31,6 +32,7 @@ const reducers = (state = initialState, action) => {
     case FETCH_WORKS : return { ...state, allworks: payload }
     case FETCH_WORKDETAIL : return { ...state, workdetail: payload }
     case FETCH_PROFILEDATA : return { ...state, profiledata: payload }
+    case FETCH_COMMISSIONDETAIL : return { ...state, comdetail: payload}
     case LOADING : return { ...state, loading: payload  }
     case ERROR : return { ...state, error: payload  }
     default : {

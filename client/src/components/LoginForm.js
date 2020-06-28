@@ -23,7 +23,7 @@ export default function LoginForm() {
       password,
     };
 
-    axios.post("http://localhost:3000/users/login", payload)
+    axios.post("http://localhost:4000/users/login", payload)
       .then(({ data }) => {
         console.log("login completed");
         localStorage.setItem("token", data.token);

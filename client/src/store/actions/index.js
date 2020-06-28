@@ -1,5 +1,4 @@
 import server from '../../api';
-import Axios from 'axios';
 
 export const FETCH_USERDATA = 'FETCH_USERDATA'
 export const FETCH_WORKSDATA = 'FETCH_WORKSDATA'
@@ -158,6 +157,19 @@ export const getWorkDetail = (id) => {
   }
 }
 
+export const getCommissionDetail = (id) => {
+  return (dispatch) => {
+    server.get('/commissions/'+id)
+    .then(({ data }) => {
+      const { commission } = data;
+      dispatch(fetchCommissionDetail(data))
+    })
+    .catch(err => {
+      dispatch(error(err))
+    })
+  }
+}
+
 export const getWorksData = (id) => {
   return (dispatch) => {
     console.log('getting works data')
@@ -173,5 +185,31 @@ export const getWorksData = (id) => {
     .finally(() => {
       dispatch(loading(false))
     })
+  }
+}
+
+export const newProject = (payload) => {
+  const { token } = localStorage;
+  const { title, price, id } = payload;
+  return (dispatch) => {
+    dispatch(loading(true))
+    return server.post('/progresses/'+id, {
+      title,
+      price
+    }, {
+      headers: {
+        token
+      }
+    })
+      .then(({ data }) => {
+        console.log(data)
+      })
+      .catch(err => {
+        console.log(err.response)
+        dispatch(error(err))
+      })
+      .finally(() => {
+        dispatch(loading(false))
+      })
   }
 }
