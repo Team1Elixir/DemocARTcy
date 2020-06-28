@@ -3,50 +3,50 @@ const { Work, User } = require("../models");
 class WorkController {
 
   //LIST WORKS
-  static all (req, res, next) {
-    console.log('kesini get all works')
-    Work.findAll()
-    .then(data => {
-      res.status(200).json(data)
-    })
-    .catch(err => {
-      next(err)
-    })
-  }
 
   static mylist(req, res, next) {
-    console.log('my list',req.LoginId)
-    Work.findAll({ where: { UserId: req.LoginId } })
+    Work.findAll({ where: { UserId: req.LoginId }})
       .then(data => {
         res.status(200).json(
           data
         );
       })
       .catch(err => {
+        console.log(err)
         next(err);
       });
   }
 
+  //GET ALL WORKS
+  static getAllWorks(req, res, next) {
+    Work.findAll()
+    .then(data => {
+      res.status(200).json(data)
+    })
+    .catch(err => {
+      next(err);
+    })
+  }
+
   //ADD WORK
   static add(req, res, next) {
-    let { image_url, title, story, category } = req.body;
+    let { image_url, title, description, category } = req.body;
 
-    Work.create({ image_url, title, story, category, UserId: req.LoginId })
+    Work.create({ image_url, title, description, category, UserId: req.LoginId })
       .then(data => {
         res.status(201).json({
           work: data,
         });
       })
       .catch(err => {
+        console.log(err.message)
         next(err);
       });
   }
 
   //SELECT WORK
   static select(req, res, next) {
-    Work.findOne({ where: {id: req.params.id}, include: [{
-      model: User, as: 'User'
-    }]})
+    Work.findByPk(req.params.id, {include: [User]})
       .then(data => {
         if(data) {
           console.log(data)
@@ -75,10 +75,10 @@ class WorkController {
 
   //EDIT WORK
   static edit(req, res, next) {
-    let { image_url, title, story, category } = req.body;
+    let { image_url, title, description, category } = req.body;
 
     Work.update(
-      { image_url, title, story, category },
+      { image_url, title, description, category },
       { where: { id: req.params.id }, returning: true }
     )
       .then(data => {

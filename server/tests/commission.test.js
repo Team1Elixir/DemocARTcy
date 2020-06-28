@@ -45,7 +45,7 @@ describe('Commission Router', () => {
 
     describe('Add new Commission', () => {
         describe('Success', () => {
-            test('should return status code 201 along with json with key (id, title, price, sample_img, category', done => {
+            test('should return status code 201 along with json with key (id, title, price, image_url, category', done => {
                 let user = users[0];
                 let token = generateToken({
                     id: user.id,
@@ -56,7 +56,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Face Sketch",
                         price: 200000,
-                        sample_img: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
+                        description: "Hand drawing face sketch",
+                        image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -67,7 +68,8 @@ describe('Commission Router', () => {
                         let{ commission } = res.body;
                         expect(commission).toHaveProperty('title', 'Face Sketch');
                         expect(commission).toHaveProperty('price', 200000);
-                        expect(commission).toHaveProperty('sample_img', 'https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg');
+                        expect(commission).toHaveProperty('description', 'Hand drawing face sketch');
+                        expect(commission).toHaveProperty('image_url', 'https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg');
                         expect(commission).toHaveProperty('category', '2D Art');
                     })
                     .end(err => {
@@ -89,7 +91,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "",
                         price: 200000,
-                        sample_img: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
+                        description: "Hand drawing face sketch",
+                        image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -117,7 +120,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Face Sketch",
                         price: '',
-                        sample_img: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
+                        description: "Hand drawing face sketch",
+                        image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -145,7 +149,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Face Sketch",
                         price: '200000x',
-                        sample_img: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
+                        description: "Hand drawing face sketch",
+                        image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -173,7 +178,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Face Sketch",
                         price: 200000,
-                        sample_img: "",
+                        description: "Hand drawing face sketch",
+                        image_url: "",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -182,7 +188,7 @@ describe('Commission Router', () => {
                     .expect(400)
                     .expect(res => {
                         let commission = res.body;
-                        expect(commission.error).toContain('Sample image is required, Invalid Url format');
+                        expect(commission.error).toMatch('Sample image is required');
                     })
                     .end(err => {
                         if(err) done(err);
@@ -201,7 +207,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Face Sketch",
                         price: 200000,
-                        sample_img: "web com",
+                        description: "Hand drawing face sketch",
+                        image_url: "web com",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -229,7 +236,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Face Sketch",
                         price: 200000,
-                        sample_img: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
+                        description: "Hand drawing face sketch",
+                        image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                         category: ""
                     })
                     .set('Accept', 'application/json')
@@ -239,6 +247,35 @@ describe('Commission Router', () => {
                     .expect(res => {
                         let commission = res.body;
                         expect(commission.error).toContain('Category is required');
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    }) 
+            })
+
+            test('should return status 400 because desciption is empty', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .post('/commissions')
+                    .send({
+                        title: "Face Sketch",
+                        price: 200000,
+                        description: "",
+                        image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
+                        category: "2D Art"
+                    })
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .expect(res => {
+                        let commission = res.body;
+                        expect(commission.error).toContain('Description is required');
                     })
                     .end(err => {
                         if(err) done(err);
@@ -257,7 +294,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Face Sketch",
                         price: 200000,
-                        sample_img: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
+                        description: "Hand drawing face sketch",
+                        image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -285,7 +323,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Face Sketch",
                         price: 200000,
-                        sample_img: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
+                        description: "Hand drawing face sketch",
+                        image_url: "https://s31531.pcdn.co/wp-content/uploads/2018/05/draw-facial-features_lee-hammond_artists-network_portrait-drawing-demo-2-876x1024.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -303,7 +342,7 @@ describe('Commission Router', () => {
         })
     })
 
-    describe('Get all commission', () => {
+    describe('Get all my commissions', () => {
         describe('Success', () => {
             test('should return status 200 with json contain all data of products', done => {
                 let user = users[0];
@@ -325,7 +364,8 @@ describe('Commission Router', () => {
                                     id: 1,
                                     title: "Doodle Art",
                                     price: 110000,
-                                    sample_img: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                                    description: "Create Doodle art in just few hours",
+                                    image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
                                     category: "2D Art",
                                     UserId: 1
                                 })
@@ -385,6 +425,44 @@ describe('Commission Router', () => {
         })
     })
 
+    describe('Get all commissions', () => {
+        describe('Success', () => {
+            test('should return status 200 with json contain all data of products', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .get('/commissions/all')
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .expect(res => {
+                        const { commissions } = res.body;
+                        expect(commissions).toEqual(
+                            expect.arrayContaining([
+                                expect.objectContaining({
+                                    id: 1,
+                                    title: "Doodle Art",
+                                    price: 110000,
+                                    description: "Create Doodle art in just few hours",
+                                    image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                                    category: "2D Art",
+                                    UserId: 1
+                                })
+                            ])
+                        )
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    }) 
+            })
+        })
+    });
+
     describe('Select commission by id', () => {
         describe('Success', () => {
             test('should return status 200 along with json of selected commission', done => {
@@ -404,7 +482,8 @@ describe('Commission Router', () => {
                         expect(commission).toHaveProperty('id', 1);
                         expect(commission).toHaveProperty('title', 'Doodle Art');
                         expect(commission).toHaveProperty('price', 110000);
-                        expect(commission).toHaveProperty('sample_img', 'https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg');
+                        expect(commission).toHaveProperty('description', 'Create Doodle art in just few hours');
+                        expect(commission).toHaveProperty('image_url', 'https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg');
                         expect(commission).toHaveProperty('category', '2D Art');
                         
                     })
@@ -453,7 +532,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Doodle Art",
                         price: 100000,
-                        sample_img: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                        description: "Create Doodle art in just few hours",
+                        image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -465,7 +545,8 @@ describe('Commission Router', () => {
                         expect(commission).toHaveProperty('id', 1);
                         expect(commission).toHaveProperty('title', 'Doodle Art');
                         expect(commission).toHaveProperty('price', 100000);
-                        expect(commission).toHaveProperty('sample_img', 'https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg');
+                        expect(commission).toHaveProperty('description', 'Create Doodle art in just few hours');
+                        expect(commission).toHaveProperty('image_url', 'https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg');
                         expect(commission).toHaveProperty('category', '2D Art');
                     })
                     .end(err => {
@@ -488,7 +569,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "",
                         price: 100000,
-                        sample_img: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                        description: "Create Doodle art in just few hours",
+                        image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -516,7 +598,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Doodle Art",
                         price: '',
-                        sample_img: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                        description: "Create Doodle art in just few hours",
+                        image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -544,7 +627,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Doodle Art",
                         price: 'xxmcvi',
-                        sample_img: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                        description: "Create Doodle art in just few hours",
+                        image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -572,7 +656,7 @@ describe('Commission Router', () => {
                     .send({
                         title: "Doodle Art",
                         price: 100000,
-                        sample_img: "",
+                        image_url: "",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -581,7 +665,8 @@ describe('Commission Router', () => {
                     .expect(400)
                     .expect(res => {
                         let commission = res.body;
-                        expect(commission.error).toContain('Sample image is required, Invalid Url format');
+                        description: "Create Doodle art in just few hours",
+                        expect(commission.error).toMatch('Sample image is required');
                     })
                     .end(err => {
                         if(err) done(err);
@@ -600,7 +685,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Doodle Art",
                         price: 100000,
-                        sample_img: "doodle jpg",
+                        description: "Create Doodle art in just few hours",
+                        image_url: "doodle jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -628,7 +714,8 @@ describe('Commission Router', () => {
                     .send({
                         title: "Doodle Art",
                         price: 100000,
-                        sample_img: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                        description: "Create Doodle art in just few hours",
+                        image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
                         category: ""
                     })
                     .set('Accept', 'application/json')
@@ -638,6 +725,35 @@ describe('Commission Router', () => {
                     .expect(res => {
                         let commission = res.body;
                         expect(commission.error).toContain('Category is required');
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    }) 
+            })
+
+            test('should return status 400 because description is empty', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .put('/commissions/1')
+                    .send({
+                        title: "Doodle Art",
+                        price: 100000,
+                        description: "",
+                        image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                        category: "2D Art"
+                    })
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .expect(res => {
+                        let commission = res.body;
+                        expect(commission.error).toContain('Description is required');
                     })
                     .end(err => {
                         if(err) done(err);
@@ -656,7 +772,7 @@ describe('Commission Router', () => {
                     .send({
                         title: "Doodle Art",
                         price: 100000,
-                        sample_img: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                        image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
                         category: ""
                     })
                     .set('Accept', 'application/json')
@@ -706,7 +822,7 @@ describe('Commission Router', () => {
                     .send({
                         title: "Doodle Art",
                         price: 100000,
-                        sample_img: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                        image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -734,7 +850,7 @@ describe('Commission Router', () => {
                     .send({
                         title: "Doodle Art",
                         price: 100000,
-                        sample_img: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                        image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -833,7 +949,7 @@ describe('Commission Router', () => {
                     .send({
                         title: "Doodle Art",
                         price: 100000,
-                        sample_img: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                        image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')
@@ -861,7 +977,7 @@ describe('Commission Router', () => {
                     .send({
                         title: "Doodle Art",
                         price: 100000,
-                        sample_img: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                        image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
                         category: "2D Art"
                     })
                     .set('Accept', 'application/json')

@@ -35,7 +35,7 @@ class UserController {
     //LOGIN USER ACCOUNT
     static login (req,res,next){
         User
-          .findOne({where: {username: req.body.username}})
+          .findOne({where: {username: req.body.username}, attributes: { include: ['password']}})
           .then(data => {
             if(data) {
               if(compare(req.body.password, data.password)){

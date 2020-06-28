@@ -5,7 +5,8 @@ const { progressAuthorization } = require('../middleware/authorization');
 
 router.use(authentication);
 router.post('/:id', ProgressController.createProject);
-router.get('/', ProgressController.showAllProgress);
+router.get('/client', ProgressController.showAllProgress);
+router.get('/artist', ProgressController.showAllActiveProjects);
 router.patch('/:id', progressAuthorization, ProgressController.editStatus);
 router.delete('/:id', progressAuthorization, ProgressController.deleteProject);
 

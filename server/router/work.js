@@ -3,9 +3,9 @@ const WorkController = require('../controllers/workController')
 const authentication = require('../middleware/authentication')
 const {workAuthorization} = require('../middleware/authorization')
 
-
-router.get('/all', WorkController.all)
+router.get('/all',WorkController.getAllWorks)
 router.get('/:id',WorkController.select)
+
 router.use(authentication)
 router.get('/', WorkController.mylist)
 router.post('/',WorkController.add)
