@@ -1,8 +1,19 @@
-const { Work } = require("../models");
+const { Work, User } = require("../models");
 
 class WorkController {
 
   //LIST WORKS
+  static all (req, res, next) {
+    console.log('kesini get all works')
+    Work.findAll()
+    .then(data => {
+      res.status(200).json(data)
+    })
+    .catch(err => {
+      next(err)
+    })
+  }
+
   static mylist(req, res, next) {
     console.log('my list',req.LoginId)
     Work.findAll({ where: { UserId: req.LoginId } })
@@ -33,11 +44,21 @@ class WorkController {
 
   //SELECT WORK
   static select(req, res, next) {
-    Work.findByPk(req.params.id)
+    Work.findOne({ where: {id: req.params.id}, include: [{
+      model: User, as: 'User'
+    }]})
       .then(data => {
         if(data) {
+          console.log(data)
+          
           res.status(200).json({
-              work: data
+            id: data.id,
+            image_url: data.image_url,
+            category: data.category,
+            UserId: data.UserId,
+            username: data.User.username,
+            story: data.story,
+            title: data.title  
           })
         } else {
             throw {
@@ -47,6 +68,7 @@ class WorkController {
         } 
       })
       .catch(err => {
+        console.log(err)
         next(err);
       });
   }

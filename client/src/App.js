@@ -10,6 +10,7 @@ import EditForm from './components/EditForm'
 import MainWork from './components/MainWork'
 import UserWork from './components/UserWork'
 import AddWork from './components/AddWork'
+import DetailWork from './components/DetailWork'
 function App() {
   return (
     <Router>
@@ -18,14 +19,17 @@ function App() {
       </div>
       <div className="content">
         <Switch>
-          <Route path="/works/user/:username">
-            <UserWork />
-          </Route>
           <Route path="/profile/edit/:username">
             <EditForm />
           </Route>
           <Route path="/profile/:username">
             <Profile />
+          </Route>
+          <Route path="/works/user/:username">
+            <UserWork />
+          </Route>
+          <Route path="/works/detail/:id">
+            <DetailWork />
           </Route>
           <Route path="/works/add">
             <AddWork />

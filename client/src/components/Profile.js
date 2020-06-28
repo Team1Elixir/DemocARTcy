@@ -18,6 +18,7 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getWorksData())
     dispatch(getProfileData(username))
+    console.log(worksdata)
   }, [])
   
   if(loading) return (

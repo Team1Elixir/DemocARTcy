@@ -3,9 +3,18 @@ import Axios from 'axios';
 
 export const FETCH_USERDATA = 'FETCH_USERDATA'
 export const FETCH_WORKSDATA = 'FETCH_WORKSDATA'
+export const FETCH_WORKS = 'FETCH_WORKS'
+export const FETCH_WORKDETAIL = 'FETCH_WORKDETAIL'
 export const FETCH_PROFILEDATA = 'FETCH_PROFILEDATA'
 export const LOADING = 'LOADING'
 export const ERROR = 'ERROR'
+
+export const fetchWorkDetail = (data) => {
+  return {
+    type: FETCH_WORKDETAIL,
+    payload: data
+  }
+}
 
 export const fetchUserData = (data) => {
   return {
@@ -17,6 +26,13 @@ export const fetchUserData = (data) => {
 export const fetchWorksData = (data) => {
   return {
     type: FETCH_WORKSDATA,
+    payload: data
+  }
+}
+
+export const fetchWorks = (data) => {
+  return {
+    type: FETCH_WORKS,
     payload: data
   }
 }
@@ -76,11 +92,43 @@ export const getProfileData = (username) => {
   }
 }
 
+export const getAllWorks = () => {
+  return (dispatch) => {
+    dispatch(loading(true))
+    server.get('/works/all')
+    .then(({data}) => {
+      dispatch(fetchWorks(data))
+    })
+    .catch(err => {
+      dispatch(error(err))
+    })
+    .finally(() => {
+      dispatch(loading(false))
+    })
+  }
+}
+
+export const getWorkDetail = (id) => {
+  return (dispatch) => {
+    server.get('/works/'+id)
+    .then(({data}) => {
+      console.log(data)
+      dispatch(fetchWorkDetail(data))
+    })
+    .catch(err => {
+      dispatch(error(err))
+    })
+    .finally(() => {
+      dispatch(loading(false))
+    })
+  }
+}
+
 export const getWorksData = () => {
   return (dispatch) => {
     console.log('getting works data')
     dispatch(loading(true))
-    Axios({method: 'GET', url: 'http://localhost:3000/works', headers: {token: localStorage.token}})
+    server.get('/works',{ headers: {token: localStorage.token}})
     .then(({data}) => {
       console.log('works data:' , data)
       dispatch(fetchWorksData(data))

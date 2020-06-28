@@ -82,13 +82,8 @@
 
 .work-profile-cards{
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-}
-
-.cards{
-  margin: 5px;
-  height: 300px;
-  width: 250px;
 }
 
 .img-card{
@@ -115,5 +110,17 @@
 
 .add-new{
   margin-left: 10px;
-  border-radius: 50px;
+  border-radius: 60px;
+  font-weight: bolder;
+}
+
+.cards{
+  margin: 5px;
+  height: 300px;
+  width: 250px;
+  color: black;
+}
+
+.cards:hover{
+  transform: scale(1.02);
 }
