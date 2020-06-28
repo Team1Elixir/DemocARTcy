@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "title": "Doodle Art",
+        "price": 110000,
+        "sample_img": "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+        "description": "Create Doodle art in just few hours",
+        "category": "2D Art",
+        "UserId": 1
+    },
+    {
+        "id": 2,
+        "title": "2D Animal Drawing",
+        "price": 80000,
+        "sample_img": "https://i.pinimg.com/originals/9f/56/bb/9f56bb4c8aae4a5863fdfada33a5f6bf.jpg",
+        "description": "2D Animal hand drawing, coloring available",
+        "category": "2D Art",
+        "UserId": 2
+    },
+    {
+        "id": 3,
+        "title": "3D Design using Blender",
+        "price": 300000,
+        "sample_img": "https://www.sharecg.com/images/medium/152251.jpg",
+        "description": "3D design of everything using blender",
+        "category": "3D",
+        "UserId": 2
+    }
+]
