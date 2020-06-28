@@ -30,7 +30,6 @@ class CommissionController{
                 })
             })
             .catch(err => {
-                console.log(err.message)
                 next(err);
             })
     }
