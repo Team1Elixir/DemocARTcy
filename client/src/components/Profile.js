@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getProfileData, getWorksData } from '../store/actions'
 import { useParams, Link } from 'react-router-dom'
 import WorkCard from './WorkCard'
+import server from '../api';
 
 const Profile = () => {
 
@@ -11,15 +12,17 @@ const Profile = () => {
   const user = useSelector((state) => state.profiledata)
   const error = useSelector((state) => state.error)
   const loading = useSelector((state) => state.loading)
-  console.log(worksdata)
   const dispatch = useDispatch()
   const {username} = useParams()
+  console.log(user)
 
   useEffect(() => {
-    dispatch(getWorksData())
     dispatch(getProfileData(username))
-    console.log(worksdata)
-  }, [])
+    server.get('/users/'+username)
+    .then(({data}) => {
+      dispatch(getWorksData(data.id))
+    })
+  }, [username])
   
   if(loading) return (
     <div className='profileContent'>
@@ -43,7 +46,14 @@ const Profile = () => {
           <p className='username'>@{user.username}</p>
           <p>{user.bio}</p>
         </div>
+      </div><br />
+      <div className='work-data'>
+        <br/><h5>Works</h5><br />
+        <div className='work-profile-cards'>
+          <WorkCard worksdata={worksdata} />
+        </div>
       </div>
+      <div style={{ height: 75}}></div>
     </div>
   );
 
@@ -67,7 +77,7 @@ const Profile = () => {
         </div>
       </div><br />
       <div className='work-data'>
-        <h5>Works</h5><br />
+        <br/><h5>Works</h5><br />
         <div className='work-profile-cards'>
           <WorkCard worksdata={worksdata} />
         </div>

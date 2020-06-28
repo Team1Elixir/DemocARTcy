@@ -24,14 +24,19 @@ const Navbar = () => {
     if(localStorage.username){
       dispatch(getUserData(username))
     }
-    if(location.pathname === '/works' || location.pathname === '/commissions') {
-      setColor('darkslategrey')
-      setFontcolor('white')
-    } else if(location.pathname === '/'){
+    if(location.pathname === '/'){
       setColor('')
       setFontcolor('blanchedalmond')
-    } else {
+    } else if(location.pathname === '/works' || location.pathname === '/commissions') {
+      setColor('darkslategrey')
+      setFontcolor('white')
+    }  else if(location.pathname === '/login' || location.pathname === '/register'){
+      setColor('darkslategrey')
+      setFontcolor('white')
+    }
+     else {
       setColor('#73CDD1')
+      setFontcolor('white')
     }
   },[location.pathname])
 
@@ -68,12 +73,12 @@ const Navbar = () => {
   else return(
     <div style={{background: color}} className='navbar navbar-light d-flex justify-content-between fixed-top'>
       <div>
-        <Link className='navbrand' to='/'>DEMOCARTCY</Link>
+        <Link style={{ color: fontcolor }} className='navbrand' to='/' >DEMOCARTCY</Link>
       </div>
       <div className='nav-item d-flex justify-content-center'>
-        <Link className='nav-link' to='/'>HOME</Link>
-        <Link className='nav-link' to='/works'>WORKS</Link>
-        <Link className='nav-link' to='/commissions'>COMMISSIONS</Link>
+        <Link style={{ color: fontcolor }} className='nav-link' to='/'>HOME</Link>
+        <Link style={{ color: fontcolor }} className='nav-link' to='/works'>WORKS</Link>
+        <Link style={{ color: fontcolor }} className='nav-link' to='/commissions'>COMMISSIONS</Link>
       </div>
       <Dropdown>
         <Dropdown.Toggle className='dropdown-button'>User</Dropdown.Toggle>

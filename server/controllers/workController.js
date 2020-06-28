@@ -5,7 +5,7 @@ class WorkController {
   //LIST WORKS
 
   static mylist(req, res, next) {
-    Work.findAll({ where: { UserId: req.LoginId }})
+    Work.findAll({ where: { UserId: +req.params.id }})
       .then(data => {
         res.status(200).json(
           data

@@ -33,7 +33,7 @@ export default function RegisterForm() {
   return (
     <div className='loginpage'>
         <div className='form-div'>
-          <div className='header'>
+          <div className='log-header'>
             <h2>Register Page</h2>
           </div>
           <div className='text-input'>

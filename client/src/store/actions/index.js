@@ -124,11 +124,11 @@ export const getWorkDetail = (id) => {
   }
 }
 
-export const getWorksData = () => {
+export const getWorksData = (id) => {
   return (dispatch) => {
     console.log('getting works data')
     dispatch(loading(true))
-    server.get('/works',{ headers: {token: localStorage.token}})
+    server.get('/works/user/'+id)
     .then(({data}) => {
       console.log('works data:' , data)
       dispatch(fetchWorksData(data))
