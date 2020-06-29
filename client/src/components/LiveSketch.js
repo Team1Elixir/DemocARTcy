@@ -1,18 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import Sketch from "react-p5";
 import styled from "styled-components";
+import "./LiveSketch.css";
 // import Sketch from "./sketch";
 
-const Container = styled.div`
-  height: 50%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
+// const Container = styled.div`
+
+// `;
 
 const Row = styled.div`
   display: flex;
@@ -21,12 +18,13 @@ const Row = styled.div`
 
 const Video = styled.video`
   border: 1px solid blue;
-  width: 50%;
+  width: 20%;
   height: 100%;
 `;
 
 function LiveSketch() {
   const location = useLocation();
+  const history = useHistory();
   const [yourID, setYourID] = useState("");
   const [room, setUserRoom] = useState(location.state.progressId);
   const [name, setUserName] = useState(localStorage.getItem("username"));
@@ -152,7 +150,7 @@ function LiveSketch() {
   if (receivingCall) {
     incomingCall = (
       <div>
-        <h1>{callerName} is calling you</h1>
+        <h5>{callerName} is calling you</h5>
         <button onClick={acceptCall}>Accept</button>
       </div>
     );
@@ -189,14 +187,17 @@ function LiveSketch() {
   const setup = (p5, canvasParentRef) => {
     socket.current = io("http://localhost:3000/");
     socket.current.emit("room", location.state.progressId);
-    p5.createCanvas(500, 500).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
-    p5.background(233, 233, 233);
-
     p5.removeBtn = p5.createButton("Save Canvas");
-    // p5.removeBtn.position(30, 200);
     p5.removeBtn.mousePressed(saveToFile);
+    p5.removeBtn.position(30, 200);
+
     p5.button = p5.createButton("Clear Canvas");
     p5.button.mousePressed(clearCanvas);
+
+    p5.exitBtn = p5.createButton("Exit");
+    p5.exitBtn.mousePressed(exitlive);
+    p5.createCanvas(500, 500).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
+    p5.background(233, 233, 233);
 
     socket.current.on("clear", () => {
       p5.clear();
@@ -217,14 +218,30 @@ function LiveSketch() {
       // Save the current canvas to file as png
       p5.saveCanvas("mycanvas", "png");
     }
+
+    function exitlive() {
+      socket.current.emit("exit", { name: name });
+      userVideo.current.srcObject
+        .getVideoTracks()
+        .forEach((track) => track.stop());
+
+      history.push("/progress-client");
+    }
   };
 
   return (
     <>
-      <div className="allcontainer">
-        <Container>
+      <div className="containerall">
+        {/* <div>
+          <Row></Row>
+        </div> */}
+        <div>
           <Row>
             {UserVideo}
+            {incomingCall}
+            <div>
+              <Sketch setup={setup} draw={mouseDragged} />
+            </div>
             {PartnerVideo}
           </Row>
           <Row>
@@ -241,11 +258,7 @@ function LiveSketch() {
               );
             })}
           </Row>
-          <Row>{incomingCall}</Row>
-          <div>
-            <Sketch setup={setup} draw={mouseDragged} />
-          </div>
-        </Container>
+        </div>
       </div>
     </>
   );

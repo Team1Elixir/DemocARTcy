@@ -58,8 +58,14 @@ io.on("connection", (socket) => {
     callback();
   });
 
+  socket.on("exit", (name) => {
+    removeUser(socket.id);
+    console.log("EXTTTTT");
+  });
+
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
+    console.log("DISCONNECTEDDDDDDDDD");
 
     if (user) {
       io.to(user.room).emit("message", {
@@ -94,7 +100,7 @@ io.on("connection", (socket) => {
     socket.broadcast.to(data.room).emit("clear");
   });
 
-  socket.on("disconnect", () => console.log("Client Canvass has disconnected"));
+  // socket.on("disconnect", () => console.log("Client Canvass has disconnected"));
 });
 
 module.exports = server;

@@ -20,6 +20,18 @@ const ProgressCard = ({ data }) => {
     console.log(dataForLiveSketch);
   };
 
+  const toLiveChat = () => {
+    const dataForLiveChat = {
+      progressId: id,
+      clientId: client.id,
+      clientUsername: client.username,
+      artistId: artist.id,
+      artistUsername: artist.username,
+    };
+
+    history.push("/chat/", dataForLiveChat);
+  };
+
   return (
     <div className="d-flex w-100 flex-column align-items-center mt-3">
       <div className="row w-100 progress-container d-flex align-items-center">
@@ -42,12 +54,20 @@ const ProgressCard = ({ data }) => {
         </div>
         <div className="col-3 d-flex justify-content-center">
           {status === "onProgress" && (
-            <div
-              className="progress-button w-50 text-center"
-              onClick={toLiveSketch}
-            >
-              <p className="mb-0">Live Sketch</p>
-            </div>
+            <>
+              <div
+                className="progress-button w-50 text-center"
+                onClick={toLiveSketch}
+              >
+                <p className="mb-0">Live Sketch</p>
+              </div>
+              <div
+                className="progress-button w-50 text-center"
+                onClick={toLiveChat}
+              >
+                <p className="mb-0">Chat</p>
+              </div>
+            </>
           )}
           {status === "Done" && <Payment price={price} email={client.email} />}
         </div>

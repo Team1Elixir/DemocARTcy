@@ -7,6 +7,7 @@ import Login from "./components/LoginForm";
 import Register from "./components/RegisterForm";
 import LiveSketch from "./components/LiveSketch.js";
 import Progress from "./components/Progress";
+import Chat from "./components/Chat/Chat";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           </Route>
           <Route path="/liveSketch">
             <LiveSketch />
+          </Route>
+          <Route path="/chat">
+            <Chat />
           </Route>
           <Route path="/login">
             <Login />
