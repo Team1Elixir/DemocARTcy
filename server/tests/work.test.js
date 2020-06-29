@@ -125,6 +125,43 @@ describe('Work Router', () => {
         });
     });
 
+    describe('Get all portofolio selected by user id', () => {
+        describe('Success', () => {
+            test('should status 200 with json containing all portofolio data', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .get('/works/user/1')
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .expect(res => {
+                        const { works } = res.body;
+                        expect(works).toEqual(
+                            expect.arrayContaining([
+                                expect.objectContaining({
+                                    id: 1,
+                                    title: "Doodle Art",
+                                    image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                                    description: "A random doodle art",
+                                    category: "2D Art",
+                                    UserId: 1
+                                })
+                            ])
+                        )
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    }) 
+            });
+        });
+    });
+
     describe('Get all portofolios', () => {
         describe('Success', () => {
             test('should status 200 with json containing all portofolio data', done => {

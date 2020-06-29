@@ -47,7 +47,7 @@ const Navbar = () => {
       </div>
       <div className='nav-item d-flex justify-content-center'>
         <Link style={{ color: fontcolor }} className='nav-link' to='/'>HOME</Link>
-        <Link style={{ color: fontcolor }} className='nav-link' to='/works'>WORKS</Link>
+        <Link style={{ color: fontcolor }} className='nav-link' to='/works'>PORTFOLIOS</Link>
         <Link style={{ color: fontcolor }} className='nav-link' to='/commissions'>COMMISSIONS</Link>
       </div>
       <Dropdown>
@@ -59,7 +59,7 @@ const Navbar = () => {
               <Dropdown.Header className='dropdown-border'>Account</Dropdown.Header>
               <Link className='link-drop' to={'/profile/'+username}>Profile</Link>
               <Dropdown.Header>Commission</Dropdown.Header>
-              <Link className='link-drop' to={'/works/user/'+username}>My Works</Link>
+              <Link className='link-drop' to={'/works/user/'+username}>My Portfolio</Link>
               <Link className='link-drop' to={'/commissions/user/'+username}>Commissions</Link>
               <Dropdown.Header>About Democartcy</Dropdown.Header>
               <Link className='link-drop' to='/'>About Us</Link>
@@ -76,7 +76,7 @@ const Navbar = () => {
       </div>
       <div className='nav-item d-flex justify-content-center'>
         <Link style={{ color: fontcolor }} className='nav-link' to='/'>HOME</Link>
-        <Link style={{ color: fontcolor }} className='nav-link' to='/works'>WORKS</Link>
+        <Link style={{ color: fontcolor }} className='nav-link' to='/works'>PORTFOLIOS</Link>
         <Link style={{ color: fontcolor }} className='nav-link' to='/commissions'>COMMISSIONS</Link>
       </div>
       <Dropdown>

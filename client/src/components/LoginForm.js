@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { useHistory, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getUserData } from '../store/actions'
+import { getUserData, loginUser } from '../store/actions'
 import '../assets/loginform.css'
 import sample from "../samples/Raelaveire/1592696790749.jpg";
 
@@ -12,6 +11,10 @@ export default function LoginForm() {
   const history = useHistory()
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    if(localStorage.token) history.push('/')
+  }, [])
+
   function login(event) {
     event.preventDefault()
     const payload = {
@@ -19,21 +22,19 @@ export default function LoginForm() {
       password,
     };
 
-    axios.post("http://localhost:3000/users/login", payload)
-      .then(({ data }) => {
-        console.log("login completed");
-        localStorage.setItem("token", data.token);
-        localStorage.setItem('username', username)
-        dispatch(getUserData(username))
-        history.push('/')
+    dispatch(loginUser(payload))
+      .then(() => {
+        history.push('/');
       })
-      .catch(console.log);
+      .catch(err => {
+        console.log(err.reponse);
+      })
   }
 
   return (
     <div className='loginpage'>
         <div className='form-div'>
-          <div className='header'>
+          <div className='log-header'>
             <h2>Login Page</h2>
           </div>
           <div className='text-input'>

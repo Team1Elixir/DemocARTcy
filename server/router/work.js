@@ -8,8 +8,8 @@ router.get('/user/:id',WorkController.getArtistWork)
 router.get('/:id',WorkController.select)
 
 router.use(authentication)
-router.get('/', WorkController.mylist)
 router.post('/',WorkController.add)
+router.get('/', WorkController.mylist)
 
 
 router.put('/:id',workAuthorization,WorkController.edit)

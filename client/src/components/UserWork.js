@@ -23,8 +23,8 @@ const UserWork = () => {
   return (
       <div style={{ marginTop: 100 }}>
         <div className='buttonpanel'>
-          <h2 style={{ textAlign: 'center' }}>My Works</h2>
-            <Link className='btn btn-primary add-new' to ='/works/add'>+ Add</Link>
+          <h2 style={{ textAlign: 'center' }}>My Portfolio</h2>
+            <Link className='btn btn-primary add-new' to ='/works/add'>+ Add Portfolio</Link>
         </div>
         <WorkCard worksdata={works} />
     </div>

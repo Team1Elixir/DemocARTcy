@@ -4,7 +4,6 @@ class WorkController {
 
   //LIST WORKS
   static mylist(req, res, next) {
-    console.log('kesini')
     Work.findAll({ where: { UserId: req.LoginId }, include: [User] })
       .then(data => {
         res.status(200).json({

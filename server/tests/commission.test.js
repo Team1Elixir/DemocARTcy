@@ -425,6 +425,44 @@ describe('Commission Router', () => {
         })
     })
 
+    describe('Gett all user commission selected by user id', () => {
+        describe('Success', () => {
+            test('should return status 200 with json contain all data of products', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .get('/commissions/user/1')
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .expect(res => {
+                        const { commissions } = res.body;
+                        expect(commissions).toEqual(
+                            expect.arrayContaining([
+                                expect.objectContaining({
+                                    id: 1,
+                                    title: "Doodle Art",
+                                    price: 110000,
+                                    description: "Create Doodle art in just few hours",
+                                    image_url: "https://image.freepik.com/free-vector/cute-monsters-collection-doodle-style_122297-15.jpg",
+                                    category: "2D Art",
+                                    UserId: 1
+                                })
+                            ])
+                        )
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    }) 
+            })
+        })
+    });
+
     describe('Get all commissions', () => {
         describe('Success', () => {
             test('should return status 200 with json contain all data of products', done => {

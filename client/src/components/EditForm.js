@@ -27,7 +27,7 @@ const EditForm = () => {
     event.preventDefault()
     axios({ 
       method: 'PUT',
-      url: 'http://localhost:3000/users/'+user.id, 
+      url: 'http://localhost:4000/users/'+user.id, 
       data: {
         name: name || user.name,
         email: email || user.email,
