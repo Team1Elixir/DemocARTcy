@@ -35,7 +35,7 @@ export default function AddCommission() {
     };
     console.log(data);
 
-    Axios.post("http://localhost:4000/commissions/add", data, {
+    Axios.post("http://localhost:4000/commissions/", data, {
       headers: {
         token: localStorage.token
       },

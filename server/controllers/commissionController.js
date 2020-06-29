@@ -22,14 +22,7 @@ class CommissionController{
             })
             .then(data => {
                 res.status(200).json({
-                    id: data.id,
-                    title: data.title,
-                    price: data.price,
-                    image_url: data.image_url,
-                    category: data.category,
-                    description: data.description,
-                    username: data.User.username,
-                    UserId: data.UserId
+                    commissions: data
                 })
             })
             .catch(err => {

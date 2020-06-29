@@ -14,8 +14,8 @@ export default function Card (props){
 
     let history = useHistory()
 
-    function detail(){
-        history.push('/register')
+    function detail() {
+        history.push('/commission/'+cardData.id)
     }
 
     return (

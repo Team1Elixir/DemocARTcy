@@ -9,7 +9,7 @@ const MainCommission = () => {
  
 
   useEffect(() => {
-    Axios.get('http://localhost:3000/commissions/', {
+    Axios.get('http://localhost:4000/commissions/all', {
       headers: {
         token: localStorage.token
       }
@@ -26,7 +26,6 @@ const MainCommission = () => {
   return (
     <div class="d-flex flex-wrap">
       {
-          // JSON.stringify(data)
         data.map((card) => {
           return <Card cardData={card}/>
         })
