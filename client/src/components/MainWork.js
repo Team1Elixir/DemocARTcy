@@ -13,7 +13,7 @@ const MainWork = () => {
       dispatch(getAllWorks())
   }, []);
 
-  if(loading) return (<div style={{ marginTop: 100 }}><h3>Loading.....</h3></div>)
+  if(loading) return (<div style={{ marginTop: 100, textAlign: 'center' }}><h3>Loading.....</h3></div>)
   return (
     <div style={{ marginTop: 100 }}>
       <WorkCard worksdata={works} />
