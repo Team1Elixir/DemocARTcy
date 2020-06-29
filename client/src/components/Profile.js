@@ -1,20 +1,27 @@
 import React, { useEffect } from 'react';
 import '../assets/profile.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProfileData } from '../store/actions'
+import { getProfileData, getUserCommissions,getUserWorks } from '../store/actions'
 import { useParams, Link } from 'react-router-dom'
+import WorkCard from './WorkCard'
 
 const Profile = () => {
+
   const user = useSelector((state) => state.profiledata)
+  const works = useSelector((state) => state.works)
+  const commissions = useSelector((state) => state.commissions)
   const error = useSelector((state) => state.error)
   const loading = useSelector((state) => state.loading)
-  console.log(user)
   const dispatch = useDispatch()
   const {username} = useParams()
+  console.log('works',works)
+  console.log('commissions', commissions)
 
   useEffect(() => {
     dispatch(getProfileData(username))
-  }, [])
+    dispatch(getUserWorks())
+    dispatch(getUserCommissions())
+  }, [username])
   
   if(loading) return (
     <div className='profileContent'>
@@ -38,11 +45,18 @@ const Profile = () => {
           <p className='username'>@{user.username}</p>
           <p>{user.bio}</p>
         </div>
+      </div><br />
+      <div className='work-data'>
+        <br/><h5>Works</h5><br />
+        <div className='work-profile-cards'>
+          {/* <WorkCard worksdata={worksdata} /> */}
+        </div>
       </div>
+      <div style={{ height: 75}}></div>
     </div>
   );
 
-  if(user.name && user.username == localStorage.username) return (
+  if(user.name && user.username === localStorage.username) return (
     <div className='profileContent'>
       <div className='profile-cover'>
         <img className='cover-img' alt='profile-cover' src={user.cover_url} />
@@ -53,18 +67,28 @@ const Profile = () => {
         </div>
         <div className='profile-biodata'>
           <h3>{user.name}</h3>
-          <Link to={'/profile/edit/'+user.username} className='editprofile btn btn-secondary'>Edit Profile</Link>
           <p className='username'>@{user.username}</p>
           <p>{user.bio}</p>
+          <a href={'https://'+user.website} className='user-website'>{user.website}</a>
+        </div>
+        <div className='edit-button'>
+          <Link to={'/profile/edit/'+user.username} className='editbtn btn btn-secondary'>Edit Profile</Link>
+        </div>
+      </div><br />
+      <div className='work-data'>
+        <br/><h5>Works</h5><br />
+        <div className='work-profile-cards'>
+          <WorkCard worksdata={works} />
         </div>
       </div>
+      <div style={{ height: 75}}></div>
     </div>
   )
 
   else if(error) return(
     <div className='profileContent'>
       <div className='error-msg'>
-        <h6>{error.message + ' : Not Found'}</h6>
+        {/* <h6>{error.message + ' : Not Found'}</h6> */}
       </div>
     </div>
   )

@@ -4,6 +4,7 @@ class WorkController {
 
   //LIST WORKS
   static mylist(req, res, next) {
+    console.log('kesini')
     Work.findAll({ where: { UserId: req.LoginId }, include: [User] })
       .then(data => {
         res.status(200).json({
@@ -15,17 +16,33 @@ class WorkController {
       });
   }
 
+  //GET ALL WORKS
+  static getAllWorks(req, res, next) {
+    Work.findAll({
+      include: [User]
+    })
+    .then(data => {
+      res.status(200).json({
+        works: data
+      })
+    })
+    .catch(err => {
+      next(err);
+    })
+  }
+
   //ADD WORK
   static add(req, res, next) {
-    let { image_url, title, story, category } = req.body;
+    let { image_url, title, description, category } = req.body;
 
-    Work.create({ image_url, title, story, category, UserId: req.LoginId })
+    Work.create({ image_url, title, description, category, UserId: req.LoginId })
       .then(data => {
         res.status(201).json({
           work: data,
         });
       })
       .catch(err => {
+        console.log(err.message)
         next(err);
       });
   }
@@ -52,10 +69,10 @@ class WorkController {
 
   //EDIT WORK
   static edit(req, res, next) {
-    let { image_url, title, story, category } = req.body;
+    let { image_url, title, description, category } = req.body;
 
     Work.update(
-      { image_url, title, story, category },
+      { image_url, title, description, category },
       { where: { id: req.params.id }, returning: true }
     )
       .then(data => {

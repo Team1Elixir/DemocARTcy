@@ -100,7 +100,7 @@ io.on("connection", (socket) => {
     socket.broadcast.to(data.room).emit("clear");
   });
 
-  // socket.on("disconnect", () => console.log("Client Canvass has disconnected"));
+  socket.on("disconnect", () => console.log("Client Canvas has disconnected"));
 });
 
 module.exports = server;

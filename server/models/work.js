@@ -36,17 +36,17 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    story: {
+    description: {
       type : DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: {
           args: true,
-          msg: 'Story is required'
+          msg: 'Description is required'
         },
         notEmpty: {
           args: true,
-          msg: 'Story is required'
+          msg: 'Description is required'
         }
       }
     },

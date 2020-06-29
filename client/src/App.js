@@ -8,6 +8,15 @@ import Register from "./components/RegisterForm";
 import LiveSketch from "./components/LiveSketch.js";
 import Progress from "./components/Progress";
 import Chat from "./components/Chat/Chat";
+import EditForm from './components/EditForm'
+import MainWork from './components/MainWork'
+import UserWork from './components/UserWork'
+import AddWork from './components/AddWork'
+import AddCommission from './components/AddCommission'
+import DetailWork from './components/DetailWork'
+import DetailCommission from './components/DetailCommission'
+import MainCommission from './components/MainCommission'
+import UserCommission from './components/UserCommission'
 
 function App() {
   return (
@@ -17,8 +26,35 @@ function App() {
       </div>
       <div className="content">
         <Switch>
+          <Route path="/profile/edit/:username">
+            <EditForm />
+          </Route>
           <Route path="/profile/:username">
             <Profile />
+          </Route>
+          <Route path="/works/user/:username">
+            <UserWork />
+          </Route>
+          <Route path="/commissions/user/:username">
+            <UserCommission />
+          </Route>
+          <Route path="/works/detail/:id">
+            <DetailWork />
+          </Route>
+          <Route path="/commissions/detail/:id">
+            <DetailCommission />
+          </Route>
+          <Route path="/works/add">
+            <AddWork />
+          </Route>
+          <Route path="/commissions/add">
+            <AddCommission />
+          </Route>
+          <Route path="/works">
+            <MainWork />
+          </Route>
+          <Route path="/commissions">
+            <MainCommission />
           </Route>
           <Route path="/liveSketch">
             <LiveSketch />

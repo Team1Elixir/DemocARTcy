@@ -16,20 +16,37 @@ class CommissionController{
             })
     }
 
+    //GET ALL COMMISSIONS
+    static getAllCommissions(req, res, next) {
+        Commission
+            .findAll({
+            include: [User]
+            })
+            .then(data => {
+            res.status(200).json({
+                commissions: data
+            })
+            })
+            .catch(err => {
+              next(err);
+            })
+      }
+
 
     //ADD COMMISSION
     static add (req,res,next){
 
-        let { title, price, sample_img, category, description } = req.body
+        let { title, price, image_url, category, description } = req.body
 
         Commission
-            .create({ title, price, sample_img, category, description, UserId: req.LoginId })
+            .create({ title, price, image_url, category, description, UserId: req.LoginId })
             .then(data => {
                 res.status(201).json({
                     commission: data
                 })
             })
             .catch(err => {
+                console.log(err.message)
                 next(err);
             })
     }
@@ -59,10 +76,10 @@ class CommissionController{
 
     //EDIT COMMISSION
     static edit (req,res,next){
-        let { title, price, sample_img, category, description } = req.body
+        let { title, price, image_url, category, description } = req.body
 
         Commission
-            .update({ title, price, sample_img, category, description}, {where: { id: req.params.id }, returning: true})
+            .update({ title, price, image_url, category, description}, {where: { id: req.params.id }, returning: true})
             .then(data => {
                 res.status(200).json({
                     commission: data[1][0]
@@ -87,7 +104,6 @@ class CommissionController{
             .catch(err => {
                 next(err);
             })
-
     }
 }
 
