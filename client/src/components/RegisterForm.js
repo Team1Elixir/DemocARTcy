@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
 import { useHistory, Link } from 'react-router-dom'
 
 import sample from "../samples/Raelaveire/1592696790749.jpg";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../store/actions";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const history = useHistory()
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   function register(event) {
     event.preventDefault()
 
@@ -18,16 +21,12 @@ export default function RegisterForm() {
       password,
     };
 
-    Axios.post("http://localhost:4000/users/register", data)
-      .then(({ data }) => {
-        console.log("register completed");
-        history.push('/login')
-      })
-      .catch(console.log);
+    dispatch(registerUser(data));
+    history.push('/login'); 
   }
 
   useEffect(() => {
-    if(localStorage.token) history.push('/')
+    if(localStorage.token) history.push('/');
   }, [])
 
   return (

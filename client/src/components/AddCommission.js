@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import { storage } from '../firebase';
+import { useDispatch } from "react-redux";
+import { addCommission } from "../store/actions";
 
 export default function AddCommission() {
   const [title, setTitle] = useState("");
@@ -9,7 +10,7 @@ export default function AddCommission() {
   const [price, setPrice] = useState("");
   const [description, setDescription] =useState('')
   const [category, setCategory] = useState("");
-
+  const dispatch = useDispatch();
   const history = useHistory()
 
   const center = {
@@ -23,9 +24,7 @@ export default function AddCommission() {
     maxHeight: 200,
   };
 
-
-
-  function addNew() {
+  function addNewCommission() {
     const data = {
       title,
       image_url,
@@ -33,20 +32,14 @@ export default function AddCommission() {
       category,
       description
     };
-    console.log(data);
 
-    Axios.post("http://localhost:4000/commissions/", data, {
-      headers: {
-        token: localStorage.token
-      },
-    })
-      .then(({ data }) => {
-        console.log("add commission completed");
-        history.push('/commissions')
-      })
-      .catch(err => {
-        console.log(err.response.data)
-      });
+    dispatch(addCommission(data))
+      // .then(() => {
+        history.push('/')
+      // })
+      // .catch(err => {
+      //   console.log(err.response);
+      // })
   }
 
   const setUploadedImage = (event) => {
@@ -139,7 +132,7 @@ export default function AddCommission() {
           <button
             type="button"
             class="btn btn-primary btn-lg btn-block"
-            onClick={addNew}
+            onClick={addNewCommission}
           >
             Add Commission
           </button>

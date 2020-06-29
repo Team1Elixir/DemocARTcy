@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import { storage } from '../firebase';
+import { useDispatch } from "react-redux";
+import { addPortofolio } from "../store/actions";
 
 export default function AddWork() {
   const [title, setTitle] = useState("");
   const [image_url, setImage_url] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-
-  let history = useHistory();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const center = {
     display: "block",
@@ -29,20 +30,14 @@ export default function AddWork() {
       image_url,
       category,
     };
-    console.log(data);
 
-    Axios.post("http://localhost:4000/works/", data, {
-      headers: {
-        token: localStorage.getItem("token"),
-      },
-    })
-      .then(({ data }) => {
-        console.log("add work completed");
-        history.push("/works");
+    dispatch(addPortofolio(data))
+      .then(() => {
+        history.push('/')
       })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+      .catch(err => {
+        console.log(err.response);
+      })
   }
 
   const setImageForUpload = (event) => {
@@ -89,7 +84,7 @@ export default function AddWork() {
             onChange={setImageForUpload}
           />
           </div>
-          <img src={image_url} style={center}></img>
+          <img src={image_url} style={center} alt=""></img>
           <br/>
 
           <div class="input-group-prepend">

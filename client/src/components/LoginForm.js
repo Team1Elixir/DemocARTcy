@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getUserData } from '../store/actions'
+import { getUserData, loginUser } from '../store/actions'
 import '../assets/loginform.css'
 import sample from "../samples/Raelaveire/1592696790749.jpg";
 
@@ -23,17 +23,13 @@ export default function LoginForm() {
       password,
     };
 
-    axios.post("http://localhost:4000/users/login", payload)
-      .then(({ data }) => {
-        console.log("login completed");
-        localStorage.setItem("token", data.token);
-        localStorage.setItem('username', username)
-        dispatch(getUserData(username))
-        history.push('/')
+    dispatch(loginUser(payload))
+      .then(() => {
+        history.push('/');
       })
       .catch(err => {
-        console.log(err.response.data)
-      });
+        console.log(err.reponse);
+      })
   }
 
   return (

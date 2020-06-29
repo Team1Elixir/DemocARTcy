@@ -249,3 +249,80 @@ export const getProgressClient = () => {
     })
   }
 }
+
+export const registerUser = (payload) => {
+  return (dispatch) => {
+    dispatch(loading(true));
+    server.post('/users/register', payload)
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch(err => {
+        dispatch(error(err));
+      })
+      .finally(() => {
+        dispatch(loading(false));
+      })
+  }
+}
+
+export const loginUser = (payload) => {
+  return (dispatch) => {
+    dispatch(loading(true));
+    return server.post('/users/login', payload)
+      .then(({ data }) => {
+        const { token, username } = data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
+      })
+      .catch(err => {
+        dispatch(error(err));
+      })
+      .finally(() => {
+        dispatch(loading(false));
+      })
+  }
+}
+
+export const addPortofolio = (payload) => {
+  const { token } = localStorage;
+  return (dispatch) => {
+    dispatch(loading(true));
+    return server.post('/works/', payload, {
+      headers: {
+        token
+      }
+    })
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err.response.data.error);
+        dispatch(error(err));
+      })
+      .finally(() => {
+        dispatch(loading(false));
+      })
+  }
+}
+
+export const addCommission = (payload) => {
+  const { token } = localStorage;
+  return (dispatch) => {
+    dispatch(loading(true));
+    return server.post('/commissions/', payload, {
+      headers: {
+        token
+      }
+    })
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch(err => {
+        dispatch(error(err));
+      })
+      .finally(() => {
+        dispatch(loading(false));
+      })
+  }
+}
