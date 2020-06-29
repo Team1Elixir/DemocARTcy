@@ -7,7 +7,7 @@ const MainWork = () => {
   const dispatch = useDispatch()
   useEffect(() => {
       dispatch(getAllWorks())
-  }, []);
+  }, [dispatch]);
   return (
     <div style={{ marginTop: 100 }}>
       <WorkCard worksdata={worksdata} />

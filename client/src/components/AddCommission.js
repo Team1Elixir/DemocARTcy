@@ -12,15 +12,18 @@ export default function AddCommission() {
 
   const history = useHistory()
 
-  const center= {
-    display: 'block',
-    marginleft: 'auto',
-    marginright: 'auto',
-    width: '100%',
-    height: '100%',
-    maxWidth: 550,
-    maxHeight: 150
-  }
+  const center = {
+    display: "block",
+    marginTop: 50,
+    marginleft: "auto",
+    marginright: "auto",
+    width: "100%",
+    height: "100%",
+    maxWidth: 200,
+    maxHeight: 200,
+  };
+
+
 
   function addNew() {
     const data = {
@@ -39,7 +42,7 @@ export default function AddCommission() {
     })
       .then(({ data }) => {
         console.log("add commission completed");
-        history.push('/login')
+        history.push('/commissions')
       })
       .catch(err => {
         console.log(err.response.data)
@@ -59,37 +62,42 @@ export default function AddCommission() {
   return (
     <div class="container ">
       <div class="row justify-content-md-center">
-        <div class="col col-lg-3"></div>
+        <div class="col col-lg-3">
+
+        </div>
         <div class="col-6 ">
-          <h1 class="text-center">Add Commission</h1>
-          <img src={image_url} style={center} alt="uploaded_image" width="100%"/>
+          <h1 class="text-center"  style={{marginTop: 50}}>Add Commission</h1>
+          
           <div class="input-group-prepend">
             {" "}
-            <span class="input-group-text">Title</span>
-          </div>
-          <input
+            <span style={{fontSize: 22, marginRight: 80}}>Title</span>
+            <input
             type="text"
             className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             onChange={(event) => setTitle(event.target.value)}
           />
+          </div>
+          <br/>
 
           <div class="input-group-prepend">
             {" "}
-            <span class="input-group-text">Image Url</span>
-          </div>
-          <input
+            <span style={{fontSize: 22, marginRight: 32}}>ImageUrl</span>
+            <input
             type="file"
             className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             onChange={setUploadedImage}
           />
+          </div>
+          <img src={image_url} style={center} alt="imageUpload"></img>
+          <br/>
 
           <div class="input-group-prepend">
             {" "}
-            <span class="input-group-text">Decription</span>
+            <span style={{fontSize: 22, marginRight: 10}}>Decription</span>
           </div>
           <textarea
             type="text"
@@ -98,10 +106,12 @@ export default function AddCommission() {
             aria-describedby="inputGroup-sizing-default"
             onChange={(event) => setDescription(event.target.value)}
           />
+          <br/>
+
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text">Min Price</span>
-              <span class="input-group-text">Rp.</span>
+              <span style={{fontSize: 22, marginRight: 10}}>Price</span>
+              <span style={{fontSize: 22, marginRight: 40}}>Rp.</span>
             </div>
             <input
               type="text"
@@ -113,9 +123,8 @@ export default function AddCommission() {
 
           <div class="input-group-prepend">
             {" "}
-            <span class="input-group-text">Category</span>
-          </div>
-          <select
+            <span style={{fontSize: 22, marginRight: 40}}>Category</span>
+            <select
             name="category"
             class="form-control"
             onChange={(event) => setCategory(event.target.value)}
@@ -124,12 +133,15 @@ export default function AddCommission() {
             <option>2D Art</option>
             <option>3D Art</option>
           </select>
+          </div>
+          <br/>
+         
           <button
             type="button"
             class="btn btn-primary btn-lg btn-block"
             onClick={addNew}
           >
-            Add Work
+            Add Commission
           </button>
         </div>
         <div class="col col-lg-3"></div>

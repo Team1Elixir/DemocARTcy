@@ -10,6 +10,7 @@ import DetailCommission from './components/DetailCommission'
 import DetailWork from './components/DetailWork'
 import EditForm from './components/EditForm'
 import MainWork from './components/MainWork'
+import MainCommission from './components/MainCommission'
 import UserWork from './components/UserWork'
 import AddWork from './components/AddWork'
 import AddCommission from './components/AddCommission'
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route path="/works">
             <MainWork />
+          </Route>
+          <Route path="/commissions">
+            <MainCommission />
           </Route>
           <Route path="/login">
             <Login />

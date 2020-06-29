@@ -31,7 +31,9 @@ export default function LoginForm() {
         dispatch(getUserData(username))
         history.push('/')
       })
-      .catch(console.log);
+      .catch(err => {
+        console.log(err.response.data)
+      });
   }
 
   return (
