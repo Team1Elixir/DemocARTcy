@@ -16,6 +16,25 @@ class CommissionController{
             })
     }
 
+    static getArtistCommission (req, res, next) {
+        const { id } = req.params;
+
+        Commission
+            .findAll({
+                where: {
+                    UserId: id
+                }
+            })
+            .then(data => {
+                res.status(200).json({
+                    commissions: data
+                })
+            })
+            .catch(err => {
+                next(err);
+            })
+    }
+
     //GET ALL COMMISSIONS
     static getAllCommissions(req, res, next) {
         Commission
