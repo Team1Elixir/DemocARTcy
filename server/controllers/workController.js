@@ -16,6 +16,25 @@ class WorkController {
       });
   }
 
+  static getArtistWork (req, res, next) {
+    const UserId = req.params.id;
+
+    Work
+      .findAll({
+        where: {
+          UserId
+        }
+      })
+      .then(data => {
+        res.status(200).json({
+          works: data
+        })
+      })
+      .catch(err => {
+        next(err);
+      });
+  }
+
   //GET ALL WORKS
   static getAllWorks(req, res, next) {
     Work.findAll({

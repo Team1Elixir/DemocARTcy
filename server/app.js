@@ -8,7 +8,7 @@ const http = require("http");
 const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
-const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
+const { addUser, removeUser, getUser, getUsersInRoom } = require("./liveUser.js");
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -100,7 +100,7 @@ io.on("connection", (socket) => {
     socket.broadcast.to(data.room).emit("clear");
   });
 
-  socket.on("disconnect", () => console.log("Client Canvas has disconnected"));
+  // socket.on("disconnect", () => console.log("Client Canvass has disconnected"));
 });
 
 module.exports = server;
