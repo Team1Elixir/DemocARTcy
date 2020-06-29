@@ -15,6 +15,7 @@ afterAll((done) => {
 
 beforeEach((done) => {
     socket = io.connect("http://localhost:4000");
+    socket2 = io.connect("http://localhost:4000");
     socket.on('connect', () => {
       done();
     });
@@ -32,12 +33,12 @@ describe('Live Sketch Test', () => {
     describe('Mouse Event', () => {
         test('should return mouse coordinate', done  => {
 
-            socket.current.on('mouse', data => {
-                expect(data).toBe(data);
-                // expect(data).toHaveProperty('x');
-                // expect(data).toHaveProperty('y');
-                // expect(data).toHaveProperty('px');
-                // expect(data).toHaveProperty('py');
+            socket2.on('mouse', data => {
+                // expect(data).toBe(data);
+                expect(data).toHaveProperty('x');
+                expect(data).toHaveProperty('y');
+                expect(data).toHaveProperty('px');
+                expect(data).toHaveProperty('py');
                 done();
             });
         });

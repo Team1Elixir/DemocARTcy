@@ -56,7 +56,7 @@ function App() {
           <Route path="/commissions">
             <MainCommission />
           </Route>
-          <Route path="/liveSketch">
+          <Route path="/livesketch">
             <LiveSketch />
           </Route>
           <Route path="/chat">

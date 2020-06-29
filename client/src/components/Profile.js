@@ -29,7 +29,36 @@ const Profile = () => {
       </div>
     </div>
   )
-  
+  if(!localStorage.token) {
+    return (
+          <div className='profileContent'>
+      <div className='profile-cover'>
+        <img className='cover-img' alt='profile-cover' src={user.cover_url} />
+      </div>
+      <div className='profile-data'>
+        <div className='profile-img'>
+          <img className='user-img' src={user.profile_url} alt={user.name} />
+        </div>
+        <div className='profile-biodata'>
+          <h3>{user.name}</h3>
+          <p className='username'>@{user.username}</p>
+          <p>{user.bio}</p>
+        </div>
+      </div><br />
+      <div className='work-data'>
+        <br/><h5>Works</h5><br />
+        { 
+          <WorkCard worksdata={works} />
+        }
+      </div>
+      <div className='work-data'>
+        <br/><h5>Commissions</h5><br />
+          <CommissionCard commissionsdata={commissions} />
+      </div>
+      <div style={{ height: 75}}></div>
+    </div>
+    )
+  }
   if(user.name && user.username !== localStorage.username) return (
     <div className='profileContent'>
       <div className='profile-cover'>
@@ -47,9 +76,9 @@ const Profile = () => {
       </div><br />
       <div className='work-data'>
         <br/><h5>Works</h5><br />
-        
+        { 
           <WorkCard worksdata={works} />
-        
+        }
       </div>
       <div className='work-data'>
         <br/><h5>Commissions</h5><br />
@@ -76,6 +105,7 @@ const Profile = () => {
         </div>
         <div className='edit-button'>
           <Link to={'/profile/edit/'+user.username} className='editbtn btn btn-secondary'>Edit Profile</Link>
+          <Link to='/progress-client' className='editbtn btn btn-secondary'>My Progress</Link>
         </div>
       </div><br />
       <div className='work-data'>

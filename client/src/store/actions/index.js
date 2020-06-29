@@ -1,14 +1,13 @@
 import server from '../../api';
-
 export const FETCH_USERDATA = 'FETCH_USERDATA'
 export const FETCH_PROFILEDATA = 'FETCH_PROFILEDATA'
 export const FETCH_WORKS = 'FETCH_WORKS'
 export const FETCH_COMMISSIONS = 'FETCH_COMMISSIONS'
 export const FETCH_WORK_DETAIL = 'FETCH_WORK_DETAIL'
 export const FETCH_COMMISSION_DETAIL = 'FETCH_COMMISSION_DETAIL'
+export const FETCH_PROGRESSCLIENT = 'FETCH_PROGRESSCLIENT'
 export const LOADING = 'LOADING'
 export const ERROR = 'ERROR'
-
 export const fetchUserData = (data) => {
   return {
     type: FETCH_USERDATA,
@@ -79,6 +78,13 @@ export const error = (data) => {
   }
 }
 
+export const fetchProgressClient = (data) => {
+  return {
+    type: FETCH_PROGRESSCLIENT,
+    payload: data
+  }
+}
+
 export const getUserData = (username) => {
   return (dispatch) => {
     console.log('getting user data...')
@@ -88,7 +94,7 @@ export const getUserData = (username) => {
       dispatch(fetchUserData(data))
     })
     .catch(err => {
-      dispatch(error(err))
+      dispatch(error(err.response.data.error))
     })
     .finally(() => {
       dispatch(loading(false))
@@ -106,7 +112,7 @@ export const getProfileData = (username) => {
       localStorage.setItem('profileId', data.id)
     })
     .catch(err => {
-      dispatch(error(err))
+      dispatch(error(err.response.data.error))
     })
     .finally(() => {
       dispatch(loading(false))
@@ -123,7 +129,7 @@ export const getAllWorks = () => {
       dispatch(fetchWorks(data.works))
     })
     .catch(err => {
-      dispatch(error(err))
+      dispatch(error(err.response.data.error))
     })
     .finally(() => {
       dispatch(loading(false))
@@ -139,7 +145,7 @@ export const getAllCommissions = () => {
       console.log(data.commissions)
       dispatch(fetchCommissions(data.commissions))
     })
-    .catch(err => console.log(err))
+    .catch(err => dispatch(error(err.response.data.error)))
     .finally(() => {
       dispatch(loading(false))
     })
@@ -154,7 +160,7 @@ export const getWorkDetail = (id) => {
       dispatch(fetchWorkDetail(data.work))
     })
     .catch(err => {
-      dispatch(error(err))
+      dispatch(error(err.response.data.error))
     })
     .finally(() => {
       dispatch(loading(false))
@@ -166,11 +172,11 @@ export const getCommissionDetail = (id) => {
   return (dispatch) => {
     server.get('/commissions/'+id)
     .then(({data}) => {
-      console.log(data)
+      console.log(data);
       dispatch(fetchCommissionDetail(data.commission))
     })
     .catch(err => {
-      dispatch(error(err))
+      dispatch(error(err.response.data.error))
     })
     .finally(() => {
       dispatch(loading(false))
@@ -185,7 +191,7 @@ export const getUserWorks = () => {
     .then(({data}) => {
       dispatch(fetchWorks(data.works))
     })
-    .catch(err => dispatch(error(err)))
+    .catch(err => dispatch(error(err.response.data.error)))
     .finally(() => dispatch(loading(false)))
   }
 }
@@ -197,7 +203,7 @@ export const getUserCommissions = () => {
     .then(({data}) => {
       dispatch(fetchCommissions(data.commissions))
     })
-    .catch(err => dispatch(error(err)))
+    .catch(err => dispatch(error(err.response.data.error)))
     .finally(() => dispatch(loading(false)))
   }
 }
@@ -209,7 +215,7 @@ export const getProfileWorks = (id) => {
     .then(({data}) => {
       dispatch(fetchUserWorks(data.works))
     })
-    .catch(err => dispatch(error(err)))
+    .catch(err => dispatch(error(err.response.data.error)))
     .finally(() => dispatch(loading(false)))
   }
 }
@@ -221,7 +227,135 @@ export const getProfileCommissions = (id) => {
     .then(({data}) => {
       dispatch(fetchUserCommissions(data.commissions))
     })
-    .catch(err => dispatch(error(err)))
+    .catch(err => dispatch(error(err.response.data.error)))
     .finally(() => dispatch(loading(false)))
+  }
+}
+
+export const registerUser = (payload) => {
+  return (dispatch) => {
+    dispatch(loading(true));
+    server.post('/users/register', payload)
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err.response.data.error);
+        dispatch(error(err.response.data.error));
+      })
+      .finally(() => {
+        dispatch(loading(false));
+      })
+  }
+}
+
+export const loginUser = (payload) => {
+  return (dispatch) => {
+    dispatch(loading(true));
+    return server.post('/users/login', payload)
+      .then(({ data }) => {
+        const { token, username } = data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
+      })
+      .catch(err => {
+        dispatch(error(err.response.data.error));
+      })
+      .finally(() => {
+        dispatch(loading(false));
+      })
+  }
+}
+
+export const addPortofolio = (payload) => {
+  const { token } = localStorage;
+  return (dispatch) => {
+    dispatch(loading(true));
+    return server.post('/works/', payload, {
+      headers: {
+        token
+      }
+    })
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err.response.data.error);
+        dispatch(error(err.response.data.error));
+      })
+      .finally(() => {
+        dispatch(loading(false));
+      })
+  }
+}
+
+export const addCommission = (payload) => {
+  const { token } = localStorage;
+  return (dispatch) => {
+    dispatch(loading(true));
+    return server.post('/commissions/', payload, {
+      headers: {
+        token
+      }
+    })
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch(err => {
+        dispatch(error(err.response.data.error));
+      })
+      .finally(() => {
+        dispatch(loading(false));
+      })
+  }
+}
+
+export const newProject = (payload) => {
+  const { token } = localStorage;
+  const { title, price, id } = payload;
+  return (dispatch) => {
+    dispatch(loading(true))
+    return server.post('/progresses/'+id, {
+      title,
+      price
+    }, {
+      headers: {
+        token
+      }
+    })
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err.response)
+        dispatch(error(err.response.data.error));
+      })
+      .finally(() => {
+        dispatch(loading(false));
+      })
+  }
+}
+
+export const getProgressClient = () => {
+  const { token } = localStorage;
+  return (dispatch) => {
+    dispatch(loading(true))
+    server.get('/progresses/client', {
+      headers: {
+        token
+      }
+    })
+    .then(({ data }) => {
+      const { projects } = data;
+      dispatch(fetchProgressClient(projects))
+      console.log(projects);
+    })
+    .catch(err => {
+      console.log(err.response)
+      dispatch(error(err.response.data.error));
+    })
+    .finally(() => {
+      dispatch(loading(false));
+    })
   }
 }

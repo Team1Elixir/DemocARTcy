@@ -1,75 +1,61 @@
 import React, { useEffect } from 'react';
 import './DetailCommission.css';
-import { useParams, Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux';
-import { getCommissionDetail } from '../store/actions'
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
+import { getCommissionDetail, newProject } from '../store/actions';
+import accounting from 'accounting-js'
 
 const DetailCommission = () => {
-  const { id } = useParams()
-  const commission = useSelector((state) => state.commission)
-  const loading = useSelector((state) => state.loading)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const history = useHistory();
+  const commission = useSelector(state => state.commission);
+
   useEffect(() => {
     dispatch(getCommissionDetail(+id))
-  console.log(commission)
-  }, []);
-  if (loading) return (
-    <div className='profileContent'>
-      <div className='error-msg'>
-        <h6>loading..</h6>
-      </div>
-    </div>
-  )
-  if (commission.User.username !== localStorage.username) return (
-    <div style={{marginTop: 60}} className="container-fluid d-flex flex-column align-items-center pr-3 pl-3">
+  }, [dispatch, id])
+
+  const createProject = () => {
+    const { title, price, UserId } = commission;
+    dispatch(newProject({
+      id: UserId,
+      title,
+      price
+    }))
+      .then(() => {
+        history.push('/progress-client');
+      })
+  }
+
+  return (
+    <div className="container-fluid d-flex flex-column align-items-center pr-3 pl-3 mb-3" style={{ marginTop: 75 }}>
       <div className="w-100 d-flex justify-content-center row">
-        <div className="col-6">
+        <div className="col-6 text-center">
           <img
             src={commission.image_url}
             width="80%"
             alt={commission.title}
+            className="com-image"
           ></img>
         </div>
         <div className="col-6 com-detail d-flex flex-column align-items-center justify-content-around p-3">
           <p className="com-title">{commission.title}</p>
-          <p className="com-price">{commission.price}</p>
-          <h3 className="text-left"><span class="badge badge-info p-2 com-category">{commission.category}</span></h3>
-          <div className="apply-button">
-            <p className="mb-0">Apply for Commission</p>
-          </div>
+          <p className="com-price">{accounting.formatMoney(commission.price, { symbol: 'Rp ', precision: 2, thousand: '.', decimal: ',' })}</p>
+          <h3 className="text-left"><span className="badge badge-info p-2 com-category">{commission.category}</span></h3>
+          {
+            commission.User.username !== localStorage.username &&
+            <div className="apply-button">
+              <p className="mb-0" onClick={createProject}>Apply for Commission</p>
+            </div>
+          }
         </div>
       </div>
-      <div className="com-desc mt-3">
-        <p className="com-desc-text">
-          {commission.description}
-        </p>
+      <div className="com-desc mt-3 d-flex flex-column align-items-center p-3">
+        <h4>Description</h4>
+        <p className="com-desc-text mb-0">{commission.description}</p>
       </div>
     </div>
   );
-
-  else return (
-    <div style={{marginTop: 60}} className="container-fluid d-flex flex-column align-items-center pr-3 pl-3">
-      <div className="w-100 d-flex justify-content-center row">
-        <div className="col-6">
-          <img
-            src={commission.image_url}
-            width="80%"
-            alt={commission.title}
-          ></img>
-        </div>
-        <div className="col-6 com-detail d-flex flex-column align-items-center justify-content-around p-3">
-          <p className="com-title">{commission.title}</p>
-          <p className="com-price">{commission.price}</p>
-          <h3 className="text-left"><span class="badge badge-info p-2 com-category">{commission.category}</span></h3>
-        </div>
-      </div>
-      <div className="com-desc mt-3">
-        <p className="com-desc-text">
-          {commission.description}
-        </p>
-      </div>
-    </div>
-  )
 }
 
 export default DetailCommission;

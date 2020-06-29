@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "@zoomus/websdk": "^1.7.8",
+    "accounting-js": "^1.1.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "firebase": "^7.15.5",
@@ -25,7 +26,8 @@
     "redux-thunk": "^2.3.0",
     "simple-peer": "^9.7.2",
     "socket.io-client": "^2.3.0",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "sweetalert2": "^9.15.2"
   },
   "scripts": {
     "start": "react-scripts start",
