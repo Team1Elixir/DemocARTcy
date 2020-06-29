@@ -47,15 +47,13 @@ const Profile = () => {
       </div><br />
       <div className='work-data'>
         <br/><h5>Works</h5><br />
-        <div className='work-profile-cards'>
+        
           <WorkCard worksdata={works} />
-        </div>
+        
       </div>
       <div className='work-data'>
         <br/><h5>Commissions</h5><br />
-        <div className='work-profile-cards'>
           <CommissionCard commissionsdata={commissions} />
-        </div>
       </div>
       <div style={{ height: 75}}></div>
     </div>
@@ -82,15 +80,11 @@ const Profile = () => {
       </div><br />
       <div className='work-data'>
         <br/><h5>Works</h5><br />
-        <div className='work-profile-cards'>
           <WorkCard worksdata={works} />
-        </div>
       </div>
       <div className='work-data'>
         <br/><h5>Commissions</h5><br />
-        <div className='work-profile-cards'>
           <CommissionCard commissionsdata={commissions} />
-        </div>
       </div>
       <div style={{ height: 75}}></div>
     </div>

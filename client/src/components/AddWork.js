@@ -43,8 +43,8 @@ export default function AddWork (){
     return(
         <div class="container ">
       <div class="row justify-content-md-center">
-        <div class="col col-lg-3"></div>
-        <div class="col-6  ">
+        <div class="col col-lg-6"></div>
+        <div class="col-12">
             <h1 class="text-center">Add Fortofolio</h1>
             <img src={image_url} style={center}/>
               <div class="input-group-prepend"> <span class="input-group-text">Title</span></div>
@@ -83,7 +83,7 @@ export default function AddWork (){
               Add Fortofolio
             </button>
         </div>
-        <div class="col col-lg-3"></div>
+        <div class="col col-lg-6"></div>
       </div>
     </div>
     )
