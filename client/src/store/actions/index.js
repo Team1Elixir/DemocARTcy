@@ -1,5 +1,7 @@
 import server from '../../api';
+import { toast } from 'react-toastify';
 
+toast.configure();
 export const FETCH_USERDATA = 'FETCH_USERDATA'
 export const FETCH_PROFILEDATA = 'FETCH_PROFILEDATA'
 export const FETCH_WORKS = 'FETCH_WORKS'
@@ -7,6 +9,7 @@ export const FETCH_COMMISSIONS = 'FETCH_COMMISSIONS'
 export const FETCH_WORK_DETAIL = 'FETCH_WORK_DETAIL'
 export const FETCH_COMMISSION_DETAIL = 'FETCH_COMMISSION_DETAIL'
 export const FETCH_PROGRESSCLIENT = 'FETCH_PROGRESSCLIENT'
+export const FETCH_PROGRESSARTIST = 'FETCH_PROGRESSARTIST'
 export const LOADING = 'LOADING'
 export const ERROR = 'ERROR'
 
@@ -83,6 +86,13 @@ export const error = (data) => {
 export const fetchProgressClient = (data) => {
   return {
     type: FETCH_PROGRESSCLIENT,
+    payload: data
+  }
+}
+
+export const fetchProgressArtist = (data) => {
+  return {
+    type: FETCH_PROGRESSARTIST,
     payload: data
   }
 }
@@ -237,12 +247,15 @@ export const getProfileCommissions = (id) => {
 export const registerUser = (payload) => {
   return (dispatch) => {
     dispatch(loading(true));
-    server.post('/users/register', payload)
+    return server.post('/users/register', payload)
       .then(({ data }) => {
         console.log(data);
       })
       .catch(err => {
-        console.log(err.response.data.error);
+        toast.error(err.response.data.error, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2500
+        })
         dispatch(error(err));
       })
       .finally(() => {
@@ -256,6 +269,7 @@ export const loginUser = (payload) => {
     dispatch(loading(true));
     return server.post('/users/login', payload)
       .then(({ data }) => {
+        console.log(data)
         const { token, username } = data;
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
@@ -349,11 +363,32 @@ export const getProgressClient = () => {
     })
     .then(({ data }) => {
       const { projects } = data;
+      console.log(projects)
       dispatch(fetchProgressClient(projects))
-      console.log(projects);
     })
     .catch(err => {
-      console.log(err.response)
+      dispatch(error(err));
+    })
+    .finally(() => {
+      dispatch(loading(false));
+    })
+  }
+}
+
+export const getProgressArtist = () => {
+  const { token } = localStorage;
+  return (dispatch) => {
+    dispatch(loading(true))
+    server.get('/progresses/artist', {
+      headers: {
+        token
+      }
+    })
+    .then(({ data }) => {
+      const { projects } = data;
+      dispatch(fetchProgressArtist(projects))
+    })
+    .catch(err => {
       dispatch(error(err));
     })
     .finally(() => {

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link } from 'react-router-dom'
-
+import { useHistory, Link } from 'react-router-dom';
 import sample from "../samples/Raelaveire/1592696790749.jpg";
-import { useDispatch } from "react-redux";
+import Loader from 'react-loader-spinner';
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../store/actions";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const loading = useSelector(state => state.loading);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -21,8 +22,11 @@ export default function RegisterForm() {
       password,
     };
 
-    dispatch(registerUser(data));
-    history.push('/login'); 
+    dispatch(registerUser(data))
+      .then(res => {
+        console.log(res);
+        // history.push('/login'); 
+      })
   }
 
   useEffect(() => {
@@ -51,6 +55,15 @@ export default function RegisterForm() {
           </div>
           <button className='submitlogin btn btn-primary' onClick={e => register(e)}>Register</button>
           <Link className='registerbutton' to='/login'>I have an account</Link>
+          {
+            loading &&
+            <Loader 
+              type="ThreeDots"
+              color="#F5C50E"
+              height={150}
+              width={150}
+            />
+          }
         </div>
         <div className='image-div'>
           <img className='img-login' alt='sample' src={sample} />

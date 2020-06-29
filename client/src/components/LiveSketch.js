@@ -185,7 +185,7 @@ function LiveSketch() {
   }
 
   const setup = (p5, canvasParentRef) => {
-    socket.current = io("http://localhost:3000/");
+    socket.current = io("http://localhost:4000/");
     socket.current.emit("room", location.state.progressId);
     p5.removeBtn = p5.createButton("Save Canvas");
     p5.removeBtn.mousePressed(saveToFile);

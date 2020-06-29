@@ -17,6 +17,8 @@ import DetailWork from './components/DetailWork'
 import DetailCommission from './components/DetailCommission'
 import MainCommission from './components/MainCommission'
 import UserCommission from './components/UserCommission'
+import 'react-toastify/dist/ReactToastify.min.css';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 function App() {
   return (
@@ -68,7 +70,7 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/progress-client">
+          <Route path={["/progress-client", "/progress-artist"]}>
             <Progress />
           </Route>
           <Route path="/">

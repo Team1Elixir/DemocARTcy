@@ -15,9 +15,9 @@ const Navbar = () => {
   const username = localStorage.username
 
   const logoutEvent = (event) => {
-    event.preventDefault()
-    localStorage.clear()
-    history.push('/login')
+    event.preventDefault();
+    localStorage.clear();
+    history.push('/login');
   }
 
   useEffect(()=> {
