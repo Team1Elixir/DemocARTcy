@@ -219,7 +219,7 @@ export const getProfileCommissions = (id) => {
     dispatch(loading(true))
     server.get('/commissions/user/'+id)
     .then(({data}) => {
-      dispatch(fetchUserCommissions(data.works))
+      dispatch(fetchUserCommissions(data.commissions))
     })
     .catch(err => dispatch(error(err)))
     .finally(() => dispatch(loading(false)))
