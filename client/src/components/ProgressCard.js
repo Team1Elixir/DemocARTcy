@@ -34,7 +34,7 @@ const ProgressCard = ({ data, role }) => {
 
   return (
     <div className="row w-100 progress-container d-flex align-items-center mt-3">
-      <div className="col-3 d-flex flex-column align-items-center">
+      <div className="col-2 d-flex flex-column align-items-center">
         <img
           src={role === 'Artist' ? client.profile_url : artist.profile_url}
           alt="avatar"
@@ -51,22 +51,29 @@ const ProgressCard = ({ data, role }) => {
           <span className="badge">{status}</span>
         </h2>
       </div>
-      <div className="col-3 d-flex justify-content-center">
+      <div className="col-4 d-flex flex-column align-items-center">
         {status === "onProgress" && (
           <>
-          <div
+            <div
+              className="progress-button w-50 text-center"
+              onClick={toLiveSketch}
+            >
+              <p className="mb-0">Sketch</p>
+            </div>
+            <div
             className="progress-button w-50 text-center"
-            onClick={toLiveSketch}
-          >
-            <p className="mb-0">Sketch</p>
-          </div>
-          <div
-          className="progress-button w-50 text-center"
-          onClick={toLiveChat}
-        >
-          <p className="mb-0">Chat</p>
-        </div>
-        </>
+            onClick={toLiveChat}
+            >
+              <p className="mb-0">Chat</p>
+            </div>
+            <div
+            className="progress-button w-50 text-center"
+            // onClick={toLiveChat}
+            >
+              <p className="mb-0">Sample</p>
+            </div>
+          
+          </>
         )}
         {status === "Done" && <Payment price={price} email={client.email} />}
       </div>
