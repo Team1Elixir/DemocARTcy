@@ -58,7 +58,6 @@ const Navbar = () => {
               <Link className='link-username' to={'/profile/'+username}>@{user.username}</Link>
               <Dropdown.Header className='dropdown-border'>Account</Dropdown.Header>
               <Link className='link-drop' to={'/profile/'+username}>Profile</Link>
-              <Link className='link-drop' to={'/profile/'+username}>Ballance</Link>
               <Dropdown.Header>Commission</Dropdown.Header>
               <Link className='link-drop' to={'/works/user/'+username}>My Works</Link>
               <Link className='link-drop' to={'/commissions/user/'+username}>Commissions</Link>
