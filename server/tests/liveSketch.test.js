@@ -1,7 +1,6 @@
 const io = require('socket.io-client');
-const http = require('http');
+const server = require('../app');
 const ioBack = require('socket.io');
-// jest.setTimeout(30000);
 
 let socket;
 let httpServer;
@@ -9,7 +8,7 @@ let httpServerAddr;
 let ioServer;
 
 beforeAll((done) => {
-    httpServer = http.createServer().listen();
+    httpServer = server.listen();
     httpServerAddr = httpServer.address();
     ioServer = ioBack(httpServer);
     done();
@@ -22,7 +21,7 @@ afterAll((done) => {
 });
 
 beforeEach((done) => {
-    socket = io.connect(`http://localhost:4000`, {
+    socket = io.connect(`http://[${httpServerAddr.address}]:${httpServerAddr.port}`, {
       'reconnection delay': 0,
       'reopen delay': 0,
       'force new connection': true,
@@ -43,7 +42,7 @@ afterEach((done) => {
 
 describe('Live Sketch Test', () => {
     describe('Mouse Event', () => {
-        test('should return mouse coordinate', () => {
+        test('should return mouse coordinate', done  => {
             const data = {
                 x: 1,
                 y: 2,
@@ -52,15 +51,15 @@ describe('Live Sketch Test', () => {
             }
             socket.emit('mouse', data);
 
-            // setTimeout(() => {
-            ioServer.on('mouse', data => {
-                console.log(data);  
-                expect(data).toHaveProperty('x');
-                expect(data).toHaveProperty('y');
-                expect(data).toHaveProperty('px');
-                expect(data).toHaveProperty('py');
-            })
-            // }, 50);
+            setTimeout(() => {
+                ioServer.on('mouse', data => {
+                    expect(data).toHaveProperty('x');
+                    expect(data).toHaveProperty('y');
+                    expect(data).toHaveProperty('px');
+                    expect(data).toHaveProperty('py');
+                    done();
+                })
+            }, 500);
         });
     });
 });
