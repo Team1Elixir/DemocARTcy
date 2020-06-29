@@ -3,14 +3,15 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #1A1A1D;
+  /* background-color: #e6e1e2; */
+  background-image: url("./livesketch.jpg");
 }
 
 .container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 8px;
   height: 60%;
   width: 35%;
