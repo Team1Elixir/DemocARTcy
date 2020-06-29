@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getProfileData, getProfileCommissions,getProfileWorks } from '../store/actions'
 import { useParams, Link } from 'react-router-dom'
 import WorkCard from './WorkCard'
+import CommissionCard from './CommissionCard'
 
 const Profile = () => {
 
@@ -53,7 +54,7 @@ const Profile = () => {
       <div className='work-data'>
         <br/><h5>Commissions</h5><br />
         <div className='work-profile-cards'>
-          {/* <WorkCard worksdata={works} /> */}
+          <CommissionCard commissionsdata={commissions} />
         </div>
       </div>
       <div style={{ height: 75}}></div>
@@ -88,7 +89,7 @@ const Profile = () => {
       <div className='work-data'>
         <br/><h5>Commissions</h5><br />
         <div className='work-profile-cards'>
-          {/* <WorkCard worksdata={works} /> */}
+          <CommissionCard commissionsdata={commissions} />
         </div>
       </div>
       <div style={{ height: 75}}></div>
