@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../store/actions";
 
 export default function RegisterForm() {
+  const error = useSelector(state => state.error)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const loading = useSelector(state => state.loading);
   const history = useHistory();
   const dispatch = useDispatch();
-
+  
   function register(event) {
     event.preventDefault()
 
@@ -32,7 +33,7 @@ export default function RegisterForm() {
   useEffect(() => {
     if(localStorage.token) history.push('/');
   }, [])
-
+  
   return (
     <div className='loginpage'>
         <div className='form-div'>

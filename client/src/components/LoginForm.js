@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getUserData, loginUser } from '../store/actions'
 import '../assets/loginform.css'
 import sample from "../samples/Raelaveire/1592696790749.jpg";
@@ -10,7 +10,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const history = useHistory()
   const dispatch = useDispatch()
-
+  const error = useSelector(state => state.error)
   useEffect(() => {
     if(localStorage.token) history.push('/')
   }, [])

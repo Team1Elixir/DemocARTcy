@@ -137,7 +137,7 @@ export default function AddCommission() {
             Add Commission
           </button>
         </div>
-        <div class="col col-lg-3"></div>
+        <div class="col col-lg-6"></div>
       </div>
     </div>
   );

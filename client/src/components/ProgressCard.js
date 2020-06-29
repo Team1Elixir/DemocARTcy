@@ -16,7 +16,7 @@ const ProgressCard = ({ data, role }) => {
       artistUsername: artist.username,
     };
 
-    history.push("/liveSketch/", dataForLiveSketch);
+    history.push("/livesketch/", dataForLiveSketch);
     console.log(dataForLiveSketch);
   };
 

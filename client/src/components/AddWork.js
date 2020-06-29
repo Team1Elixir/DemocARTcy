@@ -123,7 +123,7 @@ export default function AddWork() {
             Add Fortofolio
           </button>
         </div>
-        <div class="col col-lg-3"></div>
+        <div class="col col-lg-6"></div>
       </div>
       <div className="col col-lg-3"></div>
     </div>

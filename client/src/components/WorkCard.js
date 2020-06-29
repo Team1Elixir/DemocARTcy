@@ -8,9 +8,9 @@ const WorkCard = (props) => {
           { worksdata.map((card,i) => {
               return (
               <Link to={'/works/detail/'+card.id} className='cards' key={i}>
-                <div className='title-work'>
-                  <h6 style={{ textAlign: 'center'}}>{card.title}</h6>
-                </div>
+                {/* <div className='title-work'> */}
+                  <h6 className='title-work' style={{ textAlign: 'center'}}>{card.title}</h6>
+                {/* </div> */}
                 <img className='img-card' alt={i} src={card.image_url} />
               </Link>
               )

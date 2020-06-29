@@ -12,7 +12,6 @@ export const FETCH_PROGRESSCLIENT = 'FETCH_PROGRESSCLIENT'
 export const FETCH_PROGRESSARTIST = 'FETCH_PROGRESSARTIST'
 export const LOADING = 'LOADING'
 export const ERROR = 'ERROR'
-
 export const fetchUserData = (data) => {
   return {
     type: FETCH_USERDATA,
@@ -106,7 +105,7 @@ export const getUserData = (username) => {
       dispatch(fetchUserData(data))
     })
     .catch(err => {
-      dispatch(error(err))
+      dispatch(error(err.response.data.error))
     })
     .finally(() => {
       dispatch(loading(false))
@@ -124,7 +123,7 @@ export const getProfileData = (username) => {
       localStorage.setItem('profileId', data.id)
     })
     .catch(err => {
-      dispatch(error(err))
+      dispatch(error(err.response.data.error))
     })
     .finally(() => {
       dispatch(loading(false))
@@ -141,7 +140,7 @@ export const getAllWorks = () => {
       dispatch(fetchWorks(data.works))
     })
     .catch(err => {
-      dispatch(error(err))
+      dispatch(error(err.response.data.error))
     })
     .finally(() => {
       dispatch(loading(false))
@@ -157,7 +156,7 @@ export const getAllCommissions = () => {
       console.log(data.commissions)
       dispatch(fetchCommissions(data.commissions))
     })
-    .catch(err => console.log(err))
+    .catch(err => dispatch(error(err.response.data.error)))
     .finally(() => {
       dispatch(loading(false))
     })
@@ -172,7 +171,7 @@ export const getWorkDetail = (id) => {
       dispatch(fetchWorkDetail(data.work))
     })
     .catch(err => {
-      dispatch(error(err))
+      dispatch(error(err.response.data.error))
     })
     .finally(() => {
       dispatch(loading(false))
@@ -188,7 +187,7 @@ export const getCommissionDetail = (id) => {
       dispatch(fetchCommissionDetail(data.commission))
     })
     .catch(err => {
-      dispatch(error(err))
+      dispatch(error(err.response.data.error))
     })
     .finally(() => {
       dispatch(loading(false))
@@ -203,7 +202,7 @@ export const getUserWorks = () => {
     .then(({data}) => {
       dispatch(fetchWorks(data.works))
     })
-    .catch(err => dispatch(error(err)))
+    .catch(err => dispatch(error(err.response.data.error)))
     .finally(() => dispatch(loading(false)))
   }
 }
@@ -215,7 +214,7 @@ export const getUserCommissions = () => {
     .then(({data}) => {
       dispatch(fetchCommissions(data.commissions))
     })
-    .catch(err => dispatch(error(err)))
+    .catch(err => dispatch(error(err.response.data.error)))
     .finally(() => dispatch(loading(false)))
   }
 }
@@ -227,7 +226,7 @@ export const getProfileWorks = (id) => {
     .then(({data}) => {
       dispatch(fetchUserWorks(data.works))
     })
-    .catch(err => dispatch(error(err)))
+    .catch(err => dispatch(error(err.response.data.error)))
     .finally(() => dispatch(loading(false)))
   }
 }
@@ -239,7 +238,7 @@ export const getProfileCommissions = (id) => {
     .then(({data}) => {
       dispatch(fetchUserCommissions(data.commissions))
     })
-    .catch(err => dispatch(error(err)))
+    .catch(err => dispatch(error(err.response.data.error)))
     .finally(() => dispatch(loading(false)))
   }
 }
@@ -275,7 +274,7 @@ export const loginUser = (payload) => {
         localStorage.setItem('username', username);
       })
       .catch(err => {
-        dispatch(error(err));
+        dispatch(error(err.response.data.error));
       })
       .finally(() => {
         dispatch(loading(false));
@@ -297,7 +296,7 @@ export const addPortofolio = (payload) => {
       })
       .catch(err => {
         console.log(err.response.data.error);
-        dispatch(error(err));
+        dispatch(error(err.response.data.error));
       })
       .finally(() => {
         dispatch(loading(false));
@@ -318,7 +317,7 @@ export const addCommission = (payload) => {
         console.log(data);
       })
       .catch(err => {
-        dispatch(error(err));
+        dispatch(error(err.response.data.error));
       })
       .finally(() => {
         dispatch(loading(false));
@@ -344,7 +343,7 @@ export const newProject = (payload) => {
       })
       .catch(err => {
         console.log(err.response)
-        dispatch(error(err));
+        dispatch(error(err.response.data.error));
       })
       .finally(() => {
         dispatch(loading(false));

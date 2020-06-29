@@ -19,7 +19,7 @@ const initialState = {
   commission: { User: {} },
   progress: [],
   loading: false,
-  error: []
+  error: ''
 }
 
 const reducers = (state = initialState, action) => {
