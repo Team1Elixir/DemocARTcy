@@ -103,6 +103,7 @@ export const getProfileData = (username) => {
     server.get('/users/'+username)
     .then(({data}) => {
       dispatch(fetchProfileData(data))
+      localStorage.setItem('profileId', data.id)
     })
     .catch(err => {
       dispatch(error(err))
@@ -179,18 +180,48 @@ export const getCommissionDetail = (id) => {
 
 export const getUserWorks = () => {
   return (dispatch) => {
+    dispatch(loading(true))
     server({method: 'GET', url: '/works', headers: {token: localStorage.token }})
     .then(({data}) => {
       dispatch(fetchWorks(data.works))
     })
+    .catch(err => dispatch(error(err)))
+    .finally(() => dispatch(loading(false)))
   }
 }
 
 export const getUserCommissions = () => {
   return (dispatch) => {
+    dispatch(loading(true))
     server({method: 'GET', url: '/commissions', headers: {token: localStorage.token }})
     .then(({data}) => {
       dispatch(fetchCommissions(data.commissions))
     })
+    .catch(err => dispatch(error(err)))
+    .finally(() => dispatch(loading(false)))
+  }
+}
+
+export const getProfileWorks = (id) => {
+  return (dispatch) => {
+    dispatch(loading(true))
+    server.get('/works/user/'+id)
+    .then(({data}) => {
+      dispatch(fetchUserWorks(data.works))
+    })
+    .catch(err => dispatch(error(err)))
+    .finally(() => dispatch(loading(false)))
+  }
+}
+
+export const getProfileCommissions = (id) => {
+  return (dispatch) => {
+    dispatch(loading(true))
+    server.get('/commissions/user/'+id)
+    .then(({data}) => {
+      dispatch(fetchUserCommissions(data.works))
+    })
+    .catch(err => dispatch(error(err)))
+    .finally(() => dispatch(loading(false)))
   }
 }
