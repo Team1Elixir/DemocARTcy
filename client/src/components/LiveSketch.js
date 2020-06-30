@@ -5,11 +5,6 @@ import Peer from "simple-peer";
 import Sketch from "react-p5";
 import styled from "styled-components";
 import "./LiveSketch.css";
-// import Sketch from "./sketch";
-
-// const Container = styled.div`
-
-// `;
 
 const Row = styled.div`
   display: flex;
@@ -18,7 +13,7 @@ const Row = styled.div`
 
 const Video = styled.video`
   border: 1px solid blue;
-  width: 20%;
+  width: 100%;
   height: 100%;
 `;
 
@@ -159,6 +154,7 @@ function LiveSketch() {
   function mouseDragged(P5) {
     // Draw
     P5.stroke("black");
+
     // P5.strokeWeight(strokeWidth);
     if (P5.mouseIsPressed) {
       P5.line(P5.mouseX, P5.mouseY, P5.pmouseX, P5.pmouseY);
@@ -179,7 +175,6 @@ function LiveSketch() {
       // color: color,
       // strokeWidth: strokeWidth,
     };
-    console.log("SEND CORDINATOR", data);
 
     socket.current.emit("mouse", data);
   }
@@ -187,18 +182,19 @@ function LiveSketch() {
   const setup = (p5, canvasParentRef) => {
     socket.current = io("https://shrouded-ridge-07983.herokuapp.com/");
     socket.current.emit("room", location.state.progressId);
+
+    p5.createCanvas(500, 500).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
+    p5.background(233, 233, 233);
     p5.removeBtn = p5.createButton("Save Canvas");
     p5.removeBtn.mousePressed(saveToFile);
-    p5.removeBtn.position(30, 200);
+    p5.removeBtn.parent(canvasParentRef);
 
     p5.button = p5.createButton("Clear Canvas");
     p5.button.mousePressed(clearCanvas);
-
+    p5.button.parent(canvasParentRef);
     p5.exitBtn = p5.createButton("Exit");
     p5.exitBtn.mousePressed(exitlive);
-    p5.createCanvas(500, 500).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
-    p5.background(233, 233, 233);
-
+    p5.exitBtn.parent(canvasParentRef);
     socket.current.on("clear", () => {
       p5.clear();
       p5.background(233, 233, 233);
@@ -232,33 +228,32 @@ function LiveSketch() {
   return (
     <>
       <div className="containerall">
-        {/* <div>
-          <Row></Row>
-        </div> */}
-        <div>
-          <Row>
+        <div className="container_video">
+          {/* <Row> */}
+          <div className="video_box">
             {UserVideo}
             {incomingCall}
-            <div>
-              <Sketch setup={setup} draw={mouseDragged} />
-            </div>
-            {PartnerVideo}
-          </Row>
-          <Row>
-            {users.map((key) => {
-              if (key.id === yourID) {
-                return null;
-              }
-              return (
-                <>
-                  <button onClick={() => callPeer(key.id)} key={key.id}>
-                    Call {key.name}
-                  </button>
-                </>
-              );
-            })}
-          </Row>
+          </div>
+          <div className="canvas">
+            <Sketch setup={setup} draw={mouseDragged} />
+          </div>
+          <div className="video_box">{PartnerVideo}</div>
+          {/* </Row> */}
         </div>
+        <Row>
+          {users.map((key) => {
+            if (key.id === yourID) {
+              return null;
+            }
+            return (
+              <>
+                <button onClick={() => callPeer(key.id)} key={key.id}>
+                  Call {key.name}
+                </button>
+              </>
+            );
+          })}
+        </Row>
       </div>
     </>
   );
