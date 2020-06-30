@@ -62,7 +62,11 @@ const Chat = () => {
           sendMessage={sendMessage}
         />
       </div>
-      <TextContainer users={users} />
+      <div style={{marginLeft: 20}}>
+        <div className="background2">
+          <TextContainer users={users} />
+        </div>
+      </div>
     </div>
   );
 };

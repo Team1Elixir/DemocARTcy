@@ -237,7 +237,7 @@ function LiveSketch() {
         </div> */}
         <div>
           <Row>
-            {UserVideo}
+          <div className="uservideo1">{UserVideo}</div>
             {incomingCall}
             <div>
               <Sketch setup={setup} draw={mouseDragged} />

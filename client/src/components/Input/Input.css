@@ -6,9 +6,11 @@
 .input {
   border: none;
   border-radius: 0;
-  padding: 5%;
+  padding: 0;
   width: 80%;
+  top:10;
   font-size: 1.2em;
+  margin-top: 0;
 }
 
 input:focus,
