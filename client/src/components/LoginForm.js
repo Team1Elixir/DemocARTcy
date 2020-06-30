@@ -24,9 +24,11 @@ export default function LoginForm() {
     };
 
     dispatch(loginUser(payload))
-      .then(() => {
-        successAlert('Login Successfully')
-        history.push('/');
+      .then((data) => {
+        if(data) {
+          successAlert('Login Successfully')
+          history.push('/');
+        }
       })
       .catch(err => {
         console.log(err.reponse);

@@ -56,8 +56,7 @@ const Navbar = () => {
               <Dropdown.Header>Commission</Dropdown.Header>
               <Link className='link-drop' to={'/works/user/'+username}>My Portfolio</Link>
               <Link className='link-drop' to={'/commissions/user/'+username}>Commissions</Link>
-              <Dropdown.Header>About Democartcy</Dropdown.Header>
-              <Link className='link-drop' to='/'>About Us</Link>
+              <Dropdown.Header>User Panel</Dropdown.Header>
               <button className='btn btn-danger link-drop' onClick={event => logoutEvent(event)}>Logout</button>
           </Dropdown.Menu>
       </Dropdown>
@@ -83,8 +82,6 @@ const Navbar = () => {
               <Dropdown.Header>User Panel</Dropdown.Header>
               <Link className='link-drop' to='/login'>Login</Link>
               <Link className='link-drop' to='/register'>Register</Link>
-              <Dropdown.Header>About Democartcy</Dropdown.Header>
-              <Link className='link-drop' to='/'>About Us</Link>
           </Dropdown.Menu>
       </Dropdown>
     </div>

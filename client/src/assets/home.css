@@ -2,8 +2,8 @@
   background: url('https://pbs.twimg.com/media/EUp4NHrUcAAgwi_.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-}
-.home{
+  margin-top: -60px;
+  position: absolute;
   width: 100%;
   min-height: 750px;
   height: 100%;

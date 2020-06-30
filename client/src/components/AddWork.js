@@ -34,7 +34,7 @@ export default function AddWork() {
 
     dispatch(addPortofolio(data))
       .then(() => {
-        history.push('/')
+        history.push('/works/user/'+localStorage.username)
       })
       .catch(err => {
         console.log(err.response);

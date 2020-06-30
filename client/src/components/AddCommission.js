@@ -35,9 +35,9 @@ export default function AddCommission() {
     };
 
     dispatch(addCommission(data))
-      // .then(() => {
-        history.push('/')
-      // })
+      .then(() => {
+        history.push('/commissions/user/'+localStorage.username)
+      })
       // .catch(err => {
       //   console.log(err.response);
       // })

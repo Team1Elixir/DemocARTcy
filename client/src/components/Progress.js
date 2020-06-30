@@ -23,6 +23,8 @@ const Progress = () => {
       dispatch(getProgressClient());
     } 
   }, [dispatch, location.pathname])
+  
+  if(loading) return (<div style={{ marginTop: 200, textAlign: 'center' }}> <Loader type='Grid' color='#023E8A' /> </div>)
 
   return (
     <div className="container-fluid w-100 d-flex flex-column align-items-center mb-5" style={{ marginTop: 50 }}>

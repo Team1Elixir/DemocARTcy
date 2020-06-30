@@ -184,6 +184,7 @@ export const getAllCommissions = () => {
 
 export const getWorkDetail = (id) => {
   return (dispatch) => {
+    dispatch(loading(true))
     server.get('/works/'+id)
     .then(({data}) => {
       console.log(data)
@@ -200,6 +201,7 @@ export const getWorkDetail = (id) => {
 
 export const getCommissionDetail = (id) => {
   return (dispatch) => {
+    dispatch(loading(true))
     server.get('/commissions/'+id)
     .then(({data}) => {
       console.log(data);
@@ -294,13 +296,12 @@ export const loginUser = (payload) => {
         const { token, username } = data;
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
-        return data;
+        return data
       })
       .catch(err => {
-        dispatch(error(err.response.data.error));
-        toast.error(err.response.data.error, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 2500
+        Toast.fire({
+          icon: 'error',
+          title: err.response.data.error
         })
       })
       .finally(() => {
