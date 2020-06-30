@@ -25,22 +25,15 @@ const Navbar = () => {
       dispatch(getUserData(username))
     }
     if(location.pathname === '/'){
-      setColor('')
-      setFontcolor('#014638')
-    } else if(location.pathname === '/works' || location.pathname === '/commissions') {
-      setColor('darkslategrey')
+      setColor('#3FC4DE')
       setFontcolor('white')
-    }  else if(location.pathname === '/login' || location.pathname === '/register'){
-      setColor('darkslategrey')
-      setFontcolor('white')
-    }
-     else {
-      setColor('#73CDD1')
+    } else  {
+      setColor('#3FC4DE')
       setFontcolor('white')
     }
   },[location.pathname])
 
-  if(localStorage.token && user)return (
+  if(localStorage.token && user)return (<>
     <div style={{background: color}} className='navbar navbar-light d-flex justify-content-between fixed-top'>
       <div>
         <Link style={{ color: fontcolor }} className='navbrand' to='/' >DEMOCARTCY</Link>
@@ -58,6 +51,8 @@ const Navbar = () => {
               <Link className='link-username' to={'/profile/'+username}>@{user.username}</Link>
               <Dropdown.Header className='dropdown-border'>Account</Dropdown.Header>
               <Link className='link-drop' to={'/profile/'+username}>Profile</Link>
+              <Link className='link-drop' to={'/progress-client/'}>Client Progress</Link>
+              <Link className='link-drop' to={'/progress-artist/'}>Art Progress</Link>
               <Dropdown.Header>Commission</Dropdown.Header>
               <Link className='link-drop' to={'/works/user/'+username}>My Portfolio</Link>
               <Link className='link-drop' to={'/commissions/user/'+username}>Commissions</Link>
@@ -67,9 +62,12 @@ const Navbar = () => {
           </Dropdown.Menu>
       </Dropdown>
     </div>
+    <div style={{height: 55}}></div>
+    </>
   )
 
   else return(
+    <>
     <div style={{background: color}} className='navbar navbar-light d-flex justify-content-between fixed-top'>
       <div>
         <Link style={{ color: fontcolor }} className='navbrand' to='/' >DEMOCARTCY</Link>
@@ -90,6 +88,8 @@ const Navbar = () => {
           </Dropdown.Menu>
       </Dropdown>
     </div>
+    <div style={{height: 55}}></div>
+    </>
   )
 }
 

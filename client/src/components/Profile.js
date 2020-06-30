@@ -39,25 +39,29 @@ const Profile = () => {
           </div>
           { username === localStorage.username &&
           <div className='edit-button'>
-            <Link to={'/profile/edit/'+user.username} className='editbtn btn btn-secondary'>Edit Profile</Link>
-            <Link to='/progress-client' className='editbtn btn btn-secondary'>Client Progress</Link>
-            <Link to='/progress-artist' className='editbtn btn btn-secondary'>Art Progress</Link>
+            <Link to={'/profile/edit/'+user.username} className='editbtn btn btn-outline-primary'>Edit Profile</Link>
+            <Link to='/progress-client' className='editbtn btn btn-outline-primary'>Client Progress</Link>
+            <Link to='/progress-artist' className='editbtn btn btn-outline-primary'>Art Progress</Link>
           </div>
           }
         </div><br />
-          <br/><h5>Portofolios</h5><br />
         <div className='work-data'>
+          <br/><h5>Portofolios</h5><br />
+            <div className='profile-card-container'>
+
           { works.map (card => {
             return <WorkCard card={card} key={card.id} />
             })}
         </div>
-          
-        <br/><h5 style={{ marginBottom: -10, marginTop: 10 }}>Commissions</h5><br />
+        </div>
 
         <div className='work-data'>
-          { commissions.map (card => {
+        <br/><h5 style={{ marginBottom: -10, marginTop: 10 }}>Commissions</h5><br />
+            <div className='profile-card-container'>
+          {commissions.map(card => {
             return <CommissionCard card={card} key={card.id} />
-            })}
+          })}    
+        </div>
         </div>
         <div style={{ height: 75}}></div>
       </div>

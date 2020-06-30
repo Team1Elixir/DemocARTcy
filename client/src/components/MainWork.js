@@ -18,7 +18,7 @@ const MainWork = () => {
   if(loading) return (<div style={{ marginTop: 300, textAlign: 'center' }}> <Loader/> </div>)
   // if(error) return (<div style={{ marginTop: 100, textAlign: 'center' }}><h3>Empty</h3></div>)
   return (
-    <div style={{ marginTop: 100 }}>
+    <div style={{ marginTop: 50 }}>
       <h3 style={{ textAlign: 'center'}}>Portfolios</h3>
       <div className='cards-content-holder'>
           {works.map(card => {
