@@ -139,8 +139,12 @@
 }
 
 .cards{
- border-radius: 20px;
+  border-radius: 20px;
   color: white;
+}
+
+.cards:hover{
+  color: darkslategrey;
 }
 
 .work-profile-cards{
@@ -150,7 +154,6 @@
   height: fit-content;
   width: fit-content;
   border-radius: 20px;
-  /* border: solid black 0.5px; */
   color: white;
   -webkit-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
@@ -165,7 +168,8 @@
 
 .work-profile-cards:hover{
   transform: scale(1.02);
-  transition-duration: 100ms;
+  transition-duration: 300ms;
+  transition-delay: 50ms;
   color: white;
 }
 

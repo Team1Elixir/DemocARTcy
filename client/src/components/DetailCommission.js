@@ -6,6 +6,7 @@ import { getCommissionDetail, newProject, deleteData } from '../store/actions';
 import accounting from 'accounting-js'
 import Loader from 'react-loader-spinner';
 import Swal from 'sweetalert2';
+import {errorAlert} from './alerts'
 
 const DetailCommission = () => {
   const dispatch = useDispatch();
@@ -19,15 +20,20 @@ const DetailCommission = () => {
   }, [dispatch, id])
 
   const createProject = () => {
-    const { title, price, UserId } = commission;
-    dispatch(newProject({
-      id: UserId,
-      title,
-      price
-    }))
+    if(!localStorage.token) {
+        history.push('/login')
+        errorAlert('You must Login First!')
+      } else {
+      const { title, price, UserId } = commission;
+      dispatch(newProject({
+        id: UserId,
+        title,
+        price
+      }))
       .then(() => {
         history.push('/progress-client');
       })
+    }
   }
 
   const deleteHandler = (e) => {
