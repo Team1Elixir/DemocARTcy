@@ -47,6 +47,7 @@ export default function AddCommission() {
     const storageRef = storage.ref(`${image.name}`).put(image)
       storageRef.on('state_changed', () => {
         storageRef.snapshot.ref.getDownloadURL().then((url) => {
+          console.log('uploaded')
           setImage_url(url)
         })
       })
