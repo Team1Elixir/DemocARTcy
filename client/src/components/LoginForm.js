@@ -11,7 +11,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const history = useHistory()
   const dispatch = useDispatch()
-  const error = useSelector(state => state.error)
+
   useEffect(() => {
     if(localStorage.token) history.push('/')
   }, [])

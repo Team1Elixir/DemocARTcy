@@ -1,8 +1,8 @@
 .com-detail {
-    background-color: #fdfafb;
+    background-color: #fafafa;
     border-radius: 18px;
-    border: solid 3px #73CDD5;
-    box-shadow:0 0 8px #90e1e6;
+    border: solid 3px #01518e;
+    box-shadow:0 0 8px #01518e;
 }
 
 .com-image {
@@ -13,14 +13,20 @@
 .com-title {
     font-size: 48px;
     font-weight: 700;
-    color: #73CDD5;
+    color: #01518e;
+}
+
+.com-creator {
+    font-size: 24px;
+    font-weight: 700;
+    color: #01518e;
 }
 
 .com-price {
     font-size: 25px;
     font-weight: 700;
-    color: #73CDD5;
-    border: 2px solid #73CDD5;
+    color: #01518e;
+    border: 2px solid #01518e;
     border-radius: 8px;
     padding: 5px;
     padding-left: 30px;
@@ -34,35 +40,61 @@
 
 .com-desc {
     border-radius: 10px;
-    width: 100%;
-    border: solid 3px #d5d8d8;
-    box-shadow:0 0 8px #aac2c5;
+    width: 80%;
+    border: solid 3px #01518e   ;
+    box-shadow:0 0 8px #a0c5f5;
 }
 
-.com-desc-text {
+.desc-title{
+    font-size: 24px;
+    font-weight: 700;
+    color: #01518e;
+}
+
+.desc-content {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
+    color: #01518e;
 }
 
 .apply-button {
     font-size: 20px;
     font-weight: 700;
-    color: #73CDD5;
-    border: 3px solid #73CDD5;
+    color: #01518e;
+    border: 3px solid #01518e;
     padding: 8px;
     border-radius: 10px
 }
 
 .apply-button:hover {
     cursor: pointer;
-    background-color: #73CDD5;
+    background-color: #01518e;
+    color: whitesmoke;
+}
+
+.delete-button {
+    font-size: 20px;
+    font-weight: 700;
+    color: #d57373;
+    border: 3px solid #d57373;
+    padding: 8px;
+    border-radius: 10px
+}
+
+.delete-button:hover {
+    cursor: pointer;
+    background-color: #d57373;
     color: whitesmoke;
 }
 
 .user-panel-detail{
     width: inherit;
     margin-right: 50px;
+}
+
+.badge-blue {
+    background-color: #01518e;
 }
 
 .edit-data-button{

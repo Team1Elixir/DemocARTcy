@@ -3,49 +3,57 @@
 }
 
 .work-image {
-    -webkit-box-shadow: 0px 0px 15px #92b6b8;
-    -moz-box-shadow: 0px 0px 15px #92b6b8;
-    box-shadow: 0px 0px 15px #92b6b8;
+    -webkit-box-shadow: 0px 0px 15px #5a8094;
+    -moz-box-shadow: 0px 0px 15px #5a8094;
+    box-shadow: 0px 0px 15px #5a8094;
     border-radius: 10px;
 }
 
 .work-desc {
     padding: 12px;
     background-color: #fbfdff;
-    border: solid 3px #73CDD1;
+    border: solid 3px #01518e;
     border-radius: 18px;
-    box-shadow:0 0 8px #90e1e6;
+    box-shadow:0 0 8px #0077b6;
     font-family: 'Fredoka One', cursive;
 }
 
 .work-creator, .creator-name {
     font-weight: 500;
     font-size: 28px;
-    color: #73CDD1;
+    color: #01518e;
 }
 
 .creator-name:link {
-    text-decoration-color: #73CDD1;
+    text-decoration-color: #01518e;
 }
 
 .work-title {
-    font-size: 48px;
+    font-size: 50px;
     font-weight: 500;
-    color: #73CDD1;
+    color: #01518e;
     /* text-transform: uppercase; */
+}
+
+.story-box {
+    color: #01518e;
+    border: 2px solid #01518e;
+    border-radius: 18px;
+    padding: 2px;
+}
+
+.story-title {
+    font-size: 25px;
+    font-weight: 500;
 }
 
 .work-story {
     font-weight: 400;
     font-size: 18px;
-    color: #73CDD1;
-    border: 2px solid #73CDD1;
-    border-radius: 5px;
-    padding: 4px;
 }
 
 .work-category {
-    color: #73CDD1;
+    color: #01518e;
     font-weight: 500;
 }
 
@@ -53,11 +61,30 @@
     color: whitesmoke;
 }
 
+.badge-blue {
+    background-color: #01518e;
+}
+
 .work-disclaimer {
     font-weight: 400;
-    font-size: 15px;
+    font-size: 16px;
     color: #2F4F4F;
     border: 2px solid #2F4F4F;
     border-radius: 10px;
     padding: 2px;
+}
+
+.btn-delete {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 8px 36px;
+    color: #d57373;
+    border: 3px solid #d57373;
+    border-radius: 10px
+}
+
+.btn-delete:hover {
+    cursor: pointer;
+    background-color: #d57373;
+    color: whitesmoke;
 }
