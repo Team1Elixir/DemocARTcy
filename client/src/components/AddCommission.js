@@ -68,7 +68,7 @@ export default function AddCommission() {
             <span style={{fontSize: 22, marginRight: 80}}>Title</span>
             <input
             type="text"
-            classNameName="form-control"
+            className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             onChange={(event) => setTitle(event.target.value)}
@@ -81,7 +81,7 @@ export default function AddCommission() {
             <span style={{fontSize: 22, marginRight: 32}}>ImageUrl</span>
             <input
             type="file"
-            classNameName="form-control"
+            className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             onChange={setUploadedImage}
@@ -96,7 +96,7 @@ export default function AddCommission() {
           </div>
           <textarea
             type="text"
-            classNameName="form-control"
+            className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             onChange={(event) => setDescription(event.target.value)}

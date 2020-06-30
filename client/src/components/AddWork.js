@@ -66,7 +66,7 @@ export default function AddWork() {
             <span style={{fontSize: 22, marginRight: 80}}>Title</span>
             <input
             type="text"
-            classNameName="form-control"
+            className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             onChange={(event) => setTitle(event.target.value)}
@@ -79,7 +79,7 @@ export default function AddWork() {
             <span style={{fontSize: 22, marginRight: 32}}>ImageUrl</span>
             <input
             type="file"
-            classNameName="form-control"
+            className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             onChange={setImageForUpload}
@@ -94,7 +94,7 @@ export default function AddWork() {
           </div>
           <textarea
             type="text"
-            classNameName="form-control"
+            className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             onChange={(event) => setDescription(event.target.value)}
@@ -126,7 +126,7 @@ export default function AddWork() {
         </div>
         <div className="col col-lg-6"></div>
       </div>
-      <div classNameName="col col-lg-3"></div>
+      <div className="col col-lg-3"></div>
     </div>
   );
 }
