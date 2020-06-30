@@ -78,7 +78,7 @@ const Navbar = () => {
         <Link style={{ color: fontcolor }} className='nav-link' to='/commissions'>COMMISSIONS</Link>
       </div>
       <Dropdown>
-        <Dropdown.Toggle className='dropdown-button'>User</Dropdown.Toggle>
+        <Dropdown.Toggle style={{ color: fontcolor }} className='dropdown-button btn btn-outline-primary'>User</Dropdown.Toggle>
           <Dropdown.Menu className='menu-drop-nologin d-flex flex-column'>
               <Dropdown.Header>User Panel</Dropdown.Header>
               <Link className='link-drop' to='/login'>Login</Link>

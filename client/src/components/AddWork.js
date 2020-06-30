@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { storage } from '../firebase';
 import { useDispatch } from "react-redux";
 import { addPortofolio } from "../store/actions";
+import '../assets/addform.css'
 
 export default function AddWork() {
   const [title, setTitle] = useState("");
@@ -51,21 +52,21 @@ export default function AddWork() {
   }
 
   return (
-    <div class="container ">
-      <div class="row justify-content-md-center">
-        <div class="col col-lg-6">
+    <div className="container">
+      <div className="row justify-content-md-center">
+        <div className="col col-lg-6">
 
         </div>
-        <div class="col-12">
-          <h1 class="text-center" style={{ marginTop: 50 }}>
+        <div className="addwork-background col-12">
+          <h1 className="text-center" style={{ marginTop: 20 }}>
             Add Portfolio
           </h1>
-          <div class="input-group-prepend">
+          <div className="input-group-prepend">
             {" "}
             <span style={{fontSize: 22, marginRight: 80}}>Title</span>
             <input
             type="text"
-            className="form-control"
+            classNameName="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             onChange={(event) => setTitle(event.target.value)}
@@ -73,12 +74,12 @@ export default function AddWork() {
           </div>
           <br/>
 
-          <div class="input-group-prepend">
+          <div className="input-group-prepend">
             {" "}
             <span style={{fontSize: 22, marginRight: 32}}>ImageUrl</span>
             <input
             type="file"
-            className="form-control"
+            classNameName="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             onChange={setImageForUpload}
@@ -87,13 +88,13 @@ export default function AddWork() {
           <img src={image_url} style={center} alt=""></img>
           <br/>
 
-          <div class="input-group-prepend">
+          <div className="input-group-prepend">
             {" "}
             <span style={{fontSize: 22, marginRight: 10}}>Decription</span>
           </div>
           <textarea
             type="text"
-            className="form-control"
+            classNameName="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
             onChange={(event) => setDescription(event.target.value)}
@@ -101,12 +102,12 @@ export default function AddWork() {
           <br/>
 
 
-          <div class="input-group-prepend">
+          <div className="input-group-prepend">
             {" "}
             <span style={{fontSize: 22, marginRight: 40}}>Category</span>
             <select
             name="category"
-            class="form-control"
+            className="form-control"
             onChange={(event) => setCategory(event.target.value)}
           >
             <option defaultChecked>---select---</option>
@@ -117,15 +118,15 @@ export default function AddWork() {
           <br/>
           <button
             type="button"
-            class="btn btn-primary btn-lg btn-block"
+            className="btn btn-primary btn-lg btn-block"
             onClick={addNew}
           >
             Add Fortofolio
           </button>
         </div>
-        <div class="col col-lg-6"></div>
+        <div className="col col-lg-6"></div>
       </div>
-      <div className="col col-lg-3"></div>
+      <div classNameName="col col-lg-3"></div>
     </div>
   );
 }
