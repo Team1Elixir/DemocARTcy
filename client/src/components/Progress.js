@@ -22,7 +22,7 @@ const Progress = () => {
       setRole('Client');
       dispatch(getProgressClient());
     } 
-  }, [dispatch])
+  }, [dispatch, location.pathname])
 
   return (
     <div className="container-fluid w-75 d-flex flex-column align-items-center mb-5" style={{ marginTop: 75 }}>
