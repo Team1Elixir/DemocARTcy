@@ -67,7 +67,6 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div style={{ height: 75}}></div>
       </div>
     )
 }
