@@ -1,14 +1,14 @@
 {
   "development": {
     "username": "postgres",
-    "password": "admin",
-    "database": "democARTcy2",
+    "password": "postgres",
+    "database": "democARTcy",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "admin",
+    "password": "postgres",
     "database": "democARTcy_test",
     "host": "127.0.0.1",
     "dialect": "postgres",

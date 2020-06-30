@@ -43,16 +43,12 @@ io.on("connection", (socket) => {
     callback();
   });
 
-  socket.on("exit", (name) => {
-    removeUser(socket.id);
-    console.log("EXTTTTT");
-  });
-
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
     console.log("DISCONNECTEDDDDDDDDD");
 
     if (user) {
+      io.to(user.room).emit("endVC", { room: user.room });
       io.to(user.room).emit("message", {
         user: "Admin",
         text: `${user.name} has left.`,
@@ -76,6 +72,19 @@ io.on("connection", (socket) => {
     io.to(data.to).emit("callAccepted", data.signal);
   });
 
+  socket.on("exit", (name) => {
+    const user = removeUser(socket.id);
+
+    if (user) {
+      io.to(user.room).emit("endVC", { room: user.room });
+
+      io.to(user.room).emit("roomData", {
+        room: user.room,
+        users: getUsersInRoom(user.room),
+      });
+    }
+  });
+
   //Drawing Canvas socket
   socket.on("mouse", (data) => {
     socket.broadcast.to(data.room).emit("mouse", data);
@@ -83,6 +92,19 @@ io.on("connection", (socket) => {
 
   socket.on("clear", (data) => {
     socket.broadcast.to(data.room).emit("clear");
+  });
+
+  //Progress Card
+  socket.on("status", (data) => {
+    io.emit("new status", data);
+  });
+
+  socket.on("result image", (data) => {
+    io.emit("result", data);
+  });
+
+  socket.on("paid", (data) => {
+    io.emit("paid", data);
   });
 
   // socket.on("disconnect", () => console.log("Client Canvass has disconnected"));
