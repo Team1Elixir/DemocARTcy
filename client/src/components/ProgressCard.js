@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Payment from "./Payment";
 import { useHistory } from "react-router-dom";
 import "./Progress.css";
-import { changeProjectStatus, addProjectResult } from "../store/actions";
+import { changeProjectStatus, addProjectResult, getProgressArtist, getProgressClient } from "../store/actions";
 import { useDispatch } from "react-redux";
 import { storage } from '../firebase';
 import Swal from "sweetalert2";
+import { toast } from 'react-toastify';
+import io from "socket.io-client";
 
+toast.configure();
 const ProgressCard = ({ data, role }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { id, title, price, client, artist, image_url } = data;
-  const [status, setStatus] = useState(data.status);
+  const { id, title, price, client, artist, image_url, status } = data;
+  // const [status, setStatus] = useState(data.status);
+  // const [image_url, setImage_url] = useState(data.image_url);
+  const socket = io("https://shrouded-ridge-07983.herokuapp.com");
 
   const toLiveSketch = () => {
     const dataForLiveSketch = {
@@ -44,7 +49,7 @@ const ProgressCard = ({ data, role }) => {
       title,
       imageUrl: image_url,
       imageHeight: 400,
-      imageAlt: title,
+      imageAlt: image_url !== 'https://bit.ly/3iendMh' ? 'no result submit yet' : title,
       showCancelButton: image_url !== 'https://bit.ly/3iendMh' ? true : false,
       confirmButtonText: image_url !== 'https://bit.ly/3iendMh' ? 'Accept' : 'Close',
       cancelButtonText: 'Decline',
@@ -61,7 +66,7 @@ const ProgressCard = ({ data, role }) => {
           dispatch(changeProjectStatus(payload))
             .then(data => {
               if (data) {
-                //socket here to send new status
+                socket.emit('status', data.progress);
               }
             })
         } else if ((result.dismiss === Swal.DismissReason.cancel) && (image_url !== 'https://bit.ly/3iendMh')) {
@@ -69,7 +74,12 @@ const ProgressCard = ({ data, role }) => {
             id,
             status: 'Revision Required'
           }
-          dispatch(changeProjectStatus(payload));
+          dispatch(changeProjectStatus(payload))
+            .then(data => {
+              if (data) {
+                socket.emit('status', data.progress);
+              }
+            })
           Swal.fire(
             'Decline',
             'Result need revision',
@@ -101,12 +111,55 @@ const ProgressCard = ({ data, role }) => {
         }))
           .then(data => {
             if (data) {
-              //socket here to send new result image
+              console.log(data)
+              socket.emit('result image', data.progress);
             }
           })
       })
     })
   }
+  
+  useEffect(() => {
+    socket.on('new status', data => {
+      console.log('status')
+      if (data.id === id && role === 'Artist') {
+        // setStatus(data.status)
+        dispatch(getProgressArtist());
+        if (data.status === 'Revision Required') {
+          toast.info('Client demand some revision', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2500
+          })
+        } else if (data.status === 'Done') {
+          toast.success('Your work has been accepted by Client, now waiting for payment', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 2500
+          })
+        }
+      }
+    })
+  
+    socket.on('result', data => {
+      if (data.id === id && role === 'Client') {
+        // setImage_url(data.image_url)
+        dispatch(getProgressClient());
+        toast.info('Artist have submit project result', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2500
+        })
+      }
+    })
+
+    socket.on('paid', data => {
+      if (data === id && role === 'Artist') {
+        toast.success('ITS PAYDAY BAY-BAY', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2500
+        })
+        dispatch(getProgressArtist());
+      }
+    })
+  }, [])
 
   return (
     <div className="row w-100 progress-container d-flex align-items-center mt-3">
@@ -119,10 +172,10 @@ const ProgressCard = ({ data, role }) => {
         ></img>
         <p className="mb-0 text-bluish artist-name">{role === 'Artist' ? client.username : artist.username}</p>
       </div>
-      <div className="col-4">
+      <div className="col-3">
         <p className="mb-0 text-bluish job-title text-center">{title}</p>
       </div>
-      <div className="col-2">
+      <div className="col-3">
         <h2 className="mb-0 job-status p-3 text-center">
           <span className="badge">{status}</span>
         </h2>
@@ -165,7 +218,8 @@ const ProgressCard = ({ data, role }) => {
             }
           </>
         )}
-        {status === "Done" && <Payment price={price} email={client.email} id={id}/>}
+        {(status === "Done" && role === 'Client') && <Payment price={price} email={client.email} id={id}/>}
+        {(status === "Done" && role === 'Artist') && <p className="mb-0 text-bluish artist-name">Waiting for Payment</p>}
       </div>
     </div>
   );

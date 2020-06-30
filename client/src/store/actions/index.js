@@ -387,7 +387,7 @@ export const newProject = (payload) => {
 export const getProgressClient = () => {
   const { token } = localStorage;
   return (dispatch) => {
-    dispatch(loading(true))
+    // dispatch(loading(true))
     server.get('/progresses/client', {
       headers: {
         token
@@ -410,7 +410,7 @@ export const getProgressClient = () => {
 export const getProgressArtist = () => {
   const { token } = localStorage;
   return (dispatch) => {
-    dispatch(loading(true));
+    // dispatch(loading(true));
     server.get('/progresses/artist', {
       headers: {
         token
@@ -433,7 +433,7 @@ export const proceedPayment = payload => {
   const { token } = localStorage;
   return dispatch => {
     dispatch(loading(true));
-    server.post('/payment', payload, {
+    return server.post('/payment', payload, {
       headers: {
         token
       }
@@ -444,6 +444,7 @@ export const proceedPayment = payload => {
           autoClose: 2500
         })
         dispatch(getProgressClient());
+        return data;
       })
       .catch(err => {
         toast.error(err.response.data.error, {
