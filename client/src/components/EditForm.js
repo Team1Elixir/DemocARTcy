@@ -1,8 +1,7 @@
 import React, { useState,useEffect } from 'react'
-import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { getProfileData } from '../store/actions'
+import { getProfileData, editProfile } from '../store/actions'
 import '../assets/editform.css'
 
 const EditForm = () => {
@@ -25,27 +24,17 @@ const EditForm = () => {
 
   const submitEdit = (event) => {
     event.preventDefault()
-    axios({ 
-      method: 'PUT',
-      url: 'http://localhost:4000/users/'+user.id, 
-      data: {
-        name: name || user.name,
-        email: email || user.email,
-        bio: bio || user.bio,
-        website: website || user.website,
-        cover_url: cover_url || user.cover_url,
-        profile_url: profile_url || user.profile_url,
-        password
-      },
-      headers: {
-        token: localStorage.token
-      }
-    })
-    .then(({data}) => {
-      dispatch(getProfileData(user.name))
-      history.push('/profile/' + localStorage.username)
-    })
-    .catch(err => console.log(err))
+    const data = {
+      name: name || user.name,
+      email: email || user.email,
+      bio: bio || user.bio,
+      website: website || user.website,
+      cover_url: cover_url || user.cover_url,
+      profile_url: profile_url || user.profile_url,
+      password
+    }
+    dispatch(editProfile(data));
+    history.push('/profile/' + localStorage.username)
   }
 
   const cancel = (event) => {

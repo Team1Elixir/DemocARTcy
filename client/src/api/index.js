@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const server = axios.create({
-    baseURL: 'http://localhost:4000/'
+    baseURL: 'https://shrouded-ridge-07983.herokuapp.com/'
 })
 
 export default server;

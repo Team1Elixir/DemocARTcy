@@ -425,3 +425,29 @@ export const proceedPayment = payload => {
       })
   }
 }
+
+export const editProfile = payload => {
+  const { token } = localStorage;
+  return (dispatch) => {
+    dispatch(loading(true));
+    server.put('/:id', payload, {
+      headers: {
+        token
+      }
+    })
+      .then(({ data }) => {
+        console.log(data);
+        dispatch(getProfileData(payload.name))
+      })
+      .catch(err => {
+        toast.error(err.response.data.error, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2500
+        })
+        dispatch(error(err));
+      })
+      .finally(() => {
+        dispatch(loading(false));
+      })
+  }
+}
