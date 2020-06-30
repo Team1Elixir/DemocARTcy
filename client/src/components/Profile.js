@@ -11,7 +11,6 @@ const Profile = () => {
   const user = useSelector((state) => state.profiledata)
   const works = useSelector((state) => state.works)
   const commissions = useSelector((state) => state.commissions)
-  const error = useSelector((state) => state.error)
   const loading = useSelector((state) => state.loading)
   const dispatch = useDispatch()
   const {username} = useParams()
@@ -38,32 +37,36 @@ const Profile = () => {
             <a href={'https://'+user.website} className='user-website'>{user.website}</a>
           </div>
           { username === localStorage.username &&
-          <div className='edit-button'>
-            <Link to={'/profile/edit/'+user.username} className='editbtn btn btn-outline-primary'>Edit Profile</Link>
-            <Link to='/progress-client' className='editbtn btn btn-outline-primary'>Client Progress</Link>
-            <Link to='/progress-artist' className='editbtn btn btn-outline-primary'>Art Progress</Link>
-          </div>
+            <div className='edit-button'>
+              <Link to={'/profile/edit/'+user.username} className='edit-profile-btn btn btn-primary'>Edit Profile</Link>
+            </div>
+          }
+          { username == localStorage.username &&
+            <div className='d-flex' style={{marginLeft: 200}}>
+              <Link to='/progress-client' className='clientprogressbtn btn'>Client Progress</Link>
+              <Link to='/progress-artist' className='editbtn btn'>Art Progress</Link>
+            </div>
           }
         </div><br />
-        <div className='work-data'>
-          <br/><h5>Portofolios</h5><br />
+        <div className='profile-portofolio'>
+          <div className='work-data'>
+            <br/><h5>Portofolios</h5><br />
             <div className='profile-card-container'>
 
-          { works.map (card => {
-            return <WorkCard card={card} key={card.id} />
-            })}
-        </div>
-        </div>
-
-        <div className='work-data'>
-        <br/><h5 style={{ marginBottom: -10, marginTop: 10 }}>Commissions</h5><br />
+            { works.map (card => {
+              return <WorkCard card={card} key={card.id} />
+              })}
+            </div>
+          </div>
+          <div className='work-data'>
+            <br/><h5 style={{ marginBottom: -10, marginTop: 10 }}>Commissions</h5><br />
             <div className='profile-card-container'>
-          {commissions.map(card => {
+            {commissions.map(card => {
             return <CommissionCard card={card} key={card.id} />
-          })}    
+            })}    
+            </div>
+          </div>
         </div>
-        </div>
-        <div style={{ height: 75}}></div>
       </div>
     )
 }

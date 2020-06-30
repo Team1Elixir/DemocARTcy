@@ -16,6 +16,8 @@
 
 .nav-link:hover{
   transform: scale(1.1);
+  transition-duration: 300ms;
+  transition-delay: 50ms;
   color: teal;
 }
 
@@ -26,14 +28,18 @@
 }
 
 .menu-drop{
+  transition-duration: 200ms;
+  transition-delay: 50ms;
   width: 300px;
-  height: 800px;
+  height: 650px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .menu-drop-nologin{
+  transition-duration: 200ms;
+  transition-delay: 50ms;
   width: 300px;
   height: 250px;
   display: flex;
@@ -66,11 +72,21 @@
   width: 220px;
   margin: 3px;
   text-decoration: none;
-  background: #73ccd17a;
+  background: #90e0ef;
   padding: 5px;
   color: black;
   border-radius: 20px;
   text-align: center;
+}
+
+.link-drop:hover{
+  color: black;
+  background: #3fc4de;
+  font-weight: 500;
+  transform: scale(1.1);
+  transition-duration: 200ms;
+  transition-delay: 50ms;
+  text-decoration: none;
 }
 
 .drop-link:hover{

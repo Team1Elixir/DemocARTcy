@@ -8,7 +8,6 @@ const MainWork = () => {
 
   const works = useSelector((state) => state.works)
   const loading = useSelector((state) => state.loading)
-  const error = useSelector((state) => state.error)
   const dispatch = useDispatch()
 
   useEffect(() => {

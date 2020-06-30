@@ -7,7 +7,6 @@ import Loader from 'react-loader-spinner';
 const MainCommission = () => {
   const commissions = useSelector((state) => state.commissions)
   const loading = useSelector((state) => state.loading)
-  const error = useSelector((state) => state.error)
   const dispatch = useDispatch()
 
   useEffect(() => {
