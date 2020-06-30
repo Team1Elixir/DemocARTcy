@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getProfileData, getProfileCommissions,getProfileWorks } from '../store/actions'
+import { getProfileData } from '../store/actions'
 import { useParams, Link } from 'react-router-dom'
 import WorkCard from './WorkCard'
 import CommissionCard from './CommissionCard'
 import '../assets/profile.css'
 import Loader from 'react-loader-spinner';
-
 const Profile = () => {
+  const [cardbg, setCardbg] = useState('#DBF5FA')
+  const [fontcolor, setFontcolor] = useState('');
+  const [mode, setMode] = useState('Dark');
+  const [background, setBackground] = useState('');
   const user = useSelector((state) => state.profiledata)
   const works = useSelector((state) => state.works)
   const commissions = useSelector((state) => state.commissions)
@@ -15,14 +18,45 @@ const Profile = () => {
   const dispatch = useDispatch()
   const {username} = useParams()
 
+//  #18195e63
+
   useEffect(() => {
     dispatch(getProfileData(username))
+    if(localStorage.darkmode == 'dark') {
+      setBackground('black')
+      setFontcolor('white')
+      setMode('Light')
+      setCardbg('#18195e63')
+    } else {
+      setBackground('#DBF5FA')
+      setMode('Dark')
+      setFontcolor('')
+      setCardbg('#DBF5FA')
+    }
   }, [username])
+
+  const toggleDarkMode = (e) => {
+    e.preventDefault()
+    if(background !== 'black') {
+      setBackground('black')
+      setFontcolor('white')
+      setMode('Light')
+      setCardbg('#18195e63')
+      localStorage.setItem('darkmode', 'dark')
+    } else {
+      setBackground('#DBF5FA')
+      setMode('Dark')
+      setFontcolor('')
+      setCardbg('#DBF5FA')
+      localStorage.setItem('darkmode', 'light')
+    }
+  }
 
   if(loading) return (<div style={{ marginTop: 200, textAlign: 'center' }}> <Loader type='Grid' color='#023E8A' /> </div>)
   
   return (
-      <div className='profileContent'>
+      <div className='profileContent' style={{ background: background, color: fontcolor}}>
+        <button onClick={e=> toggleDarkMode(e)} className='clientprogressbtn btn position-absolute' style={{ marginTop: 10 }}>{mode} Mode</button>
         <div className='profile-cover'>
           <img className='cover-img' alt='profile-cover' src={user.cover_url} />
         </div>
@@ -51,7 +85,7 @@ const Profile = () => {
         </div><br />
         <div className='profile-portofolio'>
             <br/><h5>Portofolios</h5><br />
-          <div className='work-data'>
+          <div className='work-data' style={{ background: cardbg }}>
             <div className='profile-card-container'>
             { works.map (card => {
               return <WorkCard card={card} key={card.id} />
@@ -59,7 +93,7 @@ const Profile = () => {
             </div>
           </div>
             <br/><h5 style={{ marginBottom: -10, marginTop: 10 }}>Commissions</h5><br />
-          <div className='work-data'>
+          <div className='work-data' style={{ background: cardbg }}>
             <div className='profile-card-container'>
             {commissions.map(card => {
             return <CommissionCard card={card} key={card.id} />

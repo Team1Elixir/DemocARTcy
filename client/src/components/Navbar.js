@@ -7,8 +7,7 @@ import { getUserData } from '../store/actions'
 
 const Navbar = () => {
   const [color, setColor] = useState('');
-  const [fontcolor, setFontcolor] = useState('black')
-  const location = useLocation()
+  const [fontcolor, setFontcolor] = useState('white')
   const history = useHistory()
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
@@ -23,15 +22,9 @@ const Navbar = () => {
   useEffect(()=> {
     if(localStorage.username){
       dispatch(getUserData(username))
-    }
-    if(location.pathname === '/'){
-      setColor('')
-      setFontcolor('white')
-    } else  {
       setColor('#3FC4DE')
-      setFontcolor('white')
     }
-  },[location.pathname])
+  },[dispatch])
 
   if(localStorage.token && user)return (<>
     <div style={{background: color}} className='navbar navbar-light d-flex justify-content-between fixed-top'>
