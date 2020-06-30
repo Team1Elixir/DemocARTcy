@@ -295,9 +295,13 @@ export const loginUser = (payload) => {
         const { token, username } = data;
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
+        return data
       })
       .catch(err => {
-        dispatch(error(err.response.data.error));
+        Toast.fire({
+          icon: 'error',
+          title: err.response.data.error
+        })
       })
       .finally(() => {
         dispatch(loading(false));

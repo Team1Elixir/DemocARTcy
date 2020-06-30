@@ -7,7 +7,8 @@ import { getUserData } from '../store/actions'
 
 const Navbar = () => {
   const [color, setColor] = useState('');
-  const [fontcolor, setFontcolor] = useState('white')
+  const [fontcolor, setFontcolor] = useState('black')
+  const location = useLocation()
   const history = useHistory()
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
@@ -22,9 +23,15 @@ const Navbar = () => {
   useEffect(()=> {
     if(localStorage.username){
       dispatch(getUserData(username))
-      setColor('#3FC4DE')
     }
-  },[dispatch])
+    if(location.pathname === '/'){
+      setColor('#3FC4DE')
+      setFontcolor('white')
+    } else  {
+      setColor('#3FC4DE')
+      setFontcolor('white')
+    }
+  },[location.pathname])
 
   if(localStorage.token && user)return (<>
     <div style={{background: color}} className='navbar navbar-light d-flex justify-content-between fixed-top'>
@@ -37,7 +44,7 @@ const Navbar = () => {
         <Link style={{ color: fontcolor }} className='nav-link' to='/commissions'>COMMISSIONS</Link>
       </div>
       <Dropdown>
-        <Dropdown.Toggle variant='none' style={{ color: fontcolor }} className='dropdown-button'>My Account</Dropdown.Toggle>
+        <Dropdown.Toggle style={{ color: fontcolor }} className='dropdown-button btn btn-outline-primary'>My Account</Dropdown.Toggle>
           <Dropdown.Menu className='menu-drop d-flex flex-column'>
               <img className='dropdown-userimg' src={user.profile_url} alt='user pic'/>
               <Link className='link-user' to={'/profile/'+username}><h6>{user.name}</h6></Link>
@@ -75,8 +82,6 @@ const Navbar = () => {
               <Dropdown.Header>User Panel</Dropdown.Header>
               <Link className='link-drop' to='/login'>Login</Link>
               <Link className='link-drop' to='/register'>Register</Link>
-              <Dropdown.Header>About Democartcy</Dropdown.Header>
-              <Link className='link-drop' to='/'>About Us</Link>
           </Dropdown.Menu>
       </Dropdown>
     </div>
