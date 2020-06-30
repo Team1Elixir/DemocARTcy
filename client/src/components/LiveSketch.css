@@ -11,10 +11,10 @@
 }
 
 .uservideo1{
-  background-image: url("https://static.vecteezy.com/system/resources/previews/000/131/356/original/vector-grunge-frame-background.jpg");
-  z-index: 1;
-  width: 100;
-  height: 100;
+  width: auto;
+  height: auto;
+  background-size: 100 100;
+  padding: 0;
 }
 
 
