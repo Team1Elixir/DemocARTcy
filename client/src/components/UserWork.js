@@ -1,22 +1,28 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getUserWorksAndCommissions, getUserWorks } from '../store/actions'
+import { getUserWorks } from '../store/actions'
 import { Link } from 'react-router-dom'
 import WorkCard from './WorkCard'
+import Loader from 'react-loader-spinner';
 
 const UserWork = () => {
   const works = useSelector((state) => state.works)
   const loading = useSelector((state) => state.loading)
+  const error = useSelector((state) => state.error)
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(getUserWorks())
   },[])
 
-  if(loading) return (
-    <div className='profileContent'>
-      <div className='error-msg'>
-        <h6>loading..</h6>
-      </div>
+  if(loading) return (<div style={{ marginTop: 200, textAlign: 'center' }}> <Loader type='Grid' color='#023E8A' /> </div>)
+
+  if(error) return(
+    <div style={{ marginTop: 100 }}>
+        <div className='buttonpanel'>
+          <h2 style={{ textAlign: 'center' }}>My Portfolio</h2>
+            <Link className='btn btn-primary add-new' to ='/works/add'>+ Add Portfolio</Link>
+        </div>
+        
     </div>
   )
 
@@ -26,7 +32,12 @@ const UserWork = () => {
           <h2 style={{ textAlign: 'center' }}>My Portfolio</h2>
             <Link className='btn btn-primary add-new' to ='/works/add'>+ Add Portfolio</Link>
         </div>
-        <WorkCard worksdata={works} />
+        <div className='cards-content-holder'>
+          {works.map(card => {
+            return  <WorkCard card={card} key={card.id} />
+            })
+          }
+        </div>
     </div>
   );
 }

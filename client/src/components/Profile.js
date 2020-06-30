@@ -5,92 +5,23 @@ import { useParams, Link } from 'react-router-dom'
 import WorkCard from './WorkCard'
 import CommissionCard from './CommissionCard'
 import '../assets/profile.css'
+import Loader from 'react-loader-spinner';
 
 const Profile = () => {
   const user = useSelector((state) => state.profiledata)
   const works = useSelector((state) => state.works)
   const commissions = useSelector((state) => state.commissions)
-  const error = useSelector((state) => state.error)
   const loading = useSelector((state) => state.loading)
   const dispatch = useDispatch()
   const {username} = useParams()
 
   useEffect(() => {
     dispatch(getProfileData(username))
-    dispatch(getProfileWorks(localStorage.profileId))
-    dispatch(getProfileCommissions(localStorage.profileId))
-  }, [dispatch])
-  
-  // if(loading) return (
-  //   <div className='profileContent'>
-  //     <div className='error-msg'>
-  //       <h6>loading..</h6>
-  //     </div>
-  //   </div>
-  // )
-  // if(!localStorage.token) {
-  //   return (
-  //     <div className='profileContent'>
-  //       <div className='profile-cover'>
-  //         <img className='cover-img' alt='profile-cover' src={user.cover_url} />
-  //       </div>
-  //       <div className='profile-data'>
-  //         <div className='profile-img'>
-  //           <img className='user-img' src={user.profile_url} alt={user.name} />
-  //         </div>
-  //         <div className='profile-biodata'>
-  //           <h3>{user.name}</h3>
-  //           <p className='username'>@{user.username}</p>
-  //           <p>{user.bio}</p>
-  //         </div>
-  //       </div><br />
-  //       <div className='work-data'>
-  //         <br/><h5>Works</h5><br />
-  //         { 
-  //           <WorkCard worksdata={works} />
-  //         }
-  //       </div>
-  //       <div className='work-data'>
-  //         <br/><h5>Commissions</h5><br />
-  //           <CommissionCard commissionsdata={commissions} />
-  //       </div>
-  //       <div style={{ height: 75}}></div>
-  //     </div>
-  //   )
-  // }
-  // if(user.name && user.username !== localStorage.username) {
-  //   return (
-  //     <div className='profileContent'>
-  //       <div className='profile-cover'>
-  //         <img className='cover-img' alt='profile-cover' src={user.cover_url} />
-  //       </div>
-  //       <div className='profile-data'>
-  //         <div className='profile-img'>
-  //           <img className='user-img' src={user.profile_url} alt={user.name} />
-  //         </div>
-  //         <div className='profile-biodata'>
-  //           <h3>{user.name}</h3>
-  //           <p className='username'>@{user.username}</p>
-  //           <p>{user.bio}</p>
-  //         </div>
-  //       </div><br />
-  //       <div className='work-data'>
-  //         <br/><h5>Works</h5><br />
-  //         { 
-  //           <WorkCard worksdata={works} />
-  //         }
-  //       </div>
-  //       <div className='work-data'>
-  //         <br/><h5>Commissions</h5><br />
-  //           <CommissionCard commissionsdata={commissions} />
-  //       </div>
-  //       <div style={{ height: 75}}></div>
-  //     </div>
-  //   );
-  // }
+  }, [username])
 
-  // if(user.name && user.username === localStorage.username) {
-    return (
+  if(loading) return (<div style={{ marginTop: 200, textAlign: 'center' }}> <Loader type='Grid' color='#023E8A' /> </div>)
+  
+  return (
       <div className='profileContent'>
         <div className='profile-cover'>
           <img className='cover-img' alt='profile-cover' src={user.cover_url} />
@@ -105,31 +36,39 @@ const Profile = () => {
             <p>{user.bio}</p>
             <a href={'https://'+user.website} className='user-website'>{user.website}</a>
           </div>
-          <div className='edit-button'>
-            <Link to={'/profile/edit/'+user.username} className='editbtn btn btn-secondary'>Edit Profile</Link>
-            <Link to='/progress-client' className='editbtn btn btn-secondary'>My Progress</Link>
-          </div>
+          { username === localStorage.username &&
+            <div className='edit-button'>
+              <Link to={'/profile/edit/'+user.username} className='edit-profile-btn btn btn-primary'>Edit Profile</Link>
+            </div>
+          }
+          { username == localStorage.username &&
+            <div className='d-flex' style={{marginLeft: 200}}>
+              <Link to='/progress-client' className='clientprogressbtn btn'>Client Progress</Link>
+              <Link to='/progress-artist' className='editbtn btn'>Art Progress</Link>
+            </div>
+          }
         </div><br />
-        <div className='work-data'>
-          <br/><h5>Works</h5><br />
-            <WorkCard worksdata={works} />
+        <div className='profile-portofolio'>
+          <div className='work-data'>
+            <br/><h5>Portofolios</h5><br />
+            <div className='profile-card-container'>
+
+            { works.map (card => {
+              return <WorkCard card={card} key={card.id} />
+              })}
+            </div>
+          </div>
+          <div className='work-data'>
+            <br/><h5 style={{ marginBottom: -10, marginTop: 10 }}>Commissions</h5><br />
+            <div className='profile-card-container'>
+            {commissions.map(card => {
+            return <CommissionCard card={card} key={card.id} />
+            })}    
+            </div>
+          </div>
         </div>
-        <div className='work-data'>
-          <br/><h5>Commissions</h5><br />
-            <CommissionCard commissionsdata={commissions} />
-        </div>
-        <div style={{ height: 75}}></div>
       </div>
     )
-  // } 
-
-  // else if(error) return(
-  //   <div className='profileContent'>
-  //     <div className='error-msg'>
-  //       {/* <h6>{error.message + ' : Not Found'}</h6> */}
-  //     </div>
-  //   </div>
-  // )
 }
 
 export default Profile;

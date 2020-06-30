@@ -19,6 +19,7 @@ import MainCommission from './components/MainCommission'
 import UserCommission from './components/UserCommission'
 import 'react-toastify/dist/ReactToastify.min.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import './App.css'
 
 function App() {
   return (
@@ -77,6 +78,9 @@ function App() {
             <Home />
           </Route>
         </Switch>
+      </div>
+      <div className='little-footie page-footer font-small blue fixed-bottom'>
+          <p className='footie-text'>Copyright © Elixir Fox Alpha Team 2020</p>
       </div>
     </Router>
   );

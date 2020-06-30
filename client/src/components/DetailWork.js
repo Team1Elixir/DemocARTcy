@@ -1,17 +1,43 @@
 import React, { useEffect } from 'react';
 import './DetailWork.css';
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import { getWorkDetail } from '../store/actions'
+import { getWorkDetail,deleteData } from '../store/actions'
+import Loader from 'react-loader-spinner';
+import Swal from 'sweetalert2';
 
 const DetailWork = () => {
   const { id } = useParams();
-  const work = useSelector((state) => state.work);
+  const work = useSelector((state) => state.work)
+  const loading = useSelector(state => state.loading)
   const dispatch = useDispatch();
-  
+  const history = useHistory()
+
   useEffect(() => {
     dispatch(getWorkDetail(+id))
   }, [dispatch, id]);
+
+const deleteHandler = (e) => {
+    e.preventDefault()
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        dispatch(deleteData('work', id))
+        .then(() => {
+          history.push('/works')
+        })
+      }
+    })
+  }
+
+  if(loading) return (<div style={{ marginTop: 200, textAlign: 'center' }}> <Loader type='Grid' color='#023E8A' /> </div>)
 
   return (
     <div className="container-fluid d-flex justify-content-center align-items-center mb-3" style={{ marginTop: 75 }}>
@@ -38,6 +64,13 @@ const DetailWork = () => {
           <p className="work-disclaimer text-center">
             If you love this work, visit the creator page and apply for his/her commission (if any) to support them.
           </p>
+          {
+            work.User.username === localStorage.username &&
+            <div className='d-flex justify-content-center'>
+              <button onClick={e=> deleteHandler(e)} className='delete-work-button btn btn-danger'>Delete</button>
+            </div>
+          }
+          
         </div>
       </div>
     </div>

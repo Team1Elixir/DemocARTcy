@@ -10,7 +10,7 @@ const Row = styled.div`
   width: 100%;
 `;
 const Video = styled.video`
-  border: 1px solid #B9FFFE;
+  border: 1px solid #b9fffe;
   width: 100%;
   height: 75%;
 `;
@@ -36,7 +36,11 @@ function LiveSketch() {
     // setUserRoom();
     // socket.current = io("http://localhost:3000/");
     // socket.current.emit("join"); //INITIAL ROOM
-    console.log("name and room", name, room);
+    console.log("name and room and socket", name, room, socket.current);
+    if (socket.current === undefined) {
+      // console.log("socket kosong");
+      socket.current = io("https://shrouded-ridge-07983.herokuapp.com/");
+    }
     socket.current.emit("join", { name, room }, (error) => {
       if (error) {
         alert(error);
@@ -123,13 +127,19 @@ function LiveSketch() {
     incomingCall = (
       <div>
         <h5>{callerName} is calling you</h5>
-        <button onClick={acceptCall}>Accept</button>
+        <button
+          className="editbtn btn btn-outline-primary"
+          onClick={acceptCall}
+        >
+          Accept
+        </button>
       </div>
     );
   }
   function mouseDragged(P5) {
     // Draw
     P5.stroke("black");
+
     // P5.strokeWeight(strokeWidth);
     if (P5.mouseIsPressed) {
       P5.line(P5.mouseX, P5.mouseY, P5.pmouseX, P5.pmouseY);
@@ -153,17 +163,24 @@ function LiveSketch() {
   const setup = (p5, canvasParentRef) => {
     socket.current = io("https://shrouded-ridge-07983.herokuapp.com/");
     socket.current.emit("room", location.state.progressId);
-    p5.createCanvas(500, 500).parent(canvasParentRef); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
+    p5.createCanvas(500, 500).parent("jumbo-canvas"); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
     p5.background(233, 233, 233);
-    p5.removeBtn = p5.createButton("Save Canvas");
-    p5.removeBtn.mousePressed(saveToFile);
-    p5.removeBtn.parent(canvasParentRef);
-    p5.button = p5.createButton("Clear Canvas");
-    p5.button.mousePressed(clearCanvas);
-    p5.button.parent(canvasParentRef);
+
+    p5.saveBtn = p5.createButton("Save");
+    p5.saveBtn.mousePressed(saveToFile);
+    p5.saveBtn.parent("jumbo-canvas");
+    p5.saveBtn.addClass("p5-button btn btn-outline-primary");
+
+    p5.clearBtn = p5.createButton("Clear Canvas");
+    p5.clearBtn.mousePressed(clearCanvas);
+    p5.clearBtn.parent("jumbo-canvas");
+    p5.clearBtn.addClass("p5-button btn btn-outline-primary");
+
     p5.exitBtn = p5.createButton("Exit");
     p5.exitBtn.mousePressed(exitlive);
-    p5.exitBtn.parent(canvasParentRef);
+    p5.exitBtn.parent("jumbo-canvas");
+    p5.exitBtn.addClass("p5-button btn btn-outline-primary");
+
     socket.current.on("clear", () => {
       p5.clear();
       p5.background(233, 233, 233);
@@ -182,46 +199,53 @@ function LiveSketch() {
     }
     function exitlive() {
       socket.current.emit("exit", { name: name });
+
       userVideo.current.srcObject
         .getVideoTracks()
         .forEach((track) => track.stop());
+
       const { role } = localStorage;
-      if (role === 'Artist') {
+      if (role === "Artist") {
         history.push("/progress-artist");
-      } else if (role === 'Client') {
+      } else if (role === "Client") {
         history.push("/progress-client");
       }
     }
   };
   return (
     <>
+      <h1>live Sketch</h1>
       <div className="containerall">
         <div className="container_video">
           {/* <Row> */}
           <div className="video_box">
             {UserVideo}
+            <div className="callbutton">
+              {users.map((key) => {
+                if (key.id === yourID) {
+                  return null;
+                }
+                return (
+                  <>
+                    <button
+                      className="editbtn btn btn-outline-primary"
+                      onClick={() => callPeer(key.id)}
+                      key={key.id}
+                    >
+                      Call {key.name}
+                    </button>
+                  </>
+                );
+              })}
+            </div>
             {incomingCall}
           </div>
-          <div className="canvas">
+          <div id="jumbo-canvas">
             <Sketch setup={setup} draw={mouseDragged} />
           </div>
           <div className="video_box">{PartnerVideo}</div>
           {/* </Row> */}
         </div>
-        <Row>
-          {users.map((key) => {
-            if (key.id === yourID) {
-              return null;
-            }
-            return (
-              <>
-                <button onClick={() => callPeer(key.id)} key={key.id}>
-                  Call {key.name}
-                </button>
-              </>
-            );
-          })}
-        </Row>
       </div>
     </>
   );

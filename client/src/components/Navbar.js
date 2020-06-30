@@ -25,22 +25,15 @@ const Navbar = () => {
       dispatch(getUserData(username))
     }
     if(location.pathname === '/'){
-      setColor('')
-      setFontcolor('#014638')
-    } else if(location.pathname === '/works' || location.pathname === '/commissions') {
-      setColor('darkslategrey')
+      setColor('#3FC4DE')
       setFontcolor('white')
-    }  else if(location.pathname === '/login' || location.pathname === '/register'){
-      setColor('darkslategrey')
-      setFontcolor('white')
-    }
-     else {
-      setColor('#73CDD1')
+    } else  {
+      setColor('#3FC4DE')
       setFontcolor('white')
     }
   },[location.pathname])
 
-  if(localStorage.token && user)return (
+  if(localStorage.token && user)return (<>
     <div style={{background: color}} className='navbar navbar-light d-flex justify-content-between fixed-top'>
       <div>
         <Link style={{ color: fontcolor }} className='navbrand' to='/' >DEMOCARTCY</Link>
@@ -51,13 +44,15 @@ const Navbar = () => {
         <Link style={{ color: fontcolor }} className='nav-link' to='/commissions'>COMMISSIONS</Link>
       </div>
       <Dropdown>
-        <Dropdown.Toggle style={{ color: fontcolor }} className='dropdown-button btn btn-outline-secondary'>My Account</Dropdown.Toggle>
+        <Dropdown.Toggle style={{ color: fontcolor }} className='dropdown-button btn btn-outline-primary'>My Account</Dropdown.Toggle>
           <Dropdown.Menu className='menu-drop d-flex flex-column'>
               <img className='dropdown-userimg' src={user.profile_url} alt='user pic'/>
               <Link className='link-user' to={'/profile/'+username}><h6>{user.name}</h6></Link>
               <Link className='link-username' to={'/profile/'+username}>@{user.username}</Link>
               <Dropdown.Header className='dropdown-border'>Account</Dropdown.Header>
               <Link className='link-drop' to={'/profile/'+username}>Profile</Link>
+              <Link className='link-drop' to={'/progress-client/'}>Client Progress</Link>
+              <Link className='link-drop' to={'/progress-artist/'}>Art Progress</Link>
               <Dropdown.Header>Commission</Dropdown.Header>
               <Link className='link-drop' to={'/works/user/'+username}>My Portfolio</Link>
               <Link className='link-drop' to={'/commissions/user/'+username}>Commissions</Link>
@@ -67,9 +62,12 @@ const Navbar = () => {
           </Dropdown.Menu>
       </Dropdown>
     </div>
+    <div style={{height: 55}}></div>
+    </>
   )
 
   else return(
+    <>
     <div style={{background: color}} className='navbar navbar-light d-flex justify-content-between fixed-top'>
       <div>
         <Link style={{ color: fontcolor }} className='navbrand' to='/' >DEMOCARTCY</Link>
@@ -80,7 +78,7 @@ const Navbar = () => {
         <Link style={{ color: fontcolor }} className='nav-link' to='/commissions'>COMMISSIONS</Link>
       </div>
       <Dropdown>
-        <Dropdown.Toggle className='dropdown-button'>User</Dropdown.Toggle>
+        <Dropdown.Toggle style={{ color: fontcolor }} className='dropdown-button btn btn-outline-primary'>User</Dropdown.Toggle>
           <Dropdown.Menu className='menu-drop-nologin d-flex flex-column'>
               <Dropdown.Header>User Panel</Dropdown.Header>
               <Link className='link-drop' to='/login'>Login</Link>
@@ -90,6 +88,8 @@ const Navbar = () => {
           </Dropdown.Menu>
       </Dropdown>
     </div>
+    <div style={{height: 55}}></div>
+    </>
   )
 }
 

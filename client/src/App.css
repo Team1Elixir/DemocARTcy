@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+body{
+  background: #DBF5FA;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -24,4 +28,20 @@
 .allcontainer {
   display: flex;
   justify-content: center;
+}
+
+
+.little-footie{
+  height: 30px;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.footie-text{
+  font-size: 11px;
+  padding: 5px;
+  margin-top: 5px;
+  background: #3FC4DE;
+  border-top-left-radius: 20px;
 }
