@@ -4,7 +4,7 @@ import sample from "../samples/Raelaveire/1592696790749.jpg";
 import Loader from 'react-loader-spinner';
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../store/actions";
-import { errorAlert } from './alerts'
+import { successAlert } from './alerts'
 
 export default function RegisterForm() {
   const error = useSelector(state => state.error)
@@ -27,6 +27,7 @@ export default function RegisterForm() {
     dispatch(registerUser(data))
       .then(data => {
         if (data) {
+          successAlert('Successfully Registered')
           history.push('/login');
         }
       })
