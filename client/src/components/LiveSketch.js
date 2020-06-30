@@ -5,10 +5,7 @@ import Peer from "simple-peer";
 import Sketch from "react-p5";
 import styled from "styled-components";
 import "./LiveSketch.css";
-const Row = styled.div`
-  display: flex;
-  width: 100%;
-`;
+
 const Video = styled.video`
   border: 1px solid #b9fffe;
   width: 100%;
@@ -18,7 +15,7 @@ function LiveSketch() {
   const location = useLocation();
   const history = useHistory();
   const [yourID, setYourID] = useState("");
-  const [room, setUserRoom] = useState(location.state.progressId);
+  const [room, setUserRoom] = useState(location.state.progressId + "Sketch");
   const [name, setUserName] = useState(localStorage.getItem("username"));
   const [users, setUsers] = useState([]);
   const [stream, setStream] = useState();
@@ -27,9 +24,11 @@ function LiveSketch() {
   const [callerName, setCallerName] = useState("");
   const [callerSignal, setCallerSignal] = useState();
   const [callAccepted, setCallAccepted] = useState(false);
+  const [statusCall, setStatusCall] = useState("Accept");
   const userVideo = useRef();
   const partnerVideo = useRef();
   const socket = useRef();
+
   useEffect(() => {
     console.log("<><>", location.state);
     setUserName();
@@ -39,7 +38,7 @@ function LiveSketch() {
     console.log("name and room and socket", name, room, socket.current);
     if (socket.current === undefined) {
       // console.log("socket kosong");
-      socket.current = io("https://shrouded-ridge-07983.herokuapp.com/");
+      socket.current = io("http://localhost:3000/");
     }
     socket.current.emit("join", { name, room }, (error) => {
       if (error) {
@@ -72,7 +71,13 @@ function LiveSketch() {
       setCallerName(data.fromName);
       setCallerSignal(data.signal);
     });
+
+    socket.current.on("endVC", (data) => {
+      setReceivingCall(false);
+      setStatusCall("Accept");
+    });
   }, []);
+
   //SKETCH LIVE
   //VIDEO LIVE
   function callPeer(id) {
@@ -100,6 +105,7 @@ function LiveSketch() {
     });
   }
   function acceptCall() {
+    setStatusCall("Connected");
     setCallAccepted(true);
     const peer = new Peer({
       initiator: false,
@@ -114,6 +120,7 @@ function LiveSketch() {
     });
     peer.signal(callerSignal);
   }
+
   let UserVideo;
   if (stream) {
     UserVideo = <Video playsInline muted ref={userVideo} autoPlay />;
@@ -131,11 +138,12 @@ function LiveSketch() {
           className="editbtn btn btn-outline-primary"
           onClick={acceptCall}
         >
-          Accept
+          {statusCall}
         </button>
       </div>
     );
   }
+
   function mouseDragged(P5) {
     // Draw
     P5.stroke("black");
@@ -154,15 +162,15 @@ function LiveSketch() {
       y: y,
       px: pX,
       py: pY,
-      room: location.state.progressId, //RUBAH JIKA SUDAH ADA STATE ID PROGRESS
+      room: location.state.progressId + "Sketch", //RUBAH JIKA SUDAH ADA STATE ID PROGRESS
       // color: color,
       // strokeWidth: strokeWidth,
     };
     socket.current.emit("mouse", data);
   }
   const setup = (p5, canvasParentRef) => {
-    socket.current = io("https://shrouded-ridge-07983.herokuapp.com/");
-    socket.current.emit("room", location.state.progressId);
+    socket.current = io("http://localhost:3000/");
+    socket.current.emit("room", location.state.progressId + "Sketch");
     p5.createCanvas(500, 500).parent("jumbo-canvas"); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
     p5.background(233, 233, 233);
 
@@ -191,18 +199,25 @@ function LiveSketch() {
     function clearCanvas() {
       p5.clear();
       p5.background(233, 233, 233);
-      socket.current.emit("clear", { room: location.state.progressId }); //RUBAH JIKA SUDAH ADA STATE ID PROGRESS
+      socket.current.emit("clear", {
+        room: location.state.progressId + "Sketch",
+      }); //RUBAH JIKA SUDAH ADA STATE ID PROGRESS
     }
     function saveToFile() {
       // Save the current canvas to file as png
       p5.saveCanvas("mycanvas", "png");
     }
     function exitlive() {
-      socket.current.emit("exit", { name: name });
-
       userVideo.current.srcObject
         .getVideoTracks()
         .forEach((track) => track.stop());
+      userVideo.current.srcObject
+        .getAudioTracks()
+        .forEach((track) => track.stop());
+
+      socket.current.emit("exit", {
+        room: location.state.progressId + "Sketch",
+      });
 
       const { role } = localStorage;
       if (role === "Artist") {
