@@ -61,74 +61,134 @@ export default function AddCommission() {
         <div class="col-12">
           <h1 class="text-center"  style={{marginTop: 50}}>Add Commission</h1>
           
+          <span
+            style={{
+              fontSize: 22,
+              position: "relative",
+              top: 35,
+              left: 10,
+              backgroundColor: "white",
+              color: '#bfbfbf'
+            }}
+          >
+            Title
+          </span>
           <div class="input-group-prepend">
             {" "}
-            <span style={{fontSize: 22, marginRight: 80}}>Title</span>
             <input
-            type="text"
-            className="form-control"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            onChange={(event) => setTitle(event.target.value)}
-          />
-          </div>
-          <br/>
-
-          <div class="input-group-prepend">
-            {" "}
-            <span style={{fontSize: 22, marginRight: 32}}>ImageUrl</span>
-            <input
-            type="file"
-            className="form-control"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            onChange={setUploadedImage}
-          />
-          </div>
-          <img src={image_url} style={center} alt="imageUpload"></img>
-          <br/>
-
-          <div class="input-group-prepend">
-            {" "}
-            <span style={{fontSize: 22, marginRight: 10}}>Decription</span>
-          </div>
-          <textarea
-            type="text"
-            className="form-control"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            onChange={(event) => setDescription(event.target.value)}
-          />
-          <br/>
-
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span style={{fontSize: 22, marginRight: 10}}>Price</span>
-              <span style={{fontSize: 22, marginRight: 40}}>Rp.</span>
-            </div>
-            <input
+              style={{ height: 50 }}
               type="text"
-              class="form-control"
-              aria-label="Dollar amount (with dot and two decimal places)"
-              onChange={(event) => {setPrice(event.target.value)}}
+              className="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              onChange={(event) => setTitle(event.target.value)}
+            />
+          </div>
+          <span
+            style={{
+              fontSize: 22,
+              position: "relative",
+              top: 35,
+              left: 10,
+              backgroundColor: "white",
+              color: '#bfbfbf'
+            }}
+          >
+            ImageUrl
+          </span>
+          <div class="input-group-prepend">
+            {" "}
+            <input
+              style={{ top: 10, height: 60, paddingTop: 20 }}
+              type="file"
+              className="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              onChange={setUploadedImage}
+            />
+          </div>
+          <img
+            src={image_url}
+            style={center}
+            onError={() =>
+              setImage_url(
+                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+              )
+            }
+          ></img>
+
+          <span
+            style={{
+              fontSize: 22,
+              position: "relative",
+              top: 15,
+              left: 10,
+              backgroundColor: "white",
+              color: '#bfbfbf'
+            }}
+          >
+            Decription
+          </span>
+          <div class="input-group-prepend">
+            <textarea
+              type="text"
+              className="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              onChange={(event) => setDescription(event.target.value)}
             />
           </div>
 
+          <span
+            style={{
+              fontSize: 22,
+              position: "relative",
+              top: 35,
+              left: 10,
+              backgroundColor: "white",
+              color: '#bfbfbf'
+            }}
+          >
+            Price Rp.
+          </span>
+          <div class="input-group-prepend">
+            <input
+              style={{ height: 50 }}
+              type="text"
+              class="form-control"
+              aria-label="Dollar amount (with dot and two decimal places)"
+              onChange={(event) => {
+                setPrice(event.target.value);
+              }}
+            />
+          </div>
+
+          <span
+            style={{
+              fontSize: 22,
+              position: "relative",
+              top: 15,
+              left: 10,
+              backgroundColor: "white",
+              color: '#bfbfbf'
+            }}
+          >
+            Category
+          </span>
           <div class="input-group-prepend">
             {" "}
-            <span style={{fontSize: 22, marginRight: 40}}>Category</span>
             <select
-            name="category"
-            class="form-control"
-            onChange={(event) => setCategory(event.target.value)}
-          >
-            <option defaultChecked>---select---</option>
-            <option>2D Art</option>
-            <option>3D Art</option>
-          </select>
+              style={{ top: 10, height: 50, paddingTop: 10 }}
+              name="category"
+              class="form-control"
+              onChange={(event) => setCategory(event.target.value)}
+            >
+              <option defaultChecked>---select---</option>
+              <option>2D Art</option>
+              <option>3D Art</option>
+            </select>
           </div>
-          <br/>
-         
+          <br />
           <button
             type="button"
             class="btn btn-primary btn-lg btn-block"
