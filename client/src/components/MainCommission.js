@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { getAllCommissions } from '../store/actions'
 import { useSelector, useDispatch } from 'react-redux';
 import CommissionCard from './CommissionCard'
+import Loader from 'react-loader-spinner';
 
 const MainCommission = () => {
   const commissions = useSelector((state) => state.commissions)
@@ -13,11 +14,18 @@ const MainCommission = () => {
       dispatch(getAllCommissions())
   }, []);
 
-  if(loading) return (<div style={{ marginTop: 100, textAlign: 'center' }}><h3>Loading.....</h3></div>)
-  if(loading) return (<div style={{ marginTop: 100, textAlign: 'center' }}><h3>Error.....</h3></div>)
+  if(loading) return (<div style={{ marginTop: 300, textAlign: 'center' }}> <Loader/> </div>)
+  // if(error) return (<div style={{ marginTop: 300, textAlign: 'center' }}><h3>Empty</h3></div>)
   return (
     <div style={{ marginTop: 100 }}>
-      <CommissionCard commissionsdata={commissions} />
+      <h3 style={{ textAlign: 'center'}}>Commissions</h3>
+      <div className='cards-content-holder'>
+          {commissions.map(card => {
+            return  <CommissionCard card={card} key={card.id} />
+          })
+          }
+        </div>
+        <div style={{ height: 75}}></div>
     </div>
   )
 }

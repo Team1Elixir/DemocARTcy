@@ -135,6 +135,8 @@ export const getProfileData = (username) => {
     .then(({data}) => {
       console.log(data)
       dispatch(fetchProfileData(data))
+      dispatch(getProfileCommissions(data.id))
+      dispatch(getProfileWorks(data.id))
       localStorage.setItem('profileId', data.id)
     })
     .catch(err => {
@@ -537,5 +539,36 @@ export const addProjectResult = (payload) => {
         })
         dispatch(error(err));
       })
+  }
+}
+
+export const deleteData = ( type, id) => {
+  return (dispatch) => {
+    if(type === 'commission') 
+      return server({ method: 'DELETE',
+        url: '/commissions/'+id, 
+        headers: { token: localStorage.token } 
+      })
+      if (type === 'work')
+      return server({ method: 'DELETE',
+        url: '/works/'+id, 
+        headers: { token: localStorage.token } 
+      })
+    .then(({data}) => {
+      Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        dispatch(getAllCommissions())
+        dispatch(getAllWorks())
+        return true
+    })
+    .catch(err => {
+      Toast.fire({
+          icon: 'error',
+          title: err.response.data.error
+        })
+    })
   }
 }

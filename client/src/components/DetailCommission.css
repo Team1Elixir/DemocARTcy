@@ -59,3 +59,17 @@
     background-color: #73CDD5;
     color: whitesmoke;
 }
+
+.user-panel-detail{
+    width: inherit;
+    margin-right: 50px;
+}
+
+.edit-data-button{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.delete-data-button{
+    margin-right: 10px;
+}

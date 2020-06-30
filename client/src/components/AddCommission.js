@@ -108,7 +108,9 @@ export default function AddCommission() {
               <span style={{fontSize: 22, marginRight: 40}}>Rp.</span>
             </div>
             <input
-              type="text"
+              type="number"
+              min='10000'
+              max='999999'
               class="form-control"
               aria-label="Dollar amount (with dot and two decimal places)"
               onChange={(event) => {setPrice(event.target.value)}}

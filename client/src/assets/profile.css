@@ -81,18 +81,22 @@
 
 .work-data{
   margin-top: 20px;
-  min-height: 450px;
+  min-height: 350px;
+  max-height: 700px;
   width: 1200px;
   text-align: center;
   background: rgb(223, 223, 223);
   padding: 20px;
-}
-
-.work-profile-cards{
-  flex-wrap: wrap;
-  width: 100%;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cards-content-holder{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .img-card{
