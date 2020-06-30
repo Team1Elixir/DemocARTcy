@@ -6,8 +6,8 @@
   align-items: center;
   margin-top: 40px;
   /* border: black 1px solid; */
-  /* background-color: chartreuse; */
-  background-image: url("../assets/livesketch2.png");
+  /* background-color: #0077b6; */
+  background-image: url("../assets/livesketch3.jpg");
 }
 
 .container_video {
@@ -21,7 +21,18 @@
   height: 300px;
   padding: 30px;
 }
-.canvas {
+#jumbo-canvas {
   width: 500px;
   height: 550px;
+}
+
+.callbutton {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.p5-button {
+  color: black;
+  font-weight: 1000;
+  border-radius: 20px;
+  margin-right: 5px;
 }
