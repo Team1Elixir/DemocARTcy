@@ -6,6 +6,14 @@
     box-shadow:0 0 8px #90e1e6;
 }
 
+.popup-container {
+    padding: 12px;
+    background-color: #fbfdff;
+    border: solid 10px #73CDD1;
+    border-radius: 18px;
+    box-shadow:0 0 20px #90e1e6;
+}
+
 .progress-main-title {
     color: #73CDD1;
 }

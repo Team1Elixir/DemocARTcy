@@ -25,9 +25,10 @@ export default function RegisterForm() {
     };
 
     dispatch(registerUser(data))
-      .then(res => {
-        console.log(res);
-        // history.push('/login'); 
+      .then(data => {
+        if (data) {
+          history.push('/login');
+        }
       })
   }
 

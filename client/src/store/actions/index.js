@@ -263,7 +263,7 @@ export const registerUser = (payload) => {
     dispatch(loading(true));
     return server.post('/users/register', payload)
       .then(({ data }) => {
-        console.log(data);
+        return data;
       })
       .catch(err => {
         Toast.fire({
@@ -483,6 +483,59 @@ export const editProfile = payload => {
       })
       .finally(() => {
         dispatch(loading(false));
+      })
+  }
+}
+
+export const changeProjectStatus = (payload) => {
+  const { token } = localStorage;
+  const { status, id } = payload;
+  return (dispatch) => {
+    return server.patch(`/progresses/${id}`, {
+      status
+    }, {
+      headers: {
+        token
+      }
+    })
+      .then(({ data }) => {
+        dispatch(getProgressClient());
+        return data;
+      })
+      .catch(err => {
+        toast.error(err.response.data.error, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2500
+        })
+        dispatch(error(err));
+      })
+  }
+}
+
+export const addProjectResult = (payload) => {
+  const { token } = localStorage;
+  const { image_url, id } = payload;
+  return (dispatch) => {
+    return server.patch(`/progresses/result/${id}`, {
+      image_url
+    }, {
+      headers: {
+        token
+      }
+    })
+      .then(({ data }) => {
+        toast.success('Success upload result', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2500
+        })
+        return data;
+      })
+      .catch(err => {
+        toast.error(err.response.data.error, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2500
+        })
+        dispatch(error(err));
       })
   }
 }
