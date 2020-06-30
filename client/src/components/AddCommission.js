@@ -4,6 +4,8 @@ import { storage } from '../firebase';
 import { useDispatch } from "react-redux";
 import { addCommission } from "../store/actions";
 
+import sample from "../assets/displacement.2.png";
+
 export default function AddCommission() {
   const [title, setTitle] = useState("");
   const [image_url, setImage_url] = useState("");
@@ -44,21 +46,21 @@ export default function AddCommission() {
 
   const setUploadedImage = (event) => {
     const image = event.target.files[0];
-    const storageRef = storage.ref(`${image.name}`).put(image)
-      storageRef.on('state_changed', () => {
-        storageRef.snapshot.ref.getDownloadURL().then((url) => {
-          setImage_url(url)
-        })
+    if(image){
+      const storageRef = storage.ref(`${image.name}`).put(image)
+    storageRef.on('state_changed', () => {
+      storageRef.snapshot.ref.getDownloadURL().then((url) => {
+        setImage_url(url)
       })
-  }
+    })
+}}
+    
 
   return (
-    <div class="container">
+    <div class="">
       <div class="row justify-content-md-center">
-        <div class="col col-lg-6">
-
-        </div>
-        <div class="col-12">
+      <div class="col-1"></div>
+        <div class="col-5">
           <h1 class="text-center"  style={{marginTop: 50}}>Add Commission</h1>
           
           <span
@@ -197,7 +199,30 @@ export default function AddCommission() {
             Add Commission
           </button>
         </div>
-        <div class="col col-lg-6"></div>
+        <div class="col-6">
+          <div className="image-div">
+            <img
+              className="img-login"
+              alt="sample"
+              src={sample}
+              style={{ position: "relative",left:'50%',width:800,height:950,zIndex: -1 }}
+            ></img>
+            <button
+              className="btn btn-primary btn-lg"
+              style={{
+                opacity: 0.5,
+                backgroundColor: "#5c5c5c",
+                color: "#ffffff",
+                right: "28%",
+                top: 700,
+                position: "absolute",
+                color: "white",
+              }}
+            >
+              Credits:laevenx(Grady Wicoady)
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
