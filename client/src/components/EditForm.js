@@ -6,13 +6,13 @@ import '../assets/editform.css'
 
 const EditForm = () => {
   const user = useSelector((state) => state.profiledata)
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [bio, setBio] = useState('')
-  const [website, setWebsite] = useState('')
+  const [name, setName] = useState(user.name)
+  const [email, setEmail] = useState(user.email)
+  const [bio, setBio] = useState(user.bio)
+  const [website, setWebsite] = useState(user.website)
   const [password, setPassword] = useState('')
-  const [cover_url, setCover_url] = useState('')
-  const [profile_url, setProfile_url] = useState('')
+  const [cover_url, setCover_url] = useState(user.cover_url)
+  const [profile_url, setProfile_url] = useState(user.profile_url)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -27,12 +27,12 @@ const EditForm = () => {
     const payload = {
       id: user.id,
       data: {
-        name: name || user.name,
-        email: email || user.email,
-        bio: bio || user.bio,
-        website: website || user.website,
-        cover_url: cover_url || user.cover_url,
-        profile_url: profile_url || user.profile_url,
+        name: name,
+        email: email,
+        bio: bio,
+        website: website,
+        cover_url: cover_url,
+        profile_url: profile_url,
         password
       }
     }
@@ -46,43 +46,56 @@ const EditForm = () => {
   }
 
   return(
-    <div style={{marginTop: 50, background: 'url('+cover_url+')' }}>
+    <div style={{background: 'url('+cover_url+')' }}>
       <div style={{height: 10}}></div>
       <div className='editForm'>
         <h2>Edit Profile</h2>
         <div className='formEdit'>
-          <form onSubmit={e => submitEdit(e)}>
+          <form onSubmit={e => submitEdit(e)} style={{textAlign: 'center'}}>
+            <p className='labelInputEdit'>Password Verification</p>
             <input type='password'
               value={password} 
               onChange={e => setPassword(e.target.value) } 
               placeholder={'Verify Password'}
               className='text-input'
               required='true' />
+
+            <p className='labelInputEdit'>Cover URL</p>
             <input type='text'
               value={cover_url} 
               onChange={e => setCover_url(e.target.value) } 
               placeholder={'cover url'}
               className='text-input' />
+            
+            <p className='labelInputEdit'>Profile Picture</p>
             <input type='text'
               value={profile_url} 
               onChange={e => setProfile_url(e.target.value) } 
               placeholder={'profile image url'}
               className='text-input' />
+
+            <p className='labelInputEdit'>Name</p>
             <input type='text'
               value={name} 
               onChange={e => setName(e.target.value) } 
               placeholder={'name'}
               className='text-input' />
+
+            <p className='labelInputEdit'>E-mail</p>
             <input type='text'
               value={email} 
               onChange={e => setEmail(e.target.value) } 
               placeholder={user.email}
               className='text-input' />
+
+            <p className='labelInputEdit'>Bio</p>
             <input type='text'
               value={bio} 
               onChange={e => setBio(e.target.value) } 
               placeholder={'bio'}
               className='text-input' />
+
+            <p className='labelInputEdit'>Website</p>
             <input type='text'
               value={website} 
               onChange={e => setWebsite(e.target.value) } 

@@ -19,6 +19,7 @@ import MainCommission from './components/MainCommission'
 import UserCommission from './components/UserCommission'
 import 'react-toastify/dist/ReactToastify.min.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import './App.css'
 
 function App() {
   return (

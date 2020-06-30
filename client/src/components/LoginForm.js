@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserData, loginUser } from '../store/actions'
+import { successAlert } from './alerts'
 import '../assets/loginform.css'
 import sample from "../samples/Raelaveire/1592696790749.jpg";
 
@@ -24,6 +25,7 @@ export default function LoginForm() {
 
     dispatch(loginUser(payload))
       .then(() => {
+        successAlert('Login Successfully')
         history.push('/');
       })
       .catch(err => {

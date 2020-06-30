@@ -1,15 +1,15 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
-import './Payment.css';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { proceedPayment } from '../store/actions';
+import io from "socket.io-client";
+import './Payment.css';
 
 const Payment = ({ price, email, id }) => {
   const priceForStripe = price * 100;
   const publishableKey = 'pk_test_51GyVFyGEIdbxEPg1XCHjDEPCLg5oKfT4c0zsVoOURN8iD585heXkYh3TcBxQ78uUGXKlxdmuSGEvr8q6Vej6VpXJ0089jTRXX5';
-  const history = useHistory();
   const dispatch = useDispatch();
+  const socket = io("https://shrouded-ridge-07983.herokuapp.com");
 
   const onToken = token => {
     // history.push('/');
@@ -18,6 +18,9 @@ const Payment = ({ price, email, id }) => {
       amount: price,
       id
     }))
+      .then(data => {
+        socket.emit('paid', id);
+      })
     console.log(token);
     console.log('mantep udah bayar');
   }
