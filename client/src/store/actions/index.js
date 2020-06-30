@@ -269,13 +269,17 @@ export const loginUser = (payload) => {
     dispatch(loading(true));
     return server.post('/users/login', payload)
       .then(({ data }) => {
-        console.log(data)
         const { token, username } = data;
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
+        return data;
       })
       .catch(err => {
         dispatch(error(err.response.data.error));
+        toast.error(err.response.data.error, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2500
+        })
       })
       .finally(() => {
         dispatch(loading(false));

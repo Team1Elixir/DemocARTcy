@@ -49,7 +49,7 @@ const ProgressCard = ({ data, role }) => {
       title,
       imageUrl: image_url,
       imageHeight: 400,
-      imageAlt: image_url !== 'https://bit.ly/3iendMh' ? 'no result submit yet' : title,
+      imageAlt: title,
       showCancelButton: image_url !== 'https://bit.ly/3iendMh' ? true : false,
       confirmButtonText: image_url !== 'https://bit.ly/3iendMh' ? 'Accept' : 'Close',
       cancelButtonText: 'Decline',
@@ -90,7 +90,7 @@ const ProgressCard = ({ data, role }) => {
   }
 
   const triggerFileButton = () => {
-    document.getElementById('input-result').click();
+    document.getElementById(`result${id}`).click();
   }
 
   const setUploadedImage = (event) => {
@@ -104,14 +104,12 @@ const ProgressCard = ({ data, role }) => {
     () => {
       uploadProgress = 100
       storageRef.snapshot.ref.getDownloadURL().then((url) => {
-        console.log('patch')
         dispatch(addProjectResult({
           image_url: url,
           id
         }))
           .then(data => {
             if (data) {
-              console.log(data)
               socket.emit('result image', data.progress);
             }
           })
@@ -213,7 +211,7 @@ const ProgressCard = ({ data, role }) => {
                 >
                   <p className="mb-0">Result</p>
                 </div>
-                <input type="file" style={{ display: 'none' }} id="input-result" onChange={setUploadedImage}/>
+                <input type="file" style={{ display: 'none' }} id={`result${id}`} onChange={setUploadedImage}/>
               </>
             }
           </>
