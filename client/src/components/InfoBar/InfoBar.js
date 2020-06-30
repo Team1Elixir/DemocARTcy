@@ -12,9 +12,18 @@ const InfoBar = ({ room }) => (
       <h3>{room}</h3>
     </div>
     <div className="rightInnerContainer">
-      <a href="/progress-client">
-        <img src={closeIcon} alt="close icon" />
-      </a>
+      {
+        localStorage.role === 'Client' &&
+        <a href="/progress-client">
+          <img src={closeIcon} alt="close icon" />
+        </a>
+      }
+      {
+        localStorage.role === 'Artist' &&
+        <a href="/progress-artist">
+          <img src={closeIcon} alt="close icon" />
+        </a>
+      }
     </div>
   </div>
 );
