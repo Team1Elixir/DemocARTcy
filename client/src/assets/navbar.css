@@ -27,6 +27,10 @@
   font-weight: 700;
 }
 
+.dropdown-button:active{
+  background: #3FC4DE;
+}
+
 .menu-drop{
   transition-duration: 200ms;
   transition-delay: 50ms;

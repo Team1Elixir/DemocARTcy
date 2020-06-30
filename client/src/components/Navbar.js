@@ -25,7 +25,7 @@ const Navbar = () => {
       dispatch(getUserData(username))
     }
     if(location.pathname === '/'){
-      setColor('#3FC4DE')
+      setColor('')
       setFontcolor('white')
     } else  {
       setColor('#3FC4DE')
@@ -44,7 +44,7 @@ const Navbar = () => {
         <Link style={{ color: fontcolor }} className='nav-link' to='/commissions'>COMMISSIONS</Link>
       </div>
       <Dropdown>
-        <Dropdown.Toggle style={{ color: fontcolor }} className='dropdown-button btn btn-outline-primary'>My Account</Dropdown.Toggle>
+        <Dropdown.Toggle variant='none' style={{ color: fontcolor }} className='dropdown-button'>My Account</Dropdown.Toggle>
           <Dropdown.Menu className='menu-drop d-flex flex-column'>
               <img className='dropdown-userimg' src={user.profile_url} alt='user pic'/>
               <Link className='link-user' to={'/profile/'+username}><h6>{user.name}</h6></Link>
