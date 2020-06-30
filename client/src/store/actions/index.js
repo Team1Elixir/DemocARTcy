@@ -430,7 +430,7 @@ export const editProfile = payload => {
   const { token } = localStorage;
   return (dispatch) => {
     dispatch(loading(true));
-    server.put('/:id', payload, {
+    server.put('/users/:id', payload, {
       headers: {
         token
       }
