@@ -70,15 +70,15 @@ const DetailCommission = () => {
           ></img>
         </div>
         <div className="col-6 com-detail d-flex flex-column align-items-center justify-content-around p-3">
+          <p className="com-title">{commission.title}</p>
+          <p className="com-price">{accounting.formatMoney(commission.price, { symbol: 'Rp ', precision: 2, thousand: '.', decimal: ',' })}</p>
+          <h3 className="text-left"><span className="badge badge-info p-2 com-category">{commission.category}</span></h3>
           {
             commission.User.username === localStorage.username &&
             <div className='user-panel-detail d-flex justify-content-end'>
               <button className='delete-data-button btn btn-danger' onClick={e=> deleteHandler(e)}>Delete</button>
             </div>
           }
-          <p className="com-title">{commission.title}</p>
-          <p className="com-price">{accounting.formatMoney(commission.price, { symbol: 'Rp ', precision: 2, thousand: '.', decimal: ',' })}</p>
-          <h3 className="text-left"><span className="badge badge-info p-2 com-category">{commission.category}</span></h3>
           {
             commission.User.username !== localStorage.username &&
             <div className="apply-button">
