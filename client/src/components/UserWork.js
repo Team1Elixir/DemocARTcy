@@ -14,7 +14,7 @@ const UserWork = () => {
     dispatch(getUserWorks())
   },[])
 
-  if(loading) return (<div style={{ marginTop: 300, textAlign: 'center' }}> <Loader/> </div>)
+  if(loading) return (<div style={{ marginTop: 200, textAlign: 'center' }}> <Loader type='Grid' color='#023E8A' /> </div>)
 
   if(error) return(
     <div style={{ marginTop: 100 }}>

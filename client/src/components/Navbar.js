@@ -44,7 +44,7 @@ const Navbar = () => {
         <Link style={{ color: fontcolor }} className='nav-link' to='/commissions'>COMMISSIONS</Link>
       </div>
       <Dropdown>
-        <Dropdown.Toggle style={{ color: fontcolor }} className='dropdown-button btn btn-outline-secondary'>My Account</Dropdown.Toggle>
+        <Dropdown.Toggle style={{ color: fontcolor }} className='dropdown-button btn btn-outline-primary'>My Account</Dropdown.Toggle>
           <Dropdown.Menu className='menu-drop d-flex flex-column'>
               <img className='dropdown-userimg' src={user.profile_url} alt='user pic'/>
               <Link className='link-user' to={'/profile/'+username}><h6>{user.name}</h6></Link>

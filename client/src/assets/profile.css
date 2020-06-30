@@ -14,6 +14,9 @@
   width: 1200px;
   height: 450px;
   background: lightblue;
+  -webkit-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+  box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
 }
 
 .cover-img{
@@ -26,6 +29,11 @@
   min-height: 170px;
   background: #a5f3ff;
   display: flex;
+  -webkit-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+  box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .profile-img{
@@ -64,6 +72,7 @@
   margin-left: 20px;
   display: flex;
   flex-direction: row;
+  color: black;
 }
 
 .user-website{
@@ -71,6 +80,8 @@
 }
 
 .editbtn{
+  color: black;
+  font-weight: 600;
   border-radius: 20px;
   height: 30px;
   display: flex;
@@ -85,6 +96,10 @@
   margin-top: 20px;
   text-align: center;
   background: #a5f3ff;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+  box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
 }
 
 .profile-card-container{
@@ -135,8 +150,11 @@
   height: fit-content;
   width: fit-content;
   border-radius: 20px;
-  border: solid black 0.5px;
+  /* border: solid black 0.5px; */
   color: white;
+  -webkit-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+  box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
 }
 
 .img-card{

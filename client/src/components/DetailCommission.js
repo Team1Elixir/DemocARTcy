@@ -50,7 +50,7 @@ const DetailCommission = () => {
     })
   }
 
-  if(loading) return (<div style={{ marginTop: 300, textAlign: 'center' }}> <Loader/> </div>)
+  if(loading) return (<div style={{ marginTop: 200, textAlign: 'center' }}> <Loader type='Grid' color='#023E8A' /> </div>)
 
   return (
     <div className="container-fluid d-flex flex-column align-items-center pr-3 pl-3 mb-3" style={{ marginTop: 75 }}>

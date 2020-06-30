@@ -46,7 +46,7 @@ const EditForm = () => {
   }
 
   return(
-    <div style={{marginTop: 50, background: 'url('+cover_url+')' }}>
+    <div style={{background: 'url('+cover_url+')' }}>
       <div style={{height: 10}}></div>
       <div className='editForm'>
         <h2>Edit Profile</h2>
