@@ -27,6 +27,10 @@
   font-weight: 700;
 }
 
+.dropdown-button:active{
+  background: #3FC4DE;
+}
+
 .menu-drop{
   transition-duration: 200ms;
   transition-delay: 50ms;
@@ -65,7 +69,7 @@
 }
 
 .dropdown-border{
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .link-drop{
@@ -77,6 +81,7 @@
   color: black;
   border-radius: 20px;
   text-align: center;
+  border: none;
 }
 
 .link-drop:hover{
