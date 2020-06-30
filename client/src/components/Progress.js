@@ -23,21 +23,13 @@ const Progress = () => {
       dispatch(getProgressClient());
     } 
   }, [dispatch, location.pathname])
+  
+  if(loading) return (<div style={{ marginTop: 200, textAlign: 'center' }}> <Loader type='Grid' color='#023E8A' /> </div>)
 
   return (
     <div className="container-fluid w-75 d-flex flex-column align-items-center mb-5" style={{ marginTop: 75 }}>
       <h1 className="progress-main-title">Progress {role}</h1>
-      {
-        loading &&
-        <Loader 
-          type="ThreeDots"
-          color="#73CDD1"
-          height={150}
-          width={150}
-        />
-      }
       { 
-        !loading &&
         projects.map((project, index) => {
           return (
             <ProgressCard data={project} role={role} key={index} />

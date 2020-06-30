@@ -35,10 +35,12 @@ const Profile = () => {
             <p className='username'>@{user.username}</p>
             <p>{user.bio}</p>
             <a href={'https://'+user.website} className='user-website'>{user.website}</a>
+            { username === localStorage.username &&
               <div className='progress-button-panel'>
-            <Link to='/progress-client' className='clientprogressbtn btn'>Client Progress</Link>
-            <Link to='/progress-artist' className='editbtn btn'>Art Progress</Link>
-            </div>
+                <Link to='/progress-client' className='clientprogressbtn btn'>Client Progress</Link>
+                <Link to='/progress-artist' className='editbtn btn'>Art Progress</Link>
+              </div>
+            }
           </div>
           { username === localStorage.username &&
             <div className='edit-button'>
@@ -48,10 +50,9 @@ const Profile = () => {
           
         </div><br />
         <div className='profile-portofolio'>
-          <div className='work-data'>
             <br/><h5>Portofolios</h5><br />
+          <div className='work-data'>
             <div className='profile-card-container'>
-
             { works.map (card => {
               return <WorkCard card={card} key={card.id} />
               })}

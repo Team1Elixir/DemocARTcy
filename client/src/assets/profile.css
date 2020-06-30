@@ -133,17 +133,20 @@
 .work-data{
   margin-bottom: 50px;
   width: 1200px;
-  min-height: 450px;
+  min-height: 380px;
   text-align: center;
   background: #DBF5FA;
   -webkit-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
   box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
+  overflow-x: auto;
 }
 
 .profile-card-container{
+  margin-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: start;
+  width: inherit;
 }
 
 .cards-content-holder{
@@ -154,7 +157,7 @@
 }
 
 .title-work{
-  width: fit-content;
+  width: max-content;
   position: absolute;
   z-index: 2;
   padding: 15px;
@@ -178,12 +181,13 @@
 }
 
 .cards{
+  position: relative;
   border-radius: 20px;
   color: white;
 }
 
 .cards:hover{
-  color: darkslategrey;
+  color: white;
 }
 
 .work-profile-cards{
@@ -191,7 +195,7 @@
   margin-left: 5px;
   margin-right: 5px;
   height: fit-content;
-  width: fit-content;
+  width: max-content;
   border-radius: 20px;
   color: white;
   -webkit-box-shadow: 0px 3px 13px -2px rgba(0,0,0,0.75);
@@ -206,10 +210,11 @@
 }
 
 .work-profile-cards:hover{
-  transform: scale(1.02);
+  transform: scale(1.1);
   transition-duration: 300ms;
   transition-delay: 50ms;
   color: white;
+  z-index: 3;
 }
 
 .labelInputEdit{
