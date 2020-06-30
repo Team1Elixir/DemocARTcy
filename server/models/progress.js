@@ -51,6 +51,16 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    image_url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'https://bit.ly/3iendMh',
+      validate: {
+        notNull: {args: true, msg: 'Sample Image is required' },
+        notEmpty: { args: true, msg: 'Sample image is required' },
+        isUrl: {args : true, msg:'Invalid Url format'}
+      }
+    },
     ClientId: {
       type : DataTypes.INTEGER,
       references: {

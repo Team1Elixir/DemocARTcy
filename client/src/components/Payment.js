@@ -1,15 +1,23 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import './Payment.css';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { proceedPayment } from '../store/actions';
 
-const Payment = ({ price, email }) => {
+const Payment = ({ price, email, id }) => {
   const priceForStripe = price * 100;
   const publishableKey = 'pk_test_51GyVFyGEIdbxEPg1XCHjDEPCLg5oKfT4c0zsVoOURN8iD585heXkYh3TcBxQ78uUGXKlxdmuSGEvr8q6Vej6VpXJ0089jTRXX5';
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onToken = token => {
-    history.push('/')
+    // history.push('/');
+    dispatch(proceedPayment({
+      token,
+      amount: price,
+      id
+    }))
     console.log(token);
     console.log('mantep udah bayar');
   }

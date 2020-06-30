@@ -96,6 +96,27 @@ class ProgressController {
             })
     }
 
+    static addResult (req, res, next) {
+        const { id } = req.params;
+        const { image_url } = req.body;
+
+        Progress
+            .update({
+                image_url
+            },{
+                where: { id },
+                returning: true
+            })
+            .then(data => {
+                res.status(200).json({
+                    progress: data[1][0]
+                })
+            })
+            .catch(err => {
+                next(err);
+            })
+    }
+
     static deleteProject (req, res, next){
         const { id } = req.params;
 

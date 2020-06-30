@@ -43,10 +43,10 @@ const ProgressCard = ({ data, role }) => {
         ></img>
         <p className="mb-0 text-bluish artist-name">{role == 'Artist' ? client.username : artist.username}</p>
       </div>
-      <div className="col-3">
+      <div className="col-4">
         <p className="mb-0 text-bluish job-title text-center">{title}</p>
       </div>
-      <div className="col-3">
+      <div className="col-2">
         <h2 className="mb-0 job-status p-3 text-center">
           <span className="badge">{status}</span>
         </h2>
@@ -75,7 +75,7 @@ const ProgressCard = ({ data, role }) => {
           
           </>
         )}
-        {status === "Done" && <Payment price={price} email={client.email} />}
+        {status === "Done" && <Payment price={price} email={client.email} id={id}/>}
       </div>
     </div>
   );

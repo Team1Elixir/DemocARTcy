@@ -119,6 +119,7 @@ export const getProfileData = (username) => {
     dispatch(loading(true))
     server.get('/users/'+username)
     .then(({data}) => {
+      console.log(data)
       dispatch(fetchProfileData(data))
       localStorage.setItem('profileId', data.id)
     })
@@ -377,7 +378,7 @@ export const getProgressClient = () => {
 export const getProgressArtist = () => {
   const { token } = localStorage;
   return (dispatch) => {
-    dispatch(loading(true))
+    dispatch(loading(true));
     server.get('/progresses/artist', {
       headers: {
         token
@@ -393,5 +394,34 @@ export const getProgressArtist = () => {
     .finally(() => {
       dispatch(loading(false));
     })
+  }
+}
+
+export const proceedPayment = payload => {
+  const { token } = localStorage;
+  return dispatch => {
+    dispatch(loading(true));
+    server.post('/payment', payload, {
+      headers: {
+        token
+      }
+    })
+      .then(({ data }) => {
+        toast.success(data.success, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2500
+        })
+        dispatch(getProgressClient());
+      })
+      .catch(err => {
+        toast.error(err.response.data.error, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 2500
+        })
+        dispatch(error(err));
+      })
+      .finally(() => {
+        dispatch(loading(false));
+      })
   }
 }

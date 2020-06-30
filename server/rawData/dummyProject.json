@@ -4,6 +4,7 @@
         "title": "Doodle Art",
         "price": 110000,
         "status": "onProgress",
+        "image_url": "https://bit.ly/3iendMh",
         "ArtistId": 1,
         "ClientId": 2
     },
@@ -12,6 +13,7 @@
         "title": "2D Animal Drawing",
         "price": 80000,
         "status": "onProgress",
+        "image_url": "https://bit.ly/3iendMh",
         "ArtistId": 2,
         "ClientId": 1
     }

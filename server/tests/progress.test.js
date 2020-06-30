@@ -78,6 +78,7 @@ describe('Progress Router', () => {
                         expect(projects[0]).toHaveProperty('title', '2D Animal Drawing');
                         expect(projects[0]).toHaveProperty('price', 80000);
                         expect(projects[0]).toHaveProperty('status', 'onProgress');
+                        expect(projects[0]).toHaveProperty('image_url', 'https://bit.ly/3iendMh');
                         expect(projects[0]).toHaveProperty('ClientId', 1);
                         expect(projects[0]).toHaveProperty('ArtistId', 2);
                     })
@@ -154,6 +155,7 @@ describe('Progress Router', () => {
                         expect(projects[0]).toHaveProperty('title', 'Doodle Art');
                         expect(projects[0]).toHaveProperty('price', 110000);
                         expect(projects[0]).toHaveProperty('status', 'onProgress');
+                        expect(projects[0]).toHaveProperty('image_url', 'https://bit.ly/3iendMh');
                         expect(projects[0]).toHaveProperty('ClientId', 2);
                         expect(projects[0]).toHaveProperty('ArtistId', 1);
                     })
@@ -233,6 +235,7 @@ describe('Progress Router', () => {
                         expect(progress).toHaveProperty('title', '3D Design using Blender');
                         expect(progress).toHaveProperty('price', 300000);
                         expect(progress).toHaveProperty('status', 'onProgress');
+                        expect(progress).toHaveProperty('image_url', 'https://bit.ly/3iendMh');
                         expect(progress).toHaveProperty('ClientId', 1);
                         expect(progress).toHaveProperty('ArtistId', 2);
                         
@@ -431,6 +434,7 @@ describe('Progress Router', () => {
                         expect(progress).toHaveProperty('title', '2D Animal Drawing');
                         expect(progress).toHaveProperty('price', 80000);
                         expect(progress).toHaveProperty('status', 'Done');
+                        expect(progress).toHaveProperty('image_url', 'https://bit.ly/3iendMh');
                         expect(progress).toHaveProperty('ClientId', 1);
                         expect(progress).toHaveProperty('ArtistId', 2);
                     })
@@ -553,6 +557,193 @@ describe('Progress Router', () => {
                     .patch('/progresses/2')
                     .send({
                         status: 'Done'
+                    })
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(401)
+                    .expect(res => {
+                        let commission = res.body;
+                        expect(commission.error).toContain('please login first');
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    }) 
+            })
+        });
+    });
+
+    describe('Add result image', () => {
+        describe('Success', () => {
+            test('should return status code 200 along with json containing updated project data', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .patch('/progresses/result/2')
+                    .send({
+                        image_url: 'https://artist.com/photos/arts/big/reflections-35853410087739.jpg'
+                    })
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .expect(res => {
+                        const { progress } = res.body;
+                        expect(progress).toHaveProperty('id', 2);
+                        expect(progress).toHaveProperty('title', '2D Animal Drawing');
+                        expect(progress).toHaveProperty('price', 80000);
+                        expect(progress).toHaveProperty('status', 'Done');
+                        expect(progress).toHaveProperty('image_url', 'https://artist.com/photos/arts/big/reflections-35853410087739.jpg');
+                        expect(progress).toHaveProperty('ClientId', 1);
+                        expect(progress).toHaveProperty('ArtistId', 2);
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    })
+            })
+            
+        });
+
+        describe('Fail', () => {
+            test('should return status code 400 because sample image is empty', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .patch('/progresses/result/2')
+                    .send({
+                        image_url: ''
+                    })
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .expect(res => {
+                        const progress = res.body;
+                        expect(progress.error).toMatch('Sample image is required')
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    })
+            });
+
+            test('should return status code 400 because sample image was input with invalid url format', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .patch('/progresses/result/2')
+                    .send({
+                        image_url: 'sample jpg'
+                    })
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(400)
+                    .expect(res => {
+                        const progress = res.body;
+                        expect(progress.error).toMatch('Invalid Url format')
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    })
+            });
+
+            test('should return status code 400 because no project found with selected id', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .patch('/progresses/result/4')
+                    .send({
+                        image_url: 'https://artist.com/photos/arts/big/reflections-35853410087739.jpg'
+                    })
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(404)
+                    .expect(res => {
+                        const progress = res.body;
+                        expect(progress.error).toContain('Project not found')
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    })
+            });
+
+            test('should return status code 400 because user doesnt have authorithy to do the action', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .patch('/progresses/result/1')
+                    .send({
+                        image_url: 'https://artist.com/photos/arts/big/reflections-35853410087739.jpg'
+                    })
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(401)
+                    .expect(res => {
+                        const progress = res.body;
+                        expect(progress.error).toContain('You dont have authority to do this action')
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    })
+            });
+
+            test('should return status 401 because user doesnt have permission to do the action', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: 5,
+                    username: user.username
+                })
+                request(app)
+                    .patch('/progresses/result/2')
+                    .send({
+                        image_url: 'https://artist.com/photos/arts/big/reflections-35853410087739.jpg'
+                    })
+                    .set('Accept', 'application/json')
+                    .set('token', token)
+                    .expect('Content-Type', /json/)
+                    .expect(401)
+                    .expect(res => {
+                        let commission = res.body;
+                        expect(commission.error).toContain('authentication data invalid, please login again');
+                    })
+                    .end(err => {
+                        if(err) done(err);
+                        else done();
+                    }) 
+            })
+
+            test('should return status 401 because user is not logged in', done => {
+                let user = users[0];
+                let token = generateToken({
+                    id: user.id,
+                    username: user.username
+                })
+                request(app)
+                    .patch('/progresses/result/2')
+                    .send({
+                        image_url: 'https://artist.com/photos/arts/big/reflections-35853410087739.jpg'
                     })
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)

@@ -56,6 +56,7 @@ describe('Payment Router', () => {
                 request(app)
                     .post('/payment')
                     .send({
+                        id: 1,
                         token: {
                             id: tokenId
                         },
@@ -86,6 +87,7 @@ describe('Payment Router', () => {
                 request(app)
                     .post('/payment')
                     .send({
+                        id: 1,
                         token: {
                             id: 'tok_dummy'
                         },
@@ -97,7 +99,6 @@ describe('Payment Router', () => {
                     .expect(400)
                     .expect(res => {
                         const payment = res.body;
-                        console.log(payment.error)
                         expect(payment.error).toContain('No such token: tok_dummy')
                     })
                     .end(err => {
