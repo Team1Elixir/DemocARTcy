@@ -23,7 +23,7 @@ const Chat = () => {
   useEffect(() => {
     // const { name, room } = queryString.parse(location.search);
 
-    socket = io("https://shrouded-ridge-07983.herokuapp.com/");
+    socket = io("https://whispering-woodland-44131.herokuapp.com/");
 
     // setRoom(room);
     // setName(name);

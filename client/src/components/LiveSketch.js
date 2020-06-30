@@ -39,7 +39,7 @@ function LiveSketch() {
     console.log("name and room and socket", name, room, socket.current);
     if (socket.current === undefined) {
       // console.log("socket kosong");
-      socket.current = io("https://shrouded-ridge-07983.herokuapp.com/");
+      socket.current = io("https://whispering-woodland-44131.herokuapp.com/");
     }
     socket.current.emit("join", { name, room }, (error) => {
       if (error) {

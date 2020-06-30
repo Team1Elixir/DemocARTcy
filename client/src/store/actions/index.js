@@ -362,12 +362,13 @@ export const addCommission = (payload) => {
 
 export const newProject = (payload) => {
   const { token } = localStorage;
-  const { title, price, id } = payload;
+  const { title, price, id, sample_url } = payload;
   return (dispatch) => {
     dispatch(loading(true))
     return server.post('/progresses/'+id, {
       title,
-      price
+      price,
+      sample_url
     }, {
       headers: {
         token

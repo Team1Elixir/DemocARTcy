@@ -24,11 +24,12 @@ const DetailCommission = () => {
         history.push('/login')
         errorAlert('You must Login First!')
       } else {
-      const { title, price, UserId } = commission;
+      const { title, price, UserId, image_url } = commission;
       dispatch(newProject({
         id: UserId,
         title,
-        price
+        price,
+        sample_url: image_url
       }))
       .then(() => {
         history.push('/progress-client');
@@ -59,7 +60,7 @@ const DetailCommission = () => {
   if(loading) return (<div style={{ marginTop: 200, textAlign: 'center' }}> <Loader type='Grid' color='#023E8A' /> </div>)
 
   return (
-    <div className="container-fluid d-flex flex-column align-items-center pr-3 pl-3 mb-3" style={{ marginTop: 75 }}>
+    <div className="container-fluid d-flex flex-column align-items-center pr-3 pl-3 mb-3" style={{ marginTop: 50 }}>
       <div className="w-100 d-flex justify-content-center row">
         <div className="col-6 text-center">
           <img
@@ -70,26 +71,33 @@ const DetailCommission = () => {
           ></img>
         </div>
         <div className="col-6 com-detail d-flex flex-column align-items-center justify-content-around p-3">
-          {
-            commission.User.username === localStorage.username &&
-            <div className='user-panel-detail d-flex justify-content-end'>
-              <button className='delete-data-button btn btn-danger' onClick={e=> deleteHandler(e)}>Delete</button>
-            </div>
-          }
-          <p className="com-title">{commission.title}</p>
-          <p className="com-price">{accounting.formatMoney(commission.price, { symbol: 'Rp ', precision: 2, thousand: '.', decimal: ',' })}</p>
-          <h3 className="text-left"><span className="badge badge-info p-2 com-category">{commission.category}</span></h3>
+          <div className="d-flex flex-column align-items-center">
+            <p className="com-title mb-0">{commission.title}</p>
+            <p className="com-creator">by {commission.User.username}</p>
+          </div>
+          <p className="com-price">
+            {accounting.formatMoney(commission.price, { symbol: 'Rp ', precision: 2, thousand: '.', decimal: ',' })}
+          </p>
+          <div className="com-desc d-flex flex-column align-items-center p-3 text-center">
+            <p className="desc-title">Description</p>
+            <p className="desc-content">{commission.description}</p>
+          </div>
+          <h3 className="text-left">
+            <span className="badge badge-blue p-2 com-category">{commission.category}</span>
+          </h3>
           {
             commission.User.username !== localStorage.username &&
             <div className="apply-button">
               <p className="mb-0" onClick={createProject}>Apply for Commission</p>
             </div>
           }
+          {
+            commission.User.username === localStorage.username &&
+            <div className="delete-button">
+              <p className="mb-0" onClick={e=> deleteHandler(e)}>Delete This Commission</p>
+            </div>
+          }
         </div>
-      </div>
-      <div className="com-desc mt-3 d-flex flex-column align-items-center p-3">
-        <h4>Description</h4>
-        <p className="com-desc-text mb-0">{commission.description}</p>
       </div>
     </div>
   );

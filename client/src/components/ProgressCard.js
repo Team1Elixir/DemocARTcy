@@ -7,16 +7,16 @@ import { useDispatch } from "react-redux";
 import { storage } from '../firebase';
 import Swal from "sweetalert2";
 import { toast } from 'react-toastify';
+import accounting from 'accounting-js'
 import io from "socket.io-client";
+// import moment from 'moment-timezone'
 
 toast.configure();
 const ProgressCard = ({ data, role }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { id, title, price, client, artist, image_url, status } = data;
-  // const [status, setStatus] = useState(data.status);
-  // const [image_url, setImage_url] = useState(data.image_url);
-  const socket = io("https://shrouded-ridge-07983.herokuapp.com");
+  const { id, title, price, client, artist, image_url, status, sample_url } = data;
+  const socket = io("https://whispering-woodland-44131.herokuapp.com/");
 
   const toLiveSketch = () => {
     const dataForLiveSketch = {
@@ -160,66 +160,130 @@ const ProgressCard = ({ data, role }) => {
   }, [])
 
   return (
-    <div className="row w-100 progress-container d-flex align-items-center mt-3">
-      <div className="col-2 d-flex flex-column align-items-center">
-        <img
-          src={role === 'Artist' ? client.profile_url : artist.profile_url}
-          alt="avatar"
-          className="artist-ava"
-          width="120"
-        ></img>
-        <p className="mb-0 text-bluish artist-name">{role === 'Artist' ? client.username : artist.username}</p>
+    <div class="progress-card row m-3">
+      <div class="col-5 d-flex justify-content-center align-items-center p-1">
+          <img class="progress-img" src={sample_url} alt="card" height="250" />
       </div>
-      <div className="col-3">
-        <p className="mb-0 text-bluish job-title text-center">{title}</p>
-      </div>
-      <div className="col-3">
-        <h2 className="mb-0 job-status p-3 text-center">
-          <span className="badge">{status}</span>
-        </h2>
-      </div>
-      <div className="col-4 d-flex flex-column align-items-center">
-        {status !== "Done" && (
-          <>
-            <div
-              className="progress-button w-50 text-center"
-              onClick={toLiveSketch}
-            >
-              <p className="mb-0">Sketch</p>
-            </div>
-            <div
-              className="progress-button w-50 text-center"
-              onClick={toLiveChat}
-            >
-              <p className="mb-0">Chat</p>
-            </div>
+      <div class="col-7 d-flex flex-column align-items-start p-2">
+          <div class="d-flex flex-column justify-content-center">
+              <p class="title-project mb-2">{title}</p>
+          </div>
+          <div class="d-flex flex-column justify-content-center">
+              <p class="price-project mb-2">{accounting.formatMoney(price, { symbol: 'Rp ', precision: 2, thousand: '.', decimal: ',' })}</p>
+          </div>
+          <div class="d-flex flex-column justify-content-center">
             {
-              role === 'Client' &&
-              <div
-                className="progress-button w-50 text-center"
-                onClick={checkResult}
-              >
-                <p className="mb-0">Result</p>
-              </div>
+              role === "Client" &&
+              <p class="project-relation mb-2">Artist: {artist.username}</p>
             }
             {
-              role === 'Artist' &&
+              role === "Artist" &&
+              <p class="project-relation mb-2">Order by: {client.username}</p>
+            }
+          </div>
+          <div class="d-flex flex-column justify-content-center">
+              <h4 class="project-status mb-4">
+                <span 
+                  class={"badge" + (status === 'Done' ? " badge-done" : status === 'onProgress' ? " badge-current" : " badge-reject")}>{status}
+                </span>
+              </h4>
+          </div>
+          <div class="button-container d-flex align-items-center mb-2">
+            {
+              status !== 'Done' &&
               <>
-                <div
-                  className="progress-button w-50 text-center"
-                  onClick={triggerFileButton}
-                >
-                  <p className="mb-0">Result</p>
+                <div class="progress-button" onClick={toLiveSketch}>
+                    <p class="mb-0">Live Sketch</p>
                 </div>
-                <input type="file" style={{ display: 'none' }} id={`result${id}`} onChange={setUploadedImage}/>
+                <div class="progress-button" onClick={toLiveChat}>
+                    <p class="mb-0">Chat</p>
+                </div>
+                {
+                  role === 'Client' &&
+                  <div class="progress-button" onClick={checkResult}>
+                      <p class="mb-0">See Result</p>
+                  </div>
+                }
+                {
+                  role === 'Artist' &&
+                  <>
+                    <div class="progress-button" onClick={triggerFileButton}>
+                        <p class="mb-0">Add Result</p>
+                    </div>
+                    <input type="file" style={{ display: 'none' }} id={`result${id}`} onChange={setUploadedImage}/>
+                  </>
+                }
               </>
             }
-          </>
-        )}
-        {(status === "Done" && role === 'Client') && <Payment price={price} email={client.email} id={id}/>}
-        {(status === "Done" && role === 'Artist') && <p className="mb-0 text-bluish artist-name">Waiting for Payment</p>}
+            {(status === "Done" && role === 'Client') && <Payment price={price} email={client.email} id={id}/>}
+            {(status === "Done" && role === 'Artist') && <p className="mb-0 text-bluish artist-name">Waiting for Payment</p>}
+          </div>
+          <div class="w-100">
+              <p class="order-date text-right">Order at: {new Date(data.createdAt).toString().substring(4, 15)}</p>
+          </div>
       </div>
-    </div>
+  </div>
+
+    // <div className="row w-100 progress-container d-flex align-items-center mt-3">
+    //   <div className="col-2 d-flex flex-column align-items-center">
+    //     <img
+    //       src={role === 'Artist' ? client.profile_url : artist.profile_url}
+    //       alt="avatar"
+    //       className="artist-ava"
+    //       width="120"
+    //     ></img>
+    //     <p className="mb-0 text-bluish artist-name">{role === 'Artist' ? client.username : artist.username}</p>
+    //   </div>
+    //   <div className="col-3">
+    //     <p className="mb-0 text-bluish job-title text-center">{title}</p>
+    //   </div>
+    //   <div className="col-3">
+    //     <h2 className="mb-0 job-status p-3 text-center">
+    //       <span className="badge">{status}</span>
+    //     </h2>
+    //   </div>
+    //   <div className="col-4 d-flex flex-column align-items-center">
+    //     {status !== "Done" && (
+    //       <>
+    //         <div
+    //           className="progress-button w-50 text-center"
+    //           onClick={toLiveSketch}
+    //         >
+    //           <p className="mb-0">Sketch</p>
+    //         </div>
+    //         <div
+    //           className="progress-button w-50 text-center"
+    //           onClick={toLiveChat}
+    //         >
+    //           <p className="mb-0">Chat</p>
+    //         </div>
+    //         {
+    //           role === 'Client' &&
+    //           <div
+    //             className="progress-button w-50 text-center"
+    //             onClick={checkResult}
+    //           >
+    //             <p className="mb-0">Result</p>
+    //           </div>
+    //         }
+    //         {
+    //           role === 'Artist' &&
+    //           <>
+    //             <div
+    //               className="progress-button w-50 text-center"
+    //               onClick={triggerFileButton}
+    //             >
+    //               <p className="mb-0">Result</p>
+    //             </div>
+    //             <input type="file" style={{ display: 'none' }} id={`result${id}`} onChange={setUploadedImage}/>
+    //           </>
+    //         }
+    //       </>
+    //     )}
+    //     {(status === "Done" && role === 'Client') && <Payment price={price} email={client.email} id={id}/>}
+    //     {(status === "Done" && role === 'Artist') && <p className="mb-0 text-bluish artist-name">Waiting for Payment</p>}
+    //   </div>
+    // </div>
   );
 };
 

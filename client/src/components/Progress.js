@@ -25,25 +25,27 @@ const Progress = () => {
   }, [dispatch, location.pathname])
 
   return (
-    <div className="container-fluid w-75 d-flex flex-column align-items-center mb-5" style={{ marginTop: 75 }}>
-      <h1 className="progress-main-title">Progress {role}</h1>
-      {
-        loading &&
-        <Loader 
-          type="ThreeDots"
-          color="#73CDD1"
-          height={150}
-          width={150}
-        />
-      }
-      { 
-        !loading &&
-        projects.map((project, index) => {
-          return (
-            <ProgressCard data={project} role={role} key={index} />
-          )
-        })
-      }
+    <div className="container-fluid w-100 d-flex flex-column align-items-center mb-5" style={{ marginTop: 50 }}>
+      <h1 className="progress-main-title mb-5">Progress {role}</h1>
+      <div class="w-100 d-flex justify-content-center flex-wrap">
+        {
+          loading &&
+          <Loader 
+            type="ThreeDots"
+            color="#73CDD1"
+            height={150}
+            width={150}
+          />
+        }
+        { 
+          !loading &&
+          projects.map((project, index) => {
+            return (
+              <ProgressCard data={project} role={role} key={index} />
+            )
+          })
+        }
+      </div>
     </div>
   );
 }

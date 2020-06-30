@@ -9,7 +9,7 @@ const Payment = ({ price, email, id }) => {
   const priceForStripe = price * 100;
   const publishableKey = 'pk_test_51GyVFyGEIdbxEPg1XCHjDEPCLg5oKfT4c0zsVoOURN8iD585heXkYh3TcBxQ78uUGXKlxdmuSGEvr8q6Vej6VpXJ0089jTRXX5';
   const dispatch = useDispatch();
-  const socket = io("https://shrouded-ridge-07983.herokuapp.com");
+  const socket = io("https://whispering-woodland-44131.herokuapp.com/");
 
   const onToken = token => {
     // history.push('/');
