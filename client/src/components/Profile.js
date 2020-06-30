@@ -58,8 +58,8 @@ const Profile = () => {
               })}
             </div>
           </div>
-          <div className='work-data'>
             <br/><h5 style={{ marginBottom: -10, marginTop: 10 }}>Commissions</h5><br />
+          <div className='work-data'>
             <div className='profile-card-container'>
             {commissions.map(card => {
             return <CommissionCard card={card} key={card.id} />
