@@ -151,6 +151,7 @@ export const getProfileData = (username) => {
 export const getAllWorks = () => {
   return (dispatch) => {
     dispatch(loading(true))
+    dispatch(fetchWorks([]))
     server.get('/works/all')
     .then(({data}) => {
       console.log(data.works)
@@ -168,6 +169,7 @@ export const getAllWorks = () => {
 export const getAllCommissions = () => {
   return (dispatch) => {
     dispatch(loading(true))
+    dispatch(fetchCommissions([]))
     server.get('/commissions/all')
     .then(({data}) => {
       console.log(data.commissions)
@@ -391,6 +393,7 @@ export const newProject = (payload) => {
 export const getProgressClient = () => {
   const { token } = localStorage;
   return (dispatch) => {
+      dispatch(fetchProgressClient([]))
     // dispatch(loading(true))
     server.get('/progresses/client', {
       headers: {
@@ -414,6 +417,7 @@ export const getProgressClient = () => {
 export const getProgressArtist = () => {
   const { token } = localStorage;
   return (dispatch) => {
+    dispatch(fetchProgressArtist([]))
     // dispatch(loading(true));
     server.get('/progresses/artist', {
       headers: {
