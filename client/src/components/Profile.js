@@ -21,75 +21,75 @@ const Profile = () => {
     dispatch(getProfileCommissions(localStorage.profileId))
   }, [dispatch])
   
-  if(loading) return (
-    <div className='profileContent'>
-      <div className='error-msg'>
-        <h6>loading..</h6>
-      </div>
-    </div>
-  )
-  if(!localStorage.token) {
-    return (
-      <div className='profileContent'>
-        <div className='profile-cover'>
-          <img className='cover-img' alt='profile-cover' src={user.cover_url} />
-        </div>
-        <div className='profile-data'>
-          <div className='profile-img'>
-            <img className='user-img' src={user.profile_url} alt={user.name} />
-          </div>
-          <div className='profile-biodata'>
-            <h3>{user.name}</h3>
-            <p className='username'>@{user.username}</p>
-            <p>{user.bio}</p>
-          </div>
-        </div><br />
-        <div className='work-data'>
-          <br/><h5>Works</h5><br />
-          { 
-            <WorkCard worksdata={works} />
-          }
-        </div>
-        <div className='work-data'>
-          <br/><h5>Commissions</h5><br />
-            <CommissionCard commissionsdata={commissions} />
-        </div>
-        <div style={{ height: 75}}></div>
-      </div>
-    )
-  }
-  if(user.name && user.username !== localStorage.username) {
-    return (
-      <div className='profileContent'>
-        <div className='profile-cover'>
-          <img className='cover-img' alt='profile-cover' src={user.cover_url} />
-        </div>
-        <div className='profile-data'>
-          <div className='profile-img'>
-            <img className='user-img' src={user.profile_url} alt={user.name} />
-          </div>
-          <div className='profile-biodata'>
-            <h3>{user.name}</h3>
-            <p className='username'>@{user.username}</p>
-            <p>{user.bio}</p>
-          </div>
-        </div><br />
-        <div className='work-data'>
-          <br/><h5>Works</h5><br />
-          { 
-            <WorkCard worksdata={works} />
-          }
-        </div>
-        <div className='work-data'>
-          <br/><h5>Commissions</h5><br />
-            <CommissionCard commissionsdata={commissions} />
-        </div>
-        <div style={{ height: 75}}></div>
-      </div>
-    );
-  }
+  // if(loading) return (
+  //   <div className='profileContent'>
+  //     <div className='error-msg'>
+  //       <h6>loading..</h6>
+  //     </div>
+  //   </div>
+  // )
+  // if(!localStorage.token) {
+  //   return (
+  //     <div className='profileContent'>
+  //       <div className='profile-cover'>
+  //         <img className='cover-img' alt='profile-cover' src={user.cover_url} />
+  //       </div>
+  //       <div className='profile-data'>
+  //         <div className='profile-img'>
+  //           <img className='user-img' src={user.profile_url} alt={user.name} />
+  //         </div>
+  //         <div className='profile-biodata'>
+  //           <h3>{user.name}</h3>
+  //           <p className='username'>@{user.username}</p>
+  //           <p>{user.bio}</p>
+  //         </div>
+  //       </div><br />
+  //       <div className='work-data'>
+  //         <br/><h5>Works</h5><br />
+  //         { 
+  //           <WorkCard worksdata={works} />
+  //         }
+  //       </div>
+  //       <div className='work-data'>
+  //         <br/><h5>Commissions</h5><br />
+  //           <CommissionCard commissionsdata={commissions} />
+  //       </div>
+  //       <div style={{ height: 75}}></div>
+  //     </div>
+  //   )
+  // }
+  // if(user.name && user.username !== localStorage.username) {
+  //   return (
+  //     <div className='profileContent'>
+  //       <div className='profile-cover'>
+  //         <img className='cover-img' alt='profile-cover' src={user.cover_url} />
+  //       </div>
+  //       <div className='profile-data'>
+  //         <div className='profile-img'>
+  //           <img className='user-img' src={user.profile_url} alt={user.name} />
+  //         </div>
+  //         <div className='profile-biodata'>
+  //           <h3>{user.name}</h3>
+  //           <p className='username'>@{user.username}</p>
+  //           <p>{user.bio}</p>
+  //         </div>
+  //       </div><br />
+  //       <div className='work-data'>
+  //         <br/><h5>Works</h5><br />
+  //         { 
+  //           <WorkCard worksdata={works} />
+  //         }
+  //       </div>
+  //       <div className='work-data'>
+  //         <br/><h5>Commissions</h5><br />
+  //           <CommissionCard commissionsdata={commissions} />
+  //       </div>
+  //       <div style={{ height: 75}}></div>
+  //     </div>
+  //   );
+  // }
 
-  if(user.name && user.username === localStorage.username) {
+  // if(user.name && user.username === localStorage.username) {
     return (
       <div className='profileContent'>
         <div className='profile-cover'>
@@ -121,15 +121,15 @@ const Profile = () => {
         <div style={{ height: 75}}></div>
       </div>
     )
-  } 
+  // } 
 
-  else if(error) return(
-    <div className='profileContent'>
-      <div className='error-msg'>
-        {/* <h6>{error.message + ' : Not Found'}</h6> */}
-      </div>
-    </div>
-  )
+  // else if(error) return(
+  //   <div className='profileContent'>
+  //     <div className='error-msg'>
+  //       {/* <h6>{error.message + ' : Not Found'}</h6> */}
+  //     </div>
+  //   </div>
+  // )
 }
 
 export default Profile;

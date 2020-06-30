@@ -24,16 +24,19 @@ const EditForm = () => {
 
   const submitEdit = (event) => {
     event.preventDefault()
-    const data = {
-      name: name || user.name,
-      email: email || user.email,
-      bio: bio || user.bio,
-      website: website || user.website,
-      cover_url: cover_url || user.cover_url,
-      profile_url: profile_url || user.profile_url,
-      password
+    const payload = {
+      id: user.id,
+      data: {
+        name: name || user.name,
+        email: email || user.email,
+        bio: bio || user.bio,
+        website: website || user.website,
+        cover_url: cover_url || user.cover_url,
+        profile_url: profile_url || user.profile_url,
+        password
+      }
     }
-    dispatch(editProfile(data));
+    dispatch(editProfile(payload));
     history.push('/profile/' + localStorage.username)
   }
 

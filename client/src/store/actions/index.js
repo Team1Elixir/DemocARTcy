@@ -428,9 +428,10 @@ export const proceedPayment = payload => {
 
 export const editProfile = payload => {
   const { token } = localStorage;
+  const { id, data } = payload;
   return (dispatch) => {
     dispatch(loading(true));
-    server.put('/users/:id', payload, {
+    server.put(`/users/${id}`, data, {
       headers: {
         token
       }
