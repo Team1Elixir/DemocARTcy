@@ -11,30 +11,29 @@
 }
 
 .profile-cover{
-  width: 1200px;
+  width: 90%;
   height: 400px;
   background: lightblue;
 
 }
 
 .cover-img{
-  width: inherit;
+  width: 100%;
   height: inherit;
 }
 
 .profile-data{
-  width: 1200px;
-  min-height: 200px;
+  width: 90%;
+  min-height: 180px;
   background: #DBF5FA;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 20px;
 }
 
 .profile-img{
   position: relative;
   margin-top: -100px;
-  width: 200px;
+  width: 20%;
   z-index: 2;
   height: inherit;
 }
@@ -56,6 +55,7 @@
 
 .profile-biodata{
   margin-left: 10px;
+  width: 69%;
 }
 
 .username{
@@ -64,12 +64,10 @@
 }
 
 .edit-button{
-  margin-top: 5px;
-  margin-left: 20px;
   display: flex;
-  justify-content: flex-end;
-  color: black;
-  width: 750px;
+  padding-top: 5px;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .user-website{
@@ -77,19 +75,27 @@
 }
 
 .edit-profile-btn{
+  width: 120px;
   color: white;
   font-weight: 600;
   border-radius: 20px;
   height: 30px;
   display: flex;
-  align-items: center;
-  margin-left: 5px;
-  margin-right: 5px;
+  flex-direction: column;
+  justify-content: center;
   background: #00b4d8;
 }
 
 .edit-profile-btn:hover{
   color: black;
+}
+
+.progress-button-panel{
+  width: inherit;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin-top: 5px;
 }
 
 .clientprogressbtn{
@@ -99,20 +105,18 @@
   height: 30px;
   display: flex;
   align-items: center;
-  margin-left: 5px;
-  margin-right: 5px;
   background: #0077b6;
+  margin-right: 5px;
 }
 
 .editbtn{
   color: white;
+  width: 120px;
   font-weight: 600;
   border-radius: 20px;
   height: 30px;
   display: flex;
   align-items: center;
-  margin-left: 5px;
-  margin-right: 5px;
   background: #3fc4de;
 }
 

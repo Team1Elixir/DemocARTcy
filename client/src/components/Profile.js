@@ -35,18 +35,17 @@ const Profile = () => {
             <p className='username'>@{user.username}</p>
             <p>{user.bio}</p>
             <a href={'https://'+user.website} className='user-website'>{user.website}</a>
+              <div className='progress-button-panel'>
+            <Link to='/progress-client' className='clientprogressbtn btn'>Client Progress</Link>
+            <Link to='/progress-artist' className='editbtn btn'>Art Progress</Link>
+            </div>
           </div>
           { username === localStorage.username &&
             <div className='edit-button'>
-              <Link to={'/profile/edit/'+user.username} className='edit-profile-btn btn btn-primary'>Edit Profile</Link>
+                <Link to={'/profile/edit/'+user.username} className='edit-profile-btn btn btn-primary'>Edit Profile</Link>
             </div>
           }
-          { username == localStorage.username &&
-            <div className='d-flex' style={{marginLeft: 200}}>
-              <Link to='/progress-client' className='clientprogressbtn btn'>Client Progress</Link>
-              <Link to='/progress-artist' className='editbtn btn'>Art Progress</Link>
-            </div>
-          }
+          
         </div><br />
         <div className='profile-portofolio'>
           <div className='work-data'>
