@@ -80,7 +80,7 @@ function App() {
         </Switch>
       </div>
       <div className='little-footie page-footer font-small blue fixed-bottom'>
-          <p className='footie-text'>Copyright© Elixir Fox Alpha Team 2020</p>
+          <p className='footie-text'>Copyright © Elixir Fox Alpha Team 2020</p>
       </div>
     </Router>
   );
