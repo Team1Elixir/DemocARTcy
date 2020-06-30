@@ -133,3 +133,8 @@
 .cards:hover{
   transform: scale(1.02);
 }
+
+.labelInputEdit{
+  margin-top: 20px;
+  margin-bottom: -30px;
+}

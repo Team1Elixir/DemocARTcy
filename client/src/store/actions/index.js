@@ -1,7 +1,20 @@
 import server from '../../api';
 import { toast } from 'react-toastify';
-
+import Swal from 'sweetalert2'
 toast.configure();
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+
 export const FETCH_USERDATA = 'FETCH_USERDATA'
 export const FETCH_PROFILEDATA = 'FETCH_PROFILEDATA'
 export const FETCH_WORKS = 'FETCH_WORKS'
@@ -12,6 +25,7 @@ export const FETCH_PROGRESSCLIENT = 'FETCH_PROGRESSCLIENT'
 export const FETCH_PROGRESSARTIST = 'FETCH_PROGRESSARTIST'
 export const LOADING = 'LOADING'
 export const ERROR = 'ERROR'
+
 export const fetchUserData = (data) => {
   return {
     type: FETCH_USERDATA,
@@ -252,10 +266,14 @@ export const registerUser = (payload) => {
         console.log(data);
       })
       .catch(err => {
-        toast.error(err.response.data.error, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 2500
+        Toast.fire({
+          icon: 'error',
+          title: err.response.data.error
         })
+        // toast.error(err.response.data.error, {
+        //   position: toast.POSITION.BOTTOM_RIGHT,
+        //   autoClose: 2500
+        // })
         dispatch(error(err));
       })
       .finally(() => {
@@ -315,10 +333,18 @@ export const addCommission = (payload) => {
       }
     })
       .then(({ data }) => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Commission Added'
+        })
         console.log(data);
       })
       .catch(err => {
         dispatch(error(err.response.data.error));
+        Toast.fire({
+          icon: 'error',
+          title: err.response.data.error
+        })
       })
       .finally(() => {
         dispatch(loading(false));
@@ -340,6 +366,10 @@ export const newProject = (payload) => {
       }
     })
       .then(({ data }) => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Progress Added'
+        })
         console.log(data);
       })
       .catch(err => {
@@ -437,6 +467,10 @@ export const editProfile = payload => {
       }
     })
       .then(({ data }) => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Profile Edited'
+        })
         console.log(data);
         dispatch(getProfileData(payload.name))
       })
