@@ -26,3 +26,7 @@
 .onlineIcon {
   margin-right: 5%;
 }
+
+.exit-btn:hover {
+  cursor: pointer;
+}

@@ -18,10 +18,10 @@
 }
 
 .activeItem {
-
   display: flex;
   align-items: center;
   margin-left: 10;
+  font-weight: 700;
 }
 
 .activeContainer img {

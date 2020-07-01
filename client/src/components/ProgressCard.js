@@ -119,7 +119,6 @@ const ProgressCard = ({ data, role }) => {
   
   useEffect(() => {
     socket.on('new status', data => {
-      console.log('status')
       if (data.id === id && role === 'Artist') {
         // setStatus(data.status)
         dispatch(getProgressArtist());
@@ -149,7 +148,7 @@ const ProgressCard = ({ data, role }) => {
     })
 
     socket.on('paid', data => {
-      if (data === id && role === 'Artist') {
+      if (data.id === id && role === 'Artist') {
         toast.success('ITS PAYDAY BAY-BAY', {
           position: toast.POSITION.BOTTOM_RIGHT,
           autoClose: 2500
@@ -216,7 +215,7 @@ const ProgressCard = ({ data, role }) => {
               </>
             }
             {(status === "Done" && role === 'Client') && <Payment price={price} email={client.email} id={id}/>}
-            {(status === "Done" && role === 'Artist') && <p className="mb-0 text-bluish artist-name">Waiting for Payment</p>}
+            {(status === "Done" && role === 'Artist') && <p className="mb-0 text-bluish wait-payment">Waiting for Payment</p>}
           </div>
           <div class="w-100">
               <p class="order-date text-right">Order at: {new Date(data.createdAt).toString().substring(4, 15)}</p>

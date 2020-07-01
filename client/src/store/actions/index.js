@@ -184,6 +184,7 @@ export const getAllCommissions = () => {
 
 export const getWorkDetail = (id) => {
   return (dispatch) => {
+    dispatch(fetchWorkDetail({}))
     dispatch(loading(true))
     server.get('/works/'+id)
     .then(({data}) => {
@@ -201,6 +202,7 @@ export const getWorkDetail = (id) => {
 
 export const getCommissionDetail = (id) => {
   return (dispatch) => {
+    dispatch(fetchCommissionDetail({}))
     dispatch(loading(true))
     server.get('/commissions/'+id)
     .then(({data}) => {
@@ -218,6 +220,7 @@ export const getCommissionDetail = (id) => {
 
 export const getUserWorks = () => {
   return (dispatch) => {
+    dispatch(fetchWorks([]))
     dispatch(loading(true))
     server({method: 'GET', url: '/works', headers: {token: localStorage.token }})
     .then(({data}) => {
@@ -230,6 +233,7 @@ export const getUserWorks = () => {
 
 export const getUserCommissions = () => {
   return (dispatch) => {
+    dispatch(fetchCommissions([]))
     dispatch(loading(true))
     server({method: 'GET', url: '/commissions', headers: {token: localStorage.token }})
     .then(({data}) => {
@@ -316,11 +320,13 @@ export const addPortofolio = (payload) => {
       }
     })
       .then(({ data }) => {
-        console.log(data);
+        return data;
       })
       .catch(err => {
-        console.log(err.response.data.error);
-        dispatch(error(err.response.data.error));
+        Toast.fire({
+          icon: 'error',
+          title: err.response.data.error
+        })
       })
       .finally(() => {
         dispatch(loading(false));
@@ -338,11 +344,7 @@ export const addCommission = (payload) => {
       }
     })
       .then(({ data }) => {
-        Toast.fire({
-          icon: 'success',
-          title: 'Commission Added'
-        })
-        console.log(data);
+        return data;
       })
       .catch(err => {
         dispatch(error(err.response.data.error));
