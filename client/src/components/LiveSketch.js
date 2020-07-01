@@ -31,14 +31,15 @@ function LiveSketch() {
 
   useEffect(() => {
     console.log("<><>", location.state);
-    setUserName();
-    // setUserRoom();
+
+    // setUserName();
     // socket.current = io("http://localhost:3000/");
-    // socket.current.emit("join"); //INITIAL ROOM
+
     console.log("name and room and socket", name, room, socket.current);
     if (socket.current === undefined) {
       // console.log("socket kosong");
-      socket.current = io("https://whispering-woodland-44131.herokuapp.com");
+      socket.current = io("https://whispering-woodland-44131.herokuapp.com/");
+      //Clear socket if resfresh web browser
     }
     socket.current.emit("join", { name, room }, (error) => {
       if (error) {
@@ -169,7 +170,7 @@ function LiveSketch() {
     socket.current.emit("mouse", data);
   }
   const setup = (p5, canvasParentRef) => {
-    socket.current = io("https://whispering-woodland-44131.herokuapp.com");
+    socket.current = io("https://whispering-woodland-44131.herokuapp.com/");
     socket.current.emit("room", location.state.progressId + "Sketch");
     p5.createCanvas(500, 500).parent("jumbo-canvas"); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
     p5.background(233, 233, 233);
@@ -214,6 +215,7 @@ function LiveSketch() {
       userVideo.current.srcObject
         .getAudioTracks()
         .forEach((track) => track.stop());
+      console.log("<>Exit<>");
 
       socket.current.emit("exit", {
         room: location.state.progressId + "Sketch",
