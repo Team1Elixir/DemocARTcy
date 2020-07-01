@@ -8,7 +8,7 @@ const TextContainer = ({ users }) => (
   <div className="textContainer">
     {users ? (
       <div>
-        <h1 style={{paddingTop: 10,margin: 20}}>People currently chatting:</h1>
+        <h1 style={{paddingTop: 10,margin: 20, color: "white"}}>People Currently Chatting:</h1>
         <div className="activeContainer">
           <br/>
           <h2 style={{paddingTop: 30, marginLeft: 20}}>

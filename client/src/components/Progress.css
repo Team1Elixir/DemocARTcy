@@ -6,8 +6,15 @@
     box-shadow:0 0 20px #90e1e6;
 }
 
+.progress-main-title {
+    font-size: 50px;
+    font-weight: 700;
+    color: #0077b6;
+    font-family: 'Balsamiq Sans', cursive;
+}
+
 .w-85 {
-    width: 85%;
+    width: 90%;
 }
 
 .progress-img {
@@ -16,12 +23,13 @@
 }
 
 .progress-card {
-    width: 570px;
+    width: 600px;
     padding: 12px;
     border: 2px solid #0077b6;
     border-radius: 15px;
     box-shadow: 0px 0px 10px #0077b6;
     color: #03045e;
+    background-color: #f5fbff;
 }
 
 .title-project {
@@ -37,6 +45,12 @@
 }
 
 .project-relation {
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Balsamiq Sans', cursive;
+}
+
+.wait-payment {
     font-size: 20px;
     font-weight: 600;
     font-family: 'Balsamiq Sans', cursive;
@@ -66,7 +80,7 @@
     font-size: 16px;
     font-weight: 700;
     font-family: 'Balsamiq Sans', cursive;
-    padding-right: 20px;
+    padding-right: 35px;
 }
 
 .badge-current {

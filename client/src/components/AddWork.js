@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import sample from "../assets/displacement.2.png";
-
 import { storage } from "../firebase";
 import { useDispatch } from "react-redux";
 import { addPortofolio } from "../store/actions";
 import '../assets/addform.css'
+import { successAlert } from "./alerts";
 
 export default function AddWork() {
   const [title, setTitle] = useState("");
@@ -35,72 +34,78 @@ export default function AddWork() {
     };
 
     dispatch(addPortofolio(data))
-      .then(() => {
-        history.push('/works/user/'+localStorage.username)
+      .then(data => {
+        if (data) {
+          successAlert(`${data.work.title} successfully added to your portfolio`)
+          history.push('/works/user/'+localStorage.username)
+        }
       })
-      .catch((err) => {
-        console.log(err.response);
-      });
   }
 
   const setImageForUpload = (event) => {
     const image = event.target.files[0];
-    if (image) {
-      const storageRef = storage.ref(`${image.name}`).put(image);
-      storageRef.on("state_changed", () => {
+    let uploadProgress;
+    if(image){
+      const storageRef = storage.ref(`${image.name}`).put(image)
+      storageRef.on('state_changed', snapshot => {
+        uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(uploadProgress)
+      }, error => { console.log(error.message) },
+      () => {
+        uploadProgress = 100
         storageRef.snapshot.ref.getDownloadURL().then((url) => {
-          setImage_url(url);
-        });
-      });
+          setImage_url(url)
+        })
+      })
     }
-  };
+  }
 
   return (
     <div class="">
       <div class="row justify-content-md-center">
         <div class="col-1"></div>
-        <div class="col-5">
+        <div class="col-7 mb-5">
           <div class="" style={{paddingLeft: 50, paddingRight: 50}}>
-            <h1 class="text-center" style={{ marginTop: 50 }}>
+            <h1 class="text-center add-title" style={{ marginTop: 50 }}>
               Add Portfolio
             </h1>
             <span
               style={{
-                fontSize: 22,
+                fontSize: 25,
+                fontWeight: 700,
                 position: "relative",
-                top: 35,
+                top: 15,
                 left: 10,
-                backgroundColor: "white",
-                color: "#bfbfbf",
+                backgroundColor: "transparent",
+                color: '#023e8a'
               }}
             >
               Title
             </span>
-            <div class="input-group-prepend">
+            <div class="input-group-prepend" >
               {" "}
               <input
                 style={{
-                  height: 50,
-                  WebkitBoxShadow: "0px 0px 1px 1px rgba(0,0,0,0.28)",
-                  MozBoxShadow: "0px 0px 1px 1px rgba(0,0,0,0.28)",
-                  boxShadow: "0px 0px 1px 1px rgba(0,0,0,0.28)",
+                  height: 50
                 }}
                 type="text"
-                className="form-control"
+                className="form-control form-add"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
                 onChange={(event) => setTitle(event.target.value)}
+                placeholder="Your Portfolio Title"
               />
             </div>
             <br />
             <span
               style={{
-                fontSize: 22,
+                fontSize: 25,
+                fontWeight: 700,
                 position: "relative",
-                top: 35,
+                top: 5,
                 left: 10,
-                backgroundColor: "white",
-                color: "#bfbfbf",
+                backgroundColor: "transparent",
+                color: '#023e8a'
               }}
             >
               ImageUrl
@@ -108,9 +113,9 @@ export default function AddWork() {
             <div class="input-group-prepend">
               {" "}
               <input
-                style={{ top: 10, height: 60, paddingTop: 20 }}
+                style={{ top: 0, height: 60, paddingTop: 10, textAlign: 'center' }}
                 type="file"
-                className="form-control"
+                className="form-control form-add"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default"
                 onChange={setImageForUpload}
@@ -130,34 +135,37 @@ export default function AddWork() {
             <br />
             <span
               style={{
-                fontSize: 22,
+                fontSize: 25,
+                fontWeight: 700,
                 position: "relative",
-                top: 15,
+                top: -5,
                 left: 10,
-                backgroundColor: "white",
-                color: "#bfbfbf",
+                backgroundColor: "transparent",
+                color: '#023e8a'
               }}
             >
-              Decription
+              Description
             </span>
             <div class="input-group-prepend"> </div>
             <textarea
               type="text"
-              className="form-control"
+              className="form-control form-add desc-form text-center"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
               onChange={(event) => setDescription(event.target.value)}
+              placeholder="Your Portfolio Description"
             />
             <br />
 
             <span
               style={{
-                fontSize: 22,
+                fontSize: 25,
+                fontWeight: 700,
                 position: "relative",
-                top: 15,
+                top: -5,
                 left: 10,
-                backgroundColor: "white",
-                color: "#bfbfbf",
+                backgroundColor: "transparent",
+                color: '#023e8a'
               }}
             >
               Category
@@ -165,12 +173,12 @@ export default function AddWork() {
             <div class="input-group-prepend">
               {" "}
               <select
-                style={{ top: 10, height: 50, paddingTop: 10 }}
+                style={{ top: 10, height: 50, paddingTop: 10, textAlignLast: 'center' }}
                 name="category"
-                class="form-control"
+                class="form-control form-add "
                 onChange={(event) => setCategory(event.target.value)}
               >
-                <option defaultChecked>---select---</option>
+                <option defaultChecked>---Select Category---</option>
                 <option>2D Art</option>
                 <option>3D Art</option>
               </select>
@@ -178,14 +186,14 @@ export default function AddWork() {
             <br />
             <button
               type="button"
-              class="btn btn-primary btn-lg btn-block"
+              class="btn btn-blue-add btn-lg btn-block"
               onClick={addNew}
             >
               Add Fortofolio
             </button>
           </div>
         </div>
-        <div class="col-6">
+        {/* <div class="col-6">
           <div className="image-div">
             <img
               className="img-login"
@@ -206,8 +214,8 @@ export default function AddWork() {
             >
               Credits:laevenx(Grady Wicoady)
             </button>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
       </div>
     </div>
   );

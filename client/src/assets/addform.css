@@ -1,3 +1,39 @@
 .addwork-background{
   height: 750px;
 }
+
+.form-add {
+  border: 2px solid #0077B6;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.desc-form {
+  border-bottom-right-radius: 0px;
+}
+
+.form-add:focus {
+  box-shadow: 0px 0px 5px #00b4d8;
+}
+
+.add-title {
+  font-size: 50px;
+  font-weight: 700;
+  color: #0077b6;
+  font-family: 'Balsamiq Sans', cursive;
+}
+
+.btn-blue-add {
+  border: solid 3px #023e8a;
+  border-radius: 15px;
+  color: #023e8a;
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+.btn-blue-add:hover {
+  color: whitesmoke;
+  background-color: #023e8a;
+}
