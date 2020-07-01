@@ -3,6 +3,7 @@ import { getAllWorks } from '../store/actions'
 import { useSelector, useDispatch } from 'react-redux';
 import WorkCard from './WorkCard'
 import Loader from 'react-loader-spinner';
+import './MainWorkCommission.css';
 
 const MainWork = () => {
 
@@ -18,7 +19,7 @@ const MainWork = () => {
   // if(error) return (<div style={{ marginTop: 100, textAlign: 'center' }}><h3>Empty</h3></div>)
   return (
     <div style={{ marginTop: 50 }}>
-      <h3 style={{ textAlign: 'center'}}>Portfolios</h3>
+      <p className="text-center main-porto-title mb-0">Portfolios</p>
       <div className='cards-content-holder'>
           {works.map(card => {
             return  <WorkCard card={card} key={card.id} />

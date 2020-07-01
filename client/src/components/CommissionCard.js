@@ -10,7 +10,7 @@ const CommissionCard = (props) => {
         <div>
           <h6 className='title-work'>{card.title}</h6>
         </div>
-        <div style={{height: 350, width: 275, borderRadius: 'inherit'}}>
+        <div style={{height: 400, width: 300, borderRadius: 'inherit'}}>
         <img className='img-card' alt={card.id} src={card.image_url} />
         </div>
       </Link>

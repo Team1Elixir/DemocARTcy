@@ -6,6 +6,7 @@ import Loader from 'react-loader-spinner';
 import { successAlert } from './alerts'
 import '../assets/loginform.css'
 import sample from "../samples/Raelaveire/1592696790749.jpg";
+import './LoginForm.css';
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -41,25 +42,27 @@ export default function LoginForm() {
     <div className='loginpage'>
         <div className='form-div'>
           <div className='log-header'>
-            <h2>Login Page</h2>
+            <p className="login-title mb-0">Login Page</p>
           </div>
           <div className='text-input'>
             <input type='text'
+              className="loginForm"
               value={username} 
               onChange={e => setUsername(e.target.value) } 
               placeholder='username' />
             <input type='password' 
+              className="loginForm"
               value={password} 
               onChange={e => setPassword(e.target.value) } 
               placeholder='password' />
           </div>
-          <button className='submitlogin btn btn-primary' onClick={e => login(e)}>Login</button>
-          <Link className='registerbutton' to='/register'>Don't have an account?</Link>
+          <button className='submitlogin btn btn-darker-blue mt-5' onClick={e => login(e)}>Login</button>
+          <Link className='registerbutton text-darker-blue' to='/register'>Don't have an account?</Link>
           {
             loading &&
             <Loader 
               type="ThreeDots"
-              color="#3FC4DE"
+              color="#023e8a"
               height={150}
               width={150}
             /> 
@@ -67,7 +70,7 @@ export default function LoginForm() {
         </div>
         <div className='image-div'>
         <img className='img-login' alt='sample' src={sample} style={{position: "relative",zIndex:-1}}></img>
-          <button  className="btn btn-primary btn-lg" style={{opacity:0.5,backgroundColor: '#5c5c5c',color:'#ffffff',right: '28%',top: 600, position: "absolute", color: "white"}}>Credits:Raelaveire</button>
+          <button  className="btn btn-primary btn-lg" style={{opacity:0.5,backgroundColor: '#5c5c5c',color:'#ffffff',right: '25%',top: 550, position: "absolute"}}>Credits:Raelaveire</button>
         </div>
     </div>
   );

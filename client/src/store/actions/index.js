@@ -5,7 +5,7 @@ toast.configure();
 
 const Toast = Swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: 'bottom-end',
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
@@ -276,10 +276,6 @@ export const registerUser = (payload) => {
           icon: 'error',
           title: err.response.data.error
         })
-        // toast.error(err.response.data.error, {
-        //   position: toast.POSITION.BOTTOM_RIGHT,
-        //   autoClose: 2500
-        // })
         dispatch(error(err));
       })
       .finally(() => {
