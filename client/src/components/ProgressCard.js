@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Payment from "./Payment";
 import { useHistory } from "react-router-dom";
 import "./Progress.css";
@@ -15,7 +15,9 @@ toast.configure();
 const ProgressCard = ({ data, role }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { id, title, price, client, artist, image_url, status, sample_url } = data;
+  const { id, title, price, client, artist, sample_url } = data;
+  const [status, setStatus] = useState(data.status);
+  const [image_url, setImage_url] = useState(data.image_url);
   const socket = io("https://whispering-woodland-44131.herokuapp.com/");
 
   const toLiveSketch = () => {
@@ -66,10 +68,11 @@ const ProgressCard = ({ data, role }) => {
           dispatch(changeProjectStatus(payload))
             .then(data => {
               if (data) {
+                console.log('status', data)
                 socket.emit('status', data.progress);
               }
             })
-        } else if ((result.dismiss === Swal.DismissReason.cancel) && (image_url !== 'https://bit.ly/3iendMh')) {
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
           const payload = {
             id,
             status: 'Revision Required'
@@ -77,6 +80,7 @@ const ProgressCard = ({ data, role }) => {
           dispatch(changeProjectStatus(payload))
             .then(data => {
               if (data) {
+                console.log('status', data)
                 socket.emit('status', data.progress);
               }
             })
@@ -110,6 +114,7 @@ const ProgressCard = ({ data, role }) => {
         }))
           .then(data => {
             if (data) {
+              console.log('result', data);
               socket.emit('result image', data.progress);
             }
           })
@@ -120,8 +125,8 @@ const ProgressCard = ({ data, role }) => {
   useEffect(() => {
     socket.on('new status', data => {
       if (data.id === id && role === 'Artist') {
-        // setStatus(data.status)
-        dispatch(getProgressArtist());
+        setStatus(data.status)
+        // dispatch(getProgressArtist());
         if (data.status === 'Revision Required') {
           toast.info('Client demand some revision', {
             position: toast.POSITION.BOTTOM_RIGHT,
@@ -138,8 +143,9 @@ const ProgressCard = ({ data, role }) => {
   
     socket.on('result', data => {
       if (data.id === id && role === 'Client') {
-        // setImage_url(data.image_url)
-        dispatch(getProgressClient());
+        console.log('change image', role, data.id)
+        setImage_url(data.image_url)
+        // dispatch(getProgressClient());
         toast.info('Artist have submit project result', {
           position: toast.POSITION.BOTTOM_RIGHT,
           autoClose: 2500
@@ -150,7 +156,7 @@ const ProgressCard = ({ data, role }) => {
     socket.on('paid', data => {
       if (data === id && role === 'Artist') {
         console.log('masuk')
-        toast.success('ITS PAYDAY', {
+        toast.success('ITS PAYDAY!. Client have complete their payment', {
           position: toast.POSITION.BOTTOM_RIGHT,
           autoClose: 2500
         })
