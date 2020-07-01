@@ -123,14 +123,15 @@ export default function AddCommission() {
           <span
             style={{
               fontSize: 22,
+              fontWeight: 600,
               position: "relative",
               top: 15,
               left: 10,
-              backgroundColor: "white",
-              color: '#bfbfbf'
+              backgroundColor: "transparent",
+              color: '#023e8a'
             }}
           >
-            Decription
+            Description
           </span>
           <div class="input-group-prepend">
             <textarea
