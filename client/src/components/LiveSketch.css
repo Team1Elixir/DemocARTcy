@@ -10,6 +10,16 @@
   /* background-image: url("../assets/livesketch3.jpg"); */
 }
 
+.title{
+  text-align: center;
+  margin-top: 50px;
+}
+
+.icon{
+  width: 64;
+  height: 64;
+}
+
 .container_video {
   /* border: black 1px solid; */
   display: flex;

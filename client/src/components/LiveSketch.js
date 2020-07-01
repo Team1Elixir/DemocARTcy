@@ -6,7 +6,9 @@ import Sketch from "react-p5";
 import styled from "styled-components";
 import "./LiveSketch.css";
 
-import videobg from './livesketch-bg.png'
+//ICON
+
+import brushes from '../assets/makeup.png'
 
 const Video = styled.video`
   border: 1px solid #b9fffe;
@@ -231,7 +233,7 @@ function LiveSketch() {
   };
   return (
     <>
-      <h1>live Sketch</h1>
+      <h1 className="title" ><img className='icon' style={{width: 48}} src={brushes}/> Live Sketch</h1>
       <div className="containerall">
         <div className="container_video">
           {/* <Row> */}
