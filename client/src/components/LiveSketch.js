@@ -8,7 +8,7 @@ import "./LiveSketch.css";
 
 //ICON
 
-import brushes from '../assets/makeup.png'
+import brushes from "../assets/makeup.png";
 
 const Video = styled.video`
   border: 1px solid #b9fffe;
@@ -128,11 +128,26 @@ function LiveSketch() {
 
   let UserVideo;
   if (stream) {
-    UserVideo = <Video style={{position: 'relative'}} playsInline muted ref={userVideo} autoPlay />;
+    UserVideo = (
+      <Video
+        style={{ position: "relative" }}
+        playsInline
+        muted
+        ref={userVideo}
+        autoPlay
+      />
+    );
   }
   let PartnerVideo;
   if (callAccepted) {
-    PartnerVideo = <Video style={{position: 'relative'}} playsInline ref={partnerVideo} autoPlay />;
+    PartnerVideo = (
+      <Video
+        style={{ position: "relative" }}
+        playsInline
+        ref={partnerVideo}
+        autoPlay
+      />
+    );
   }
   let incomingCall;
   if (receivingCall) {
@@ -235,13 +250,17 @@ function LiveSketch() {
   };
   return (
     <>
-      <h1 className="title" ><img className='icon' style={{width: 48}} src={brushes}/> Live Sketch</h1>
+      <h1 className="title">
+        <img className="icon" style={{ width: 48 }} src={brushes} /> Live Sketch
+      </h1>
       <div className="containerall">
         <div className="container_video">
           {/* <Row> */}
           <div className="video_box">
-            <div className="backgroundvideo" style={{padding: 20}}>{UserVideo}</div>
-            
+            <div className="backgroundvideo" style={{ padding: 20 }}>
+              {UserVideo}
+            </div>
+
             <div className="callbutton">
               {users.map((key) => {
                 if (key.id === yourID) {
@@ -265,7 +284,14 @@ function LiveSketch() {
           <div id="jumbo-canvas">
             <Sketch setup={setup} draw={mouseDragged} />
           </div>
-          <div className="video_box"><div className="backgroundvideo" style={{padding: 20, height: 240, maxHeight: '100%'}}>{PartnerVideo}</div></div>
+          <div className="video_box">
+            <div
+              className="backgroundvideo"
+              style={{ padding: 20, height: 240, maxHeight: "100%" }}
+            >
+              {PartnerVideo}
+            </div>
+          </div>
           {/* </Row> */}
         </div>
       </div>
