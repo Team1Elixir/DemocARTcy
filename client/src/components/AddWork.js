@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import sample from "../assets/displacement.2.png";
-
 import { storage } from "../firebase";
 import { useDispatch } from "react-redux";
 import { addPortofolio } from "../store/actions";

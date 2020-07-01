@@ -1,0 +1,20 @@
+.user-area-title {
+    font-size: 50px;
+    font-weight: 700;
+    color: #0077b6;
+    font-family: 'Balsamiq Sans', cursive;
+}
+
+.btn-bluish {
+    border: solid 3px #023e8a;
+    border-radius: 15px;
+    color: #023e8a;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 15px;
+  }
+  
+  .btn-bluish:hover {
+    color: whitesmoke;
+    background-color: #023e8a;
+  }

@@ -184,7 +184,7 @@ export const getAllCommissions = () => {
 
 export const getWorkDetail = (id) => {
   return (dispatch) => {
-    dispatch(fetchWorkDetail({}))
+    dispatch(fetchWorkDetail({User: {}}))
     dispatch(loading(true))
     server.get('/works/'+id)
     .then(({data}) => {
@@ -202,7 +202,7 @@ export const getWorkDetail = (id) => {
 
 export const getCommissionDetail = (id) => {
   return (dispatch) => {
-    dispatch(fetchCommissionDetail({}))
+    dispatch(fetchCommissionDetail({User: {}}))
     dispatch(loading(true))
     server.get('/commissions/'+id)
     .then(({data}) => {

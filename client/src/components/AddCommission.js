@@ -4,8 +4,6 @@ import { storage } from '../firebase';
 import { useDispatch } from "react-redux";
 import { addCommission } from "../store/actions";
 import '../assets/addform.css'
-
-import sample from "../assets/displacement.2.png";
 import { successAlert } from "./alerts";
 
 export default function AddCommission() {
