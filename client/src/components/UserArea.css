@@ -1,16 +1,9 @@
-@font-face {
-font-family: 'Bellerose Light:1.0';
-font-style: normal;
-font-weight: normal;
-src: url('../assets/Bellerose.woff') format('woff');
-}
-
 
 .user-area-title {
     font-size: 50px;
     font-weight: 700;
     color: #0077b6;
-    font-family: 'Bellerose Light:1.0';
+    font-family: 'Balsamiq Sans', cursive;
 }
 
 .btn-bluish {
@@ -19,7 +12,7 @@ src: url('../assets/Bellerose.woff') format('woff');
     color: #023e8a;
     font-weight: 700;
     font-size: 20px;
-    margin-top: 30px;
+    margin-top: 10px;
   }
   
   .btn-bluish:hover {

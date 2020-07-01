@@ -13,11 +13,6 @@ const MainCommission = () => {
 
   useEffect(() => {
       dispatch(getAllCommissions())
-      if (localStorage.darkmode =='dark') {
-        setCardbg('black')
-      } else {
-        setCardbg('#DBF5FA')
-      }
   }, []);
 
   if(loading) return (<div className='loadingscreen' style={{ textAlign: 'center' }}><div style={{marginTop: 200}}><Loader type='Grid' color='#023E8A' /></div></div>)

@@ -17,6 +17,13 @@
 .text-darker-blue {
     color: #023e8a;
 }
+
+.login-text-input{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 /* 
 .btn-darker-blue {
     border: #023e8a solid 2px;

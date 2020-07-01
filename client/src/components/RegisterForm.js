@@ -43,22 +43,37 @@ export default function RegisterForm() {
           <div className='log-header'>
             <p className="register-title mb-0">Register Page</p>
           </div>
-          <div className='text-input'>
-            <input type='text'
-              className="registerForm"
-              value={email} 
-              onChange={e => setEmail(e.target.value) } 
-              placeholder='email' />
-            <input type='text'
-              className="registerForm"
-              value={username} 
-              onChange={e => setUsername(e.target.value) } 
-              placeholder='username' />
-            <input type='password' 
-              className="registerForm"
-              value={password} 
-              onChange={e => setPassword(e.target.value) } 
-              placeholder='password' />
+          <div className='login-text-input'>
+			<label className="field a-field a-field_a1">
+			  <input type='text' className="field__input a-field__input"
+			  value={email}
+			  placeholder="input email"
+			  onChange={e=> setEmail(e.target.value)}
+			  />
+			  <span className="a-field__label-wrap">
+			    <span className="a-field__label">Email</span>
+			  </span>
+			</label>
+            <label className="field a-field a-field_a1">
+			  <input type='text' className="field__input a-field__input"
+			  value={username}
+			  placeholder="input username"
+			  onChange={e=> setUsername(e.target.value)}
+			  />
+			  <span className="a-field__label-wrap">
+			    <span className="a-field__label">Username</span>
+			  </span>
+			</label>
+            <label className="field a-field a-field_a1">
+			  <input type='password' className="field__input a-field__input" 
+			  placeholder="input password"
+			  value={password}
+			  onChange={e=> setPassword(e.target.value)}
+			  required />
+			  <span className="a-field__label-wrap">
+			    <span className="a-field__label">Password</span>
+			  </span>
+			</label>
           </div>
           <button className='submitlogin btn btn-darker-blue mt-3' onClick={e => register(e)}>Register</button>
           <Link className='registerbutton text-darker-blue mb-0' to='/login'>I have an account</Link>

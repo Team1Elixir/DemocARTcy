@@ -5,6 +5,7 @@ import { getProfileData, editProfile } from '../store/actions'
 import { storage } from '../firebase';
 
 import '../assets/editform.css'
+import '../assets/forminputstyle.css'
 
 const EditForm = () => {
   const user = useSelector((state) => state.profiledata)
@@ -69,74 +70,65 @@ const EditForm = () => {
 
   return(
     <div>
-      <div style={{height: 10}}></div>
+      <div style={{height: 50}}></div>
       <div className='editForm'>
-        <h2>Edit Profile</h2>
-        
+        <h2 style={{textAlign: 'center'}}>Edit Profile</h2>
         <div className='formEdit'>
           <form onSubmit={e => submitEdit(e)} style={{textAlign: 'center'}}>
-            <p className='labelInputEdit'>Password Verification</p>
-            <input type='password'
-              value={password} 
-              onChange={e => setPassword(e.target.value) } 
-              placeholder={'Verify Password'}
-              className='text-input'
-              required='true' />
-
-            <p className='labelInputEdit'>Cover URL</p>
-            <input
-            type="file"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            className='form control file-input'
-            onChange={e => setCoverForUpload(e)} />
-            
-            <p className='labelInputEdit'>Profile Picture</p>
-            <input
-            type="file"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            className='form control file-input'
-            onChange={e=> setImageForUpload(e)} />
-
-            <p className='labelInputEdit'>Name</p>
-            <input type='text'
-              disabled
-              value={name} 
-              onChange={e => setName(e.target.value) } 
-              placeholder={user.name}
-              className='text-input' />
-
-            <p className='labelInputEdit'>E-mail</p>
-            <input type='text'
-              value={email} 
-              onChange={e => setEmail(e.target.value) } 
-              placeholder={user.email}
-              className='text-input' />
-
-            <p className='labelInputEdit'>Bio</p>
-            <input type='text'
-              value={bio} 
-              onChange={e => setBio(e.target.value) } 
-              placeholder={'bio'}
-              className='text-input' />
-
-            <p className='labelInputEdit'>Website</p>
-            <input type='text'
-              value={website} 
-              onChange={e => setWebsite(e.target.value) } 
-              placeholder={'website'}
-              className='text-input' />
-
-              <div className='button'>
-                <input className='submit-btn btn btn-primary' type='submit' value='Submit' />
-              </div>
+			<div className='image-input-file-div'>
+			  <img className='cover-zone' src={cover_url} alt={user.id}/>
+				<input
+				  type="file"
+				  className='file-input-user-cover	'
+				  onChange={e => setCoverForUpload(e)} />
+				<p className='overlay-layer'>Cover URL</p>
+			</div>
+			<div className='image-input-file-div'>
+				<img className='avatar-zone' src={profile_url} alt={user.name} />
+				<input
+				  type="file"
+				  className='file-input-user-image'
+				  onChange={e=> setImageForUpload(e)} />
+			  <p className='overlay-layer'>Upload Photo</p>
+			</div>
+			<div>
+			<label className="field a-field a-field_a1">
+			  <input type='password' className="field__input a-field__input" 
+			  placeholder="password"
+			  value={password}
+			  onChange={e=> setPassword(e.target.value)}
+			  required />
+			  <span className="a-field__label-wrap">
+			    <span className="a-field__label">Verify Password</span>
+			  </span>
+			</label>
+			<label className="field a-field a-field_a1">
+			  <input type='text' className="field__input a-field__input" placeholder={user.bio}
+			  value={bio}
+			  onChange={e=> setBio(e.target.value)}
+			  />
+			  <span className="a-field__label-wrap">
+			    <span className="a-field__label">Bio</span>
+			  </span>
+			</label>
+			<label className="field a-field a-field_a1">
+			  <input type='text' className="field__input a-field__input" 
+			  placeholder={user.website}
+			  value={website}
+			  onChange={e=> setWebsite(e.target.value)}
+			  />
+			  <span className="a-field__label-wrap">
+			    <span className="a-field__label">Website</span>
+			  </span>
+			</label>
+			<div className='btn-panel'>
+			  <input type='submit' className='submit-button btn' value='submit'/>
+			</div>
+			
+			</div>
           </form>
-              <div className='button'>
-                <button onClick={e => cancel(e)} className='cancel-btn btn btn-secondary'>Cancel</button>
-              </div>
         </div>
-      </div>
+    </div>
     </div>
   )
 }
