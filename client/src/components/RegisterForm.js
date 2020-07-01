@@ -4,7 +4,7 @@ import sample from "../samples/Raelaveire/1592696790749.jpg";
 import Loader from 'react-loader-spinner';
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../store/actions";
-import { errorAlert } from './alerts'
+import { successAlert } from './alerts'
 
 export default function RegisterForm() {
   const error = useSelector(state => state.error)
@@ -27,6 +27,7 @@ export default function RegisterForm() {
     dispatch(registerUser(data))
       .then(data => {
         if (data) {
+          successAlert('Successfully Registered')
           history.push('/login');
         }
       })
@@ -62,14 +63,15 @@ export default function RegisterForm() {
             loading &&
             <Loader 
               type="ThreeDots"
-              color="#F5C50E"
+              color="#3FC4DE"
               height={150}
               width={150}
             />
           }
         </div>
         <div className='image-div'>
-          <img className='img-login' alt='sample' src={sample} />
+        <img className='img-login' alt='sample' src={sample} style={{position: "relative",zIndex:-1}}></img>
+          <button  className="btn btn-primary btn-lg" style={{opacity:0.5,backgroundColor: '#5c5c5c',color:'#ffffff',right: '28%',top: 600, position: "absolute", color: "white"}}>Credits:Raelaveire</button>
         </div>
     </div>
   );

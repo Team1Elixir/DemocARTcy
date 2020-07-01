@@ -171,7 +171,7 @@ div::-webkit-scrollbar-thumb {
 .profile-card-container{
   margin-top: 20px;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   width: inherit;
 }
 

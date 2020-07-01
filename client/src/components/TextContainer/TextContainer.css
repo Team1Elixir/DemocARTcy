@@ -1,8 +1,13 @@
 .textContainer {
   display: flex;
   flex-direction: column;
+  /* background-size: 2000px 2000px; */
+  /* background-color: blueviolet; */
   color: black;
-  height: 60%;
+  border: 'solid';
+  border-color: black;
+  border-width: 10;
+  /* height: 60%; */
   justify-content: space-between;
 }
 
@@ -13,8 +18,10 @@
 }
 
 .activeItem {
+
   display: flex;
   align-items: center;
+  margin-left: 10;
 }
 
 .activeContainer img {

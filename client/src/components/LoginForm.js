@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserData, loginUser } from '../store/actions'
+import { loginUser } from '../store/actions'
+import Loader from 'react-loader-spinner';
 import { successAlert } from './alerts'
 import '../assets/loginform.css'
 import sample from "../samples/Raelaveire/1592696790749.jpg";
@@ -9,9 +10,10 @@ import sample from "../samples/Raelaveire/1592696790749.jpg";
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const loading = useSelector(state => state.loading);
   const history = useHistory()
   const dispatch = useDispatch()
-  const error = useSelector(state => state.error)
+
   useEffect(() => {
     if(localStorage.token) history.push('/')
   }, [])
@@ -24,9 +26,11 @@ export default function LoginForm() {
     };
 
     dispatch(loginUser(payload))
-      .then(() => {
-        successAlert('Login Successfully')
-        history.push('/');
+      .then((data) => {
+        if(data) {
+          successAlert('Login Successfully')
+          history.push('/');
+        }
       })
       .catch(err => {
         console.log(err.reponse);
@@ -51,9 +55,19 @@ export default function LoginForm() {
           </div>
           <button className='submitlogin btn btn-primary' onClick={e => login(e)}>Login</button>
           <Link className='registerbutton' to='/register'>Don't have an account?</Link>
+          {
+            loading &&
+            <Loader 
+              type="ThreeDots"
+              color="#3FC4DE"
+              height={150}
+              width={150}
+            /> 
+          }
         </div>
         <div className='image-div'>
-          <img className='img-login' alt='sample' src={sample} />
+        <img className='img-login' alt='sample' src={sample} style={{position: "relative",zIndex:-1}}></img>
+          <button  className="btn btn-primary btn-lg" style={{opacity:0.5,backgroundColor: '#5c5c5c',color:'#ffffff',right: '28%',top: 600, position: "absolute", color: "white"}}>Credits:Raelaveire</button>
         </div>
     </div>
   );

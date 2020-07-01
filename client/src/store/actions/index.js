@@ -151,6 +151,7 @@ export const getProfileData = (username) => {
 export const getAllWorks = () => {
   return (dispatch) => {
     dispatch(loading(true))
+    dispatch(fetchWorks([]))
     server.get('/works/all')
     .then(({data}) => {
       console.log(data.works)
@@ -168,6 +169,7 @@ export const getAllWorks = () => {
 export const getAllCommissions = () => {
   return (dispatch) => {
     dispatch(loading(true))
+    dispatch(fetchCommissions([]))
     server.get('/commissions/all')
     .then(({data}) => {
       console.log(data.commissions)
@@ -291,13 +293,16 @@ export const loginUser = (payload) => {
     dispatch(loading(true));
     return server.post('/users/login', payload)
       .then(({ data }) => {
-        console.log(data)
         const { token, username } = data;
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
+        return data
       })
       .catch(err => {
-        dispatch(error(err.response.data.error));
+        Toast.fire({
+          icon: 'error',
+          title: err.response.data.error
+        })
       })
       .finally(() => {
         dispatch(loading(false));
@@ -358,12 +363,13 @@ export const addCommission = (payload) => {
 
 export const newProject = (payload) => {
   const { token } = localStorage;
-  const { title, price, id } = payload;
+  const { title, price, id, sample_url } = payload;
   return (dispatch) => {
     dispatch(loading(true))
     return server.post('/progresses/'+id, {
       title,
-      price
+      price,
+      sample_url
     }, {
       headers: {
         token
@@ -389,6 +395,7 @@ export const newProject = (payload) => {
 export const getProgressClient = () => {
   const { token } = localStorage;
   return (dispatch) => {
+      dispatch(fetchProgressClient([]))
     // dispatch(loading(true))
     server.get('/progresses/client', {
       headers: {
@@ -412,6 +419,7 @@ export const getProgressClient = () => {
 export const getProgressArtist = () => {
   const { token } = localStorage;
   return (dispatch) => {
+    dispatch(fetchProgressArtist([]))
     // dispatch(loading(true));
     server.get('/progresses/artist', {
       headers: {
