@@ -84,7 +84,7 @@ const Profile = () => {
           
         </div><br />
         <div className='profile-portofolio'>
-            <br/><h5>Portofolios</h5><br />
+            <br/><h5 className="profile-works mb-0">Portofolios</h5><br />
           <div className='work-data' style={{ background: cardbg }}>
             <div className='profile-card-container'>
             { works.map (card => {
@@ -92,7 +92,7 @@ const Profile = () => {
               })}
             </div>
           </div>
-            <br/><h5 style={{ marginBottom: -10, marginTop: 10 }}>Commissions</h5><br />
+            <br/><h5 style={{ marginBottom: -10, marginTop: 10 }} className="profile-works mb-1">Commissions</h5><br />
           <div className='work-data' style={{ background: cardbg }}>
             <div className='profile-card-container'>
             {commissions.map(card => {
