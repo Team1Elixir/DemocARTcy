@@ -1,10 +1,19 @@
 .home{
-  background: url('https://pbs.twimg.com/media/EUp4NHrUcAAgwi_.jpg');
+  background-color: #E6E1E2;
+  background: url('./main.png');
   background-size: cover;
   background-repeat: no-repeat;
-  margin-top: -60px;
-  position: absolute;
+}
+.home{
+  margin-top: 80px;
+  overflow: hidden;
   width: 100%;
-  min-height: 750px;
+  min-height: 840px;
+  max-height: 100%;
+  max-width: 100%;
   height: 100%;
+}
+
+.header{
+  background-color: #E6E1E2;
 }

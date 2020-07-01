@@ -66,7 +66,8 @@ export default function LoginForm() {
           }
         </div>
         <div className='image-div'>
-          <img className='img-login' alt='sample' src={sample} />
+        <img className='img-login' alt='sample' src={sample} style={{position: "relative",zIndex:-1}}></img>
+          <button  className="btn btn-primary btn-lg" style={{opacity:0.5,backgroundColor: '#5c5c5c',color:'#ffffff',right: '28%',top: 600, position: "absolute", color: "white"}}>Credits:Raelaveire</button>
         </div>
     </div>
   );

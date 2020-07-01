@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { storage } from '../firebase';
+import sample from "../assets/displacement.2.png";
+
+import { storage } from "../firebase";
 import { useDispatch } from "react-redux";
 import { addPortofolio } from "../store/actions";
 import '../assets/addform.css'
@@ -36,97 +38,177 @@ export default function AddWork() {
       .then(() => {
         history.push('/works/user/'+localStorage.username)
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
-      })
+      });
   }
 
   const setImageForUpload = (event) => {
     const image = event.target.files[0];
-    const storageRef = storage.ref(`${image.name}`).put(image)
-      storageRef.on('state_changed', () => {
+    if (image) {
+      const storageRef = storage.ref(`${image.name}`).put(image);
+      storageRef.on("state_changed", () => {
         storageRef.snapshot.ref.getDownloadURL().then((url) => {
-          setImage_url(url)
-        })
-      })
-  }
+          setImage_url(url);
+        });
+      });
+    }
+  };
 
   return (
-    <div className="container">
-      <div className="row justify-content-md-center">
-        <div className="col col-lg-6">
+    <div class="">
+      <div class="row justify-content-md-center">
+        <div class="col-1"></div>
+        <div class="col-5">
+          <div class="" style={{paddingLeft: 50, paddingRight: 50}}>
+            <h1 class="text-center" style={{ marginTop: 50 }}>
+              Add Portfolio
+            </h1>
+            <span
+              style={{
+                fontSize: 22,
+                position: "relative",
+                top: 35,
+                left: 10,
+                backgroundColor: "white",
+                color: "#bfbfbf",
+              }}
+            >
+              Title
+            </span>
+            <div class="input-group-prepend">
+              {" "}
+              <input
+                style={{
+                  height: 50,
+                  WebkitBoxShadow: "0px 0px 1px 1px rgba(0,0,0,0.28)",
+                  MozBoxShadow: "0px 0px 1px 1px rgba(0,0,0,0.28)",
+                  boxShadow: "0px 0px 1px 1px rgba(0,0,0,0.28)",
+                }}
+                type="text"
+                className="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+                onChange={(event) => setTitle(event.target.value)}
+              />
+            </div>
+            <br />
+            <span
+              style={{
+                fontSize: 22,
+                position: "relative",
+                top: 35,
+                left: 10,
+                backgroundColor: "white",
+                color: "#bfbfbf",
+              }}
+            >
+              ImageUrl
+            </span>
+            <div class="input-group-prepend">
+              {" "}
+              <input
+                style={{ top: 10, height: 60, paddingTop: 20 }}
+                type="file"
+                className="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+                onChange={setImageForUpload}
+              />
+            </div>
+            <img
+              src={image_url}
+              alt=""
+              style={center}
+              onError={() =>
+                setImage_url(
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                )
+              }
+            ></img>
 
+            <br />
+            <span
+              style={{
+                fontSize: 22,
+                position: "relative",
+                top: 15,
+                left: 10,
+                backgroundColor: "white",
+                color: "#bfbfbf",
+              }}
+            >
+              Decription
+            </span>
+            <div class="input-group-prepend"> </div>
+            <textarea
+              type="text"
+              className="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-default"
+              onChange={(event) => setDescription(event.target.value)}
+            />
+            <br />
+
+            <span
+              style={{
+                fontSize: 22,
+                position: "relative",
+                top: 15,
+                left: 10,
+                backgroundColor: "white",
+                color: "#bfbfbf",
+              }}
+            >
+              Category
+            </span>
+            <div class="input-group-prepend">
+              {" "}
+              <select
+                style={{ top: 10, height: 50, paddingTop: 10 }}
+                name="category"
+                class="form-control"
+                onChange={(event) => setCategory(event.target.value)}
+              >
+                <option defaultChecked>---select---</option>
+                <option>2D Art</option>
+                <option>3D Art</option>
+              </select>
+            </div>
+            <br />
+            <button
+              type="button"
+              class="btn btn-primary btn-lg btn-block"
+              onClick={addNew}
+            >
+              Add Fortofolio
+            </button>
+          </div>
         </div>
-        <div className="addwork-background col-12">
-          <h1 className="text-center" style={{ marginTop: 20 }}>
-            Add Portfolio
-          </h1>
-          <div className="input-group-prepend">
-            {" "}
-            <span style={{fontSize: 22, marginRight: 80}}>Title</span>
-            <input
-            type="text"
-            className="form-control"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            onChange={(event) => setTitle(event.target.value)}
-          />
+        <div class="col-6">
+          <div className="image-div">
+            <img
+              className="img-login"
+              alt="sample"
+              src={sample}
+              style={{ position: "relative",left:'50%',width:800,height:950,zIndex: -1 }}
+            ></img>
+            <button
+              className="btn btn-primary btn-lg"
+              style={{
+                opacity: 0.5,
+                backgroundColor: "#5c5c5c",
+                color: "#ffffff",
+                right: "28%",
+                top: 700,
+                position: "absolute"
+              }}
+            >
+              Credits:laevenx(Grady Wicoady)
+            </button>
           </div>
-          <br/>
-
-          <div className="input-group-prepend">
-            {" "}
-            <span style={{fontSize: 22, marginRight: 32}}>ImageUrl</span>
-            <input
-            type="file"
-            className="form-control"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            onChange={setImageForUpload}
-          />
-          </div>
-          <img src={image_url} style={center} alt=""></img>
-          <br/>
-
-          <div className="input-group-prepend">
-            {" "}
-            <span style={{fontSize: 22, marginRight: 10}}>Decription</span>
-          </div>
-          <textarea
-            type="text"
-            className="form-control"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default"
-            onChange={(event) => setDescription(event.target.value)}
-          />
-          <br/>
-
-
-          <div className="input-group-prepend">
-            {" "}
-            <span style={{fontSize: 22, marginRight: 40}}>Category</span>
-            <select
-            name="category"
-            className="form-control"
-            onChange={(event) => setCategory(event.target.value)}
-          >
-            <option defaultChecked>---select---</option>
-            <option>2D Art</option>
-            <option>3D Art</option>
-          </select>
-          </div>
-          <br/>
-          <button
-            type="button"
-            className="btn btn-primary btn-lg btn-block"
-            onClick={addNew}
-          >
-            Add Fortofolio
-          </button>
         </div>
-        <div className="col col-lg-6"></div>
       </div>
-      <div className="col col-lg-3"></div>
     </div>
   );
 }
