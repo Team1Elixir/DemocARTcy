@@ -1,6 +1,12 @@
+.navbar{
+	display: flex;
+	align-items: center;
+	font-family: 'Bellerose Light:1.0';
+	font-size: 16px;
+}
+
 .navbrand{
   border-radius: 20px;
-  /* border: outset white; */
   padding: 10px;
   font-weight: 700;
   font-size: 18px;

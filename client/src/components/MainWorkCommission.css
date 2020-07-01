@@ -1,6 +1,13 @@
+@font-face {
+font-family: 'Bellerose Light:1.0';
+font-style: normal;
+font-weight: normal;
+src: url('../assets/Bellerose.woff') format('woff');
+}
+
 .main-porto-title {
     font-size: 50px;
     font-weight: 700;
     color: #0077b6;
-    font-family: 'Balsamiq Sans', cursive;
+    font-family: 'Bellerose Light:1.0';
 }
