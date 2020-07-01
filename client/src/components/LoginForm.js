@@ -44,17 +44,27 @@ export default function LoginForm() {
           <div className='log-header'>
             <p className="login-title mb-0">Login Page</p>
           </div>
-          <div className='text-input'>
-            <input type='text'
-              className="loginForm"
-              value={username} 
-              onChange={e => setUsername(e.target.value) } 
-              placeholder='username' />
-            <input type='password' 
-              className="loginForm"
-              value={password} 
-              onChange={e => setPassword(e.target.value) } 
-              placeholder='password' />
+          <div className='login-text-input'>
+            <label className="field a-field a-field_a1">
+			  <input type='text' className="field__input a-field__input"
+			  value={username}
+			  placeholder="input username"
+			  onChange={e=> setUsername(e.target.value)}
+			  />
+			  <span className="a-field__label-wrap">
+			    <span className="a-field__label">Username</span>
+			  </span>
+			</label>
+            <label className="field a-field a-field_a1">
+			  <input type='password' className="field__input a-field__input" 
+			  placeholder="input password"
+			  value={password}
+			  onChange={e=> setPassword(e.target.value)}
+			  required />
+			  <span className="a-field__label-wrap">
+			    <span className="a-field__label">Password</span>
+			  </span>
+			</label>
           </div>
           <button className='submitlogin btn btn-darker-blue mt-5' onClick={e => login(e)}>Login</button>
           <Link className='registerbutton text-darker-blue' to='/register'>Don't have an account?</Link>
