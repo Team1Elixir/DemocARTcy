@@ -86,26 +86,25 @@ const EditForm = () => {
             <p className='labelInputEdit'>Cover URL</p>
             <input
             type="file"
-            className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
-            className='file-input'
+            className='form control file-input'
             onChange={e => setCoverForUpload(e)} />
             
             <p className='labelInputEdit'>Profile Picture</p>
             <input
             type="file"
-            className="form-control"
             aria-label="Sizing example input"
             aria-describedby="inputGroup-sizing-default"
-            className='file-input'
+            className='form control file-input'
             onChange={e=> setImageForUpload(e)} />
 
             <p className='labelInputEdit'>Name</p>
             <input type='text'
+              disabled
               value={name} 
               onChange={e => setName(e.target.value) } 
-              placeholder={'name'}
+              placeholder={user.name}
               className='text-input' />
 
             <p className='labelInputEdit'>E-mail</p>

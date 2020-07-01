@@ -19,7 +19,7 @@ const Payment = ({ price, email, id }) => {
       id
     }))
       .then(data => {
-        socket.emit('paid', id);
+        socket.emit('paid', data.id);
       })
     console.log(token);
     console.log('mantep udah bayar');

@@ -148,8 +148,9 @@ const ProgressCard = ({ data, role }) => {
     })
 
     socket.on('paid', data => {
-      if (data.id === id && role === 'Artist') {
-        toast.success('ITS PAYDAY BAY-BAY', {
+      if (data === id && role === 'Artist') {
+        console.log('masuk')
+        toast.success('ITS PAYDAY', {
           position: toast.POSITION.BOTTOM_RIGHT,
           autoClose: 2500
         })

@@ -1,7 +1,6 @@
 .home{
-  background-color: #E6E1E2;
   background: url('./main.png');
-  background-size: 100%;
+  background-size: contain;
   background-repeat: no-repeat;
 }
 .home{

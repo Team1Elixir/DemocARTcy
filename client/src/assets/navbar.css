@@ -1,9 +1,9 @@
 .navbrand{
   border-radius: 20px;
-  border: outset white;
+  /* border: outset white; */
   padding: 10px;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 18px;
 }
 
 .navbrand:hover{
