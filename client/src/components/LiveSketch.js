@@ -38,7 +38,7 @@ function LiveSketch() {
     console.log("name and room and socket", name, room, socket.current);
     if (socket.current === undefined) {
       // console.log("socket kosong");
-      socket.current = io("https://shrouded-ridge-07983.herokuapp.com/");
+      socket.current = io("https://whispering-woodland-44131.herokuapp.com/");
     }
     socket.current.emit("join", { name, room }, (error) => {
       if (error) {
@@ -169,7 +169,7 @@ function LiveSketch() {
     socket.current.emit("mouse", data);
   }
   const setup = (p5, canvasParentRef) => {
-    socket.current = io("https://shrouded-ridge-07983.herokuapp.com/");
+    socket.current = io("https://whispering-woodland-44131.herokuapp.com/");
     socket.current.emit("room", location.state.progressId + "Sketch");
     p5.createCanvas(500, 500).parent("jumbo-canvas"); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
     p5.background(233, 233, 233);
