@@ -1,15 +1,14 @@
 .home{
   background-color: #E6E1E2;
   background: url('./main.png');
-  background-size: cover;
+  background-size: 100%;
   background-repeat: no-repeat;
 }
 .home{
   overflow: hidden;
-  width: 100%;
-  min-height: 840px;
+  min-height: 760px;
   max-height: 100%;
-  max-width: 100%;
+  max-width: 1600px;
   height: 100%;
 }
 
