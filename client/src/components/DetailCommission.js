@@ -31,8 +31,10 @@ const DetailCommission = () => {
         price,
         sample_url: image_url
       }))
-      .then(() => {
-        history.push('/progress-client');
+      .then(data => {
+        if (data) {
+          history.push('/progress-client');
+        }
       })
     }
   }

@@ -51,7 +51,7 @@ const ProgressCard = ({ data, role }) => {
       title,
       imageUrl: image_url,
       imageHeight: 400,
-      imageAlt: title,
+      imageAlt: image_url !== 'https://bit.ly/3iendMh' ? "" : title,
       showCancelButton: image_url !== 'https://bit.ly/3iendMh' ? true : false,
       confirmButtonText: image_url !== 'https://bit.ly/3iendMh' ? 'Accept' : 'Close',
       cancelButtonText: 'Decline',
@@ -123,98 +123,119 @@ const ProgressCard = ({ data, role }) => {
   }
   
   useEffect(() => {
+
+    let fired = false;
+
     socket.on('new status', data => {
       if (data.id === id && role === 'Artist') {
         setStatus(data.status)
         // dispatch(getProgressArtist());
         if (data.status === 'Revision Required') {
-          toast.info('Client demand some revision', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 2500
-          })
+          if (!fired) {
+            fired = true
+            toast.info('Client demand some revision', {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 4500,
+              pauseOnFocusLoss: false
+            })
+            fired = false;
+          }
         } else if (data.status === 'Done') {
-          toast.success('Your work has been accepted by Client, now waiting for payment', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 2500
-          })
+          if (!fired) {
+            fired = true
+            toast.success('Your work has been accepted by Client, now waiting for payment', {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 4500,
+              pauseOnFocusLoss: false
+            })
+            fired = false;
+          }
         }
       }
     })
-  
+    
     socket.on('result', data => {
       if (data.id === id && role === 'Client') {
-        console.log('change image', role, data.id)
+        console.log('change image', role, id, data)
         setImage_url(data.image_url)
         // dispatch(getProgressClient());
-        toast.info('Artist have submit project result', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 2500
-        })
+        if(!fired) {
+          fired = true;
+          toast.info('Artist have submit project result', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 4500,
+            pauseOnFocusLoss: false
+          })
+          fired = false;
+        }
       }
     })
 
     socket.on('paid', data => {
       if (data === id && role === 'Artist') {
         console.log('masuk')
-        toast.success('ITS PAYDAY!. Client have complete their payment', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 2500
-        })
-        dispatch(getProgressArtist());
+        if (!fired) {
+          toast.success('ITS PAYDAY!. Client have complete their payment', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 4500,
+            pauseOnFocusLoss: false
+          })
+          dispatch(getProgressArtist());
+        }
       }
     })
   }, [])
 
   return (
-    <div class="progress-card row m-3">
-      <div class="col-5 d-flex justify-content-center align-items-center p-1">
-          <img class="progress-img" src={sample_url} alt="card" height="250" />
+    <div className="progress-card row m-3">
+      <div className="col-5 d-flex justify-content-center align-items-center p-1">
+          <img className="progress-img" src={sample_url} alt="card" height="250" />
       </div>
-      <div class="col-7 d-flex flex-column align-items-start p-2">
-          <div class="d-flex flex-column justify-content-center">
-              <p class="title-project mb-2">{title}</p>
+      <div className="col-7 d-flex flex-column align-items-start p-2">
+          <div className="d-flex flex-column justify-content-center">
+              <p className="title-project mb-2">{title}</p>
           </div>
-          <div class="d-flex flex-column justify-content-center">
-              <p class="price-project mb-2">{accounting.formatMoney(price, { symbol: 'Rp ', precision: 2, thousand: '.', decimal: ',' })}</p>
+          <div className="d-flex flex-column justify-content-center">
+              <p className="price-project mb-2">{accounting.formatMoney(price, { symbol: 'Rp ', precision: 2, thousand: '.', decimal: ',' })}</p>
           </div>
-          <div class="d-flex flex-column justify-content-center">
+          <div className="d-flex flex-column justify-content-center">
             {
               role === "Client" &&
-              <p class="project-relation mb-2">Artist: {artist.username}</p>
+              <p className="project-relation mb-2">Artist: {artist.username}</p>
             }
             {
               role === "Artist" &&
-              <p class="project-relation mb-2">Order by: {client.username}</p>
+              <p className="project-relation mb-2">Order by: {client.username}</p>
             }
           </div>
-          <div class="d-flex flex-column justify-content-center">
-              <h4 class="project-status mb-4">
+          <div className="d-flex flex-column justify-content-center">
+              <h4 className="project-status mb-4">
                 <span 
-                  class={"badge" + (status === 'Done' ? " badge-done" : status === 'onProgress' ? " badge-current" : " badge-reject")}>{status}
+                  className={"badge" + (status === 'Done' ? " badge-done" : status === 'onProgress' ? " badge-current" : " badge-reject")}>{status}
                 </span>
               </h4>
           </div>
-          <div class="button-container d-flex align-items-center mb-2">
+          <div className="button-container d-flex align-items-center mb-2">
             {
               status !== 'Done' &&
               <>
-                <div class="progress-button" onClick={toLiveSketch}>
-                    <p class="mb-0">Live Sketch</p>
+                <div className="progress-button" onClick={toLiveSketch}>
+                    <p className="mb-0">Live Sketch</p>
                 </div>
-                <div class="progress-button" onClick={toLiveChat}>
-                    <p class="mb-0">Chat</p>
+                <div className="progress-button" onClick={toLiveChat}>
+                    <p className="mb-0">Chat</p>
                 </div>
                 {
                   role === 'Client' &&
-                  <div class="progress-button" onClick={checkResult}>
-                      <p class="mb-0">See Result</p>
+                  <div className="progress-button" onClick={checkResult}>
+                      <p className="mb-0">See Result</p>
                   </div>
                 }
                 {
                   role === 'Artist' &&
                   <>
-                    <div class="progress-button" onClick={triggerFileButton}>
-                        <p class="mb-0">Add Result</p>
+                    <div className="progress-button" onClick={triggerFileButton}>
+                        <p className="mb-0">Add Result</p>
                     </div>
                     <input type="file" style={{ display: 'none' }} id={`result${id}`} onChange={setUploadedImage}/>
                   </>
@@ -224,8 +245,8 @@ const ProgressCard = ({ data, role }) => {
             {(status === "Done" && role === 'Client') && <Payment price={price} email={client.email} id={id}/>}
             {(status === "Done" && role === 'Artist') && <p className="mb-0 text-bluish wait-payment">Waiting for Payment</p>}
           </div>
-          <div class="w-100">
-              <p class="order-date text-right">Order at: {new Date(data.createdAt).toString().substring(4, 15)}</p>
+          <div className="w-100">
+              <p className="order-date text-right">Order at: {new Date(data.createdAt).toString().substring(4, 15)}</p>
           </div>
       </div>
   </div>

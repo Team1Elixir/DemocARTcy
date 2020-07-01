@@ -29,7 +29,7 @@ const Progress = () => {
   return (
     <div className="container-fluid w-100 d-flex flex-column align-items-center mb-5" style={{ marginTop: 50 }}>
       <h1 className="progress-main-title mb-5">Progress {role}</h1>
-      <div class="w-100 d-flex justify-content-center flex-wrap">
+      <div className="w-100 d-flex justify-content-center flex-wrap">
         {
           loading &&
           <Loader 

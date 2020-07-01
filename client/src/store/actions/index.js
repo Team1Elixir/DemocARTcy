@@ -375,13 +375,15 @@ export const newProject = (payload) => {
       .then(({ data }) => {
         Toast.fire({
           icon: 'success',
-          title: 'Progress Added'
+          title: 'Project Added'
         })
-        console.log(data);
+        return data;
       })
       .catch(err => {
-        console.log(err.response)
-        dispatch(error(err.response.data.error));
+        Toast.fire({
+          icon: 'error',
+          title: err.response.data.error
+        })
       })
       .finally(() => {
         dispatch(loading(false));
@@ -536,7 +538,7 @@ export const addProjectResult = (payload) => {
       .then(({ data }) => {
         toast.success('Success upload result', {
           position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 2500
+          autoClose: 2000
         })
         return data;
       })
