@@ -54,7 +54,7 @@ const Chat = () => {
   return (
     <div className="outerContainer">
       <div className="container">
-        <InfoBar room={room} />
+        <InfoBar room={room} socket={socket} />
         <Messages messages={messages} name={name} />
         <Input
           message={message}
@@ -62,7 +62,7 @@ const Chat = () => {
           sendMessage={sendMessage}
         />
       </div>
-      <div style={{marginLeft: 20}}>
+      <div style={{ marginLeft: 20 }}>
         <div className="background2">
           <TextContainer users={users} />
         </div>

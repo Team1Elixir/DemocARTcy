@@ -8,7 +8,7 @@ import "./LiveSketch.css";
 
 //ICON
 
-import brushes from '../assets/makeup.png'
+import brushes from "../assets/makeup.png";
 
 const Video = styled.video`
   border: 1px solid #b9fffe;
@@ -35,14 +35,15 @@ function LiveSketch() {
 
   useEffect(() => {
     console.log("<><>", location.state);
-    setUserName();
-    // setUserRoom();
+
+    // setUserName();
     // socket.current = io("http://localhost:3000/");
-    // socket.current.emit("join"); //INITIAL ROOM
+
     console.log("name and room and socket", name, room, socket.current);
     if (socket.current === undefined) {
       // console.log("socket kosong");
-      socket.current = io("https://whispering-woodland-44131.herokuapp.com");
+      socket.current = io("https://whispering-woodland-44131.herokuapp.com/");
+      //Clear socket if resfresh web browser
     }
     socket.current.emit("join", { name, room }, (error) => {
       if (error) {
@@ -127,11 +128,26 @@ function LiveSketch() {
 
   let UserVideo;
   if (stream) {
-    UserVideo = <Video style={{position: 'relative'}} playsInline muted ref={userVideo} autoPlay />;
+    UserVideo = (
+      <Video
+        style={{ position: "relative" }}
+        playsInline
+        muted
+        ref={userVideo}
+        autoPlay
+      />
+    );
   }
   let PartnerVideo;
   if (callAccepted) {
-    PartnerVideo = <Video style={{position: 'relative'}} playsInline ref={partnerVideo} autoPlay />;
+    PartnerVideo = (
+      <Video
+        style={{ position: "relative" }}
+        playsInline
+        ref={partnerVideo}
+        autoPlay
+      />
+    );
   }
   let incomingCall;
   if (receivingCall) {
@@ -173,7 +189,7 @@ function LiveSketch() {
     socket.current.emit("mouse", data);
   }
   const setup = (p5, canvasParentRef) => {
-    socket.current = io("https://whispering-woodland-44131.herokuapp.com");
+    socket.current = io("https://whispering-woodland-44131.herokuapp.com/");
     socket.current.emit("room", location.state.progressId + "Sketch");
     p5.createCanvas(500, 500).parent("jumbo-canvas"); // use parent to render canvas in this ref (without that p5 render this canvas outside your component)
     p5.background(233, 233, 233);
@@ -218,6 +234,7 @@ function LiveSketch() {
       userVideo.current.srcObject
         .getAudioTracks()
         .forEach((track) => track.stop());
+      console.log("<>Exit<>");
 
       socket.current.emit("exit", {
         room: location.state.progressId + "Sketch",
@@ -233,13 +250,17 @@ function LiveSketch() {
   };
   return (
     <>
-      <h1 className="title" ><img className='icon' style={{width: 48}} src={brushes}/> Live Sketch</h1>
+      <h1 className="title">
+        <img className="icon" style={{ width: 48 }} src={brushes} /> Live Sketch
+      </h1>
       <div className="containerall">
         <div className="container_video">
           {/* <Row> */}
           <div className="video_box">
-            <div className="backgroundvideo" style={{padding: 20}}>{UserVideo}</div>
-            
+            <div className="backgroundvideo" style={{ padding: 20 }}>
+              {UserVideo}
+            </div>
+
             <div className="callbutton">
               {users.map((key) => {
                 if (key.id === yourID) {
@@ -263,7 +284,14 @@ function LiveSketch() {
           <div id="jumbo-canvas">
             <Sketch setup={setup} draw={mouseDragged} />
           </div>
-          <div className="video_box"><div className="backgroundvideo" style={{padding: 20, height: 240, maxHeight: '100%'}}>{PartnerVideo}</div></div>
+          <div className="video_box">
+            <div
+              className="backgroundvideo"
+              style={{ padding: 20, height: 240, maxHeight: "100%" }}
+            >
+              {PartnerVideo}
+            </div>
+          </div>
           {/* </Row> */}
         </div>
       </div>

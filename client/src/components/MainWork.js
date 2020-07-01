@@ -12,11 +12,6 @@ const MainWork = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (localStorage.darkmode =='dark') {
-        setCardbg('black')
-      } else {
-        setCardbg('#DBF5FA')
-      }
       dispatch(getAllWorks())
   }, []);
 

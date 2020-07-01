@@ -10,23 +10,22 @@
   /* background-image: url("../assets/livesketch3.jpg"); */
 }
 
-.title{
+.title {
   text-align: center;
   margin-top: 50px;
 }
 
-.icon{
+.icon {
   width: 64;
   height: 64;
 }
 
-.uservideo1{
+.uservideo1 {
   width: auto;
   height: auto;
   background-size: 100 100;
   padding: 0;
 }
-
 
 .container_video {
   /* border: black 1px solid; */
@@ -34,7 +33,7 @@
   justify-content: center;
 }
 
-.backgroundvideo{
+.backgroundvideo {
   background-image: url("./livesketch-bg.png");
   background-size: auto;
   background-repeat: no-repeat;

@@ -6,6 +6,7 @@ import WorkCard from './WorkCard'
 import CommissionCard from './CommissionCard'
 import '../assets/profile.css'
 import Loader from 'react-loader-spinner';
+
 const Profile = () => {
   const [cardbg, setCardbg] = useState('#DBF5FA')
   const [fontcolor, setFontcolor] = useState('');
@@ -55,8 +56,8 @@ const Profile = () => {
   if(loading) return (<div style={{ marginTop: 200, textAlign: 'center' }}> <Loader type='Grid' color='#023E8A' /> </div>)
   
   return (
-      <div className='profileContent' style={{ background: background, color: fontcolor}}>
-        <button onClick={e=> toggleDarkMode(e)} className='clientprogressbtn btn position-absolute' style={{ marginTop: 10 }}>{mode} Mode</button>
+      <div className='profileContent' style={{color: fontcolor}}>
+{/*        <button onClick={e=> toggleDarkMode(e)} className='clientprogressbtn btn position-absolute' style={{ marginTop: 10 }}>{mode} Mode</button> */}
         <div className='profile-cover'>
           <img className='cover-img' alt='profile-cover' src={user.cover_url} />
         </div>
