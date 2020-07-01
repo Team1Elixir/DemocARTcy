@@ -21,8 +21,8 @@ export default function AddWork() {
     marginright: "auto",
     width: "100%",
     height: "100%",
-    maxWidth: 200,
-    maxHeight: 200,
+    maxWidth: 300,
+    maxHeight: 400,
   };
 
   function addNew() {

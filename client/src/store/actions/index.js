@@ -154,7 +154,6 @@ export const getAllWorks = () => {
     dispatch(fetchWorks([]))
     server.get('/works/all')
     .then(({data}) => {
-      console.log(data.works)
       dispatch(fetchWorks(data.works))
     })
     .catch(err => {
@@ -452,7 +451,7 @@ export const proceedPayment = payload => {
           autoClose: 2500
         })
         dispatch(getProgressClient());
-        return data;
+        return payload;
       })
       .catch(err => {
         toast.error(err.response.data.error, {
