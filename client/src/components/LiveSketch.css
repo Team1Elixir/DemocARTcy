@@ -6,17 +6,16 @@
   align-items: center;
   margin-top: 40px;
   /* border: black 1px solid; */
-  background-color: #E6E1E2;
-  /* background-image: url("../assets/livesketch2.png"); */
+  background-color: #e6e1e2;
+  /* background-image: url("../assets/livesketch5.png"); */
 }
 
-.uservideo1{
+.uservideo1 {
   width: auto;
   height: auto;
   background-size: 100 100;
   padding: 0;
 }
-
 
 .container_video {
   /* border: black 1px solid; */
