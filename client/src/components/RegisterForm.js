@@ -62,7 +62,7 @@ export default function RegisterForm() {
             loading &&
             <Loader 
               type="ThreeDots"
-              color="#F5C50E"
+              color="#3FC4DE"
               height={150}
               width={150}
             />
